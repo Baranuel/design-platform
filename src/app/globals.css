@@ -25,3 +25,10 @@
 body {
   overflow-x: hidden;
 }
+
+.clip-path {
+  clip-path: inset(0 0 0 50%);
+}
+.clip-path-reverse {
+  clip-path: inset(0 50% 0 0);
+}

@@ -39,10 +39,19 @@ const config: Config = {
             'background-size': '200% 200%',
             'background-position': '200% 0',
           },
-
-        
-        }},
+        },
+        scroll: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+        scroll2: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
+      },
       animation: {
+        scroll2: 'scroll2 20s linear infinite',
+        scroll: 'scroll 20s linear infinite',
         text: 'text 4s linear infinite',
       },
       colors:{
