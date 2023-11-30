@@ -29,6 +29,15 @@ body {
 .clip-path {
   clip-path: inset(0 0 0 50%);
 }
+
 .clip-path-reverse {
   clip-path: inset(0 50% 0 0);
 }
+
+.clip-bottom-right {
+  clip-path: polygon(0 3%, 100% 0%, 100% 100%, 0 97%);
+}
+
+/* .clip-top-right {
+  clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+} */
