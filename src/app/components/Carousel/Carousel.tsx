@@ -60,7 +60,7 @@ export const Carousel = () => {
       id='ugly-element'
       key={index}
       ref={elementRefs.current[index]}
-      className="relative h-[250px] w-[400px]  bg-black rounded-md"
+      className="relative h-[250px] sm:h-[170px] w-[400px] sm:w-[300px]  bg-black rounded-md"
     >
 {      element.ugly && <Image fill src={element.ugly} alt="ugly" />}
     </div>
@@ -73,7 +73,7 @@ export const Carousel = () => {
       id='pretty-element'
       ref={elementRefs.current[index]}
         key={index}
-        className="relative h-[250px] w-[400px] bg-purple rounded-md"
+        className="relative h-[250px] sm:h-[170px] w-[400px] sm:w-[300px]  rounded-md"
       >
       { element.pretty && <Image src={element.pretty} alt="pretty" fill />}
 
@@ -90,28 +90,28 @@ export const Carousel = () => {
         Acquire new look
       </h1>
       <div className="relative w-screen ">
-      <div className=" mt-6 absolute w-full flex overflow-hidden clip-path-reverse ">
-      <div className={`absolute z-40 h-[80%] left-[50%] top-[50%] -translate-y-[50%] -translate-x-[50%] w-2 bg-[#6045D6] rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}></div>
-        <div className="py-12 flex gap-16 flex-row animate-scroll ">
+      <div className=" mt-6 absolute w-full flex overflow-hidden clip-path-reverse sm:clip-path-reverse-small ">
+      <div className={`absolute z-40 h-[80%] sm:h-[90%] left-[50%] top-[50%] -translate-y-[50%] -translate-x-[50%] w-2 bg-[#6045D6] rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}></div>
+        <div className="py-12 sm:py-6 flex gap-16 flex-row animate-scroll ">
          {renderUgly()}
         </div>
-        <div className=" absolute   flex flex-row gap-16 top-0 py-12 animate-scroll2">
+        <div className=" absolute   flex flex-row gap-16 top-0 py-12 sm:py-6  animate-scroll2">
           {renderUgly()}
         </div>
       </div>
-      <div className=" mt-6 absolute flex gap-16 w-screen overflow-hidden clip-path">
-      <div  ref={dividerRef} className={`absolute z-40 h-[250px] left-[50%] top-[50%] -translate-y-[50%]  w-6 bg-gradient-to-r from-purple from-10% to-transparent rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}>
+      <div className=" mt-6 absolute flex gap-16 w-screen overflow-hidden clip-path sm:clip-path-small">
+      <div  ref={dividerRef} className={`absolute z-40 h-[250px] sm:h-[170px] left-[50%] top-[50%] -translate-y-[50%]  w-6 bg-gradient-to-r from-purple from-10% to-transparent rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}>
 
       </div>
-      <div  ref={dividerRef} className={`absolute z-40 h-[80%] left-[50%] top-[50%] -translate-y-[50%] -translate-x-[50%] w-4 bg-[#6045D6] rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}>
+      <div  ref={dividerRef} className={`absolute z-40 h-[80%] sm:h-[90%] left-[50%] top-[50%] -translate-y-[50%] -translate-x-[50%] w-4 bg-[#6045D6] rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}>
 
       </div>
 
-        <div className="py-12   flex gap-16 flex-row animate-scroll">
+        <div className="py-12 sm:py-6    flex gap-16 flex-row animate-scroll">
           {renderPretty()}
         </div>
 
-        <div className="absolute  flex flex-row gap-16 top-0 py-12 animate-scroll2">
+        <div className="absolute  flex flex-row gap-16 top-0 py-12 sm:py-6  animate-scroll2">
           {renderPretty()}
         </div>
       </div>
