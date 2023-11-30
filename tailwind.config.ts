@@ -50,8 +50,8 @@ const config: Config = {
         },
       },
       animation: {
-        scroll2: 'scroll2 15s linear infinite',
-        scroll: 'scroll 15s linear infinite',
+        scroll2: 'scroll2 25s linear infinite',
+        scroll: 'scroll 25s linear infinite',
         text: 'text 4s linear infinite',
       },
       dropShadow: {

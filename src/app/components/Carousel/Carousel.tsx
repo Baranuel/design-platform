@@ -4,8 +4,10 @@ import Image from "next/image";
 import React from "react";
 import ugly1 from '../../../../public/ugly-1.svg'
 import ugly2 from '../../../../public/ugly-2.svg'
+import ugly3 from '../../../../public/ugly-3.svg'
 import pretty1 from '../../../../public/pretty-1.svg'
 import pretty2 from '../../../../public/pretty-2.svg'
+import pretty3 from '../../../../public/pretty-3.svg'
 
 
 
@@ -16,7 +18,10 @@ export const Carousel = () => {
   }, {
     ugly: ugly2,
     pretty: pretty2
-  },3,4];
+  },{
+    ugly: ugly3,
+    pretty: pretty3
+  },4];
   const elementRefs = useRef<any[]>(elements.map(() => React.createRef()));
   const dividerRef = useRef<HTMLDivElement>(null)
   const [showDivider, setShowDivider] = React.useState(false)
@@ -95,6 +100,9 @@ export const Carousel = () => {
         </div>
       </div>
       <div className=" mt-6 absolute flex gap-16 w-screen overflow-hidden clip-path">
+      <div  ref={dividerRef} className={`absolute z-40 h-[250px] left-[50%] top-[50%] -translate-y-[50%]  w-6 bg-gradient-to-r from-purple from-10% to-transparent rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}>
+
+      </div>
       <div  ref={dividerRef} className={`absolute z-40 h-[80%] left-[50%] top-[50%] -translate-y-[50%] -translate-x-[50%] w-4 bg-[#6045D6] rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}>
 
       </div>
