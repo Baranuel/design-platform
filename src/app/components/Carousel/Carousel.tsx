@@ -37,10 +37,12 @@ export const Carousel = () => {
     if(!dividerRef.current) return
     const divider = dividerRef.current
     const dividerRect = divider?.getBoundingClientRect()
-    const uglyElements = document.querySelectorAll('#ugly-element')
-    const uglyElementsRects = Array.from(uglyElements).map(element => element.getBoundingClientRect())
+ 
+
     let frame = 0
     function overlapCheck(){
+      const uglyElements = document.querySelectorAll('#ugly-element')
+      const uglyElementsRects = Array.from(uglyElements).map(element => element.getBoundingClientRect())
       const dividerVisible = calculateDividerOverlap(dividerRect, uglyElementsRects)
       setShowDivider(dividerVisible)
       frame = requestAnimationFrame(overlapCheck)
