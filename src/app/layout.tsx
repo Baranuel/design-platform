@@ -3,7 +3,11 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import StyledComponentsRegistry from '../antd/Registry'
 import { ClerkProvider } from '@clerk/nextjs'
+import { UserButton } from "@clerk/nextjs";
+import { currentUser } from '@clerk/nextjs'
 import { Blur } from './components/Blur'
+import { Navigation } from './components/Navigation/Navigation'
+
 
 const inter = Inter({
    subsets: ['latin'],
@@ -25,8 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <StyledComponentsRegistry>
        <body className={inter.className}>
-       <nav className="flex fixed top-0 w-full z-40 items-center justify-between flex-wrap bg-white shadow-sm h-16  p-2">hello</nav>
-
+        <Navigation/>
        <Blur/>
 
         <main className='py-10 pt-[4rem]'>          
