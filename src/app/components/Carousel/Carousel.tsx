@@ -5,45 +5,43 @@ import React from "react";
 import ugly1 from '../../../../public/ugly-1.svg'
 import ugly2 from '../../../../public/ugly-2.svg'
 import ugly3 from '../../../../public/ugly-3.svg'
+import ugly4 from '../../../../public/ugly-4.svg'
 import pretty1 from '../../../../public/pretty-1.svg'
 import pretty2 from '../../../../public/pretty-2.svg'
 import pretty3 from '../../../../public/pretty-3.svg'
+import pretty4 from '../../../../public/pretty-4.svg'
+import { calculateDividerOverlap } from "@/app/helpers/calculate-divider-overlap";
 
+const elements = [{
+  ugly: ugly1,
+  pretty: pretty1
+}, {
+  ugly: ugly2,
+  pretty: pretty2
+},{
+  ugly: ugly3,
+  pretty: pretty3
+},{
+  ugly: ugly4,
+  pretty: pretty4
+}];
 
 
 export const Carousel = () => {
-  const elements = [{
-    ugly: ugly1,
-    pretty: pretty1
-  }, {
-    ugly: ugly2,
-    pretty: pretty2
-  },{
-    ugly: ugly3,
-    pretty: pretty3
-  },4];
   const elementRefs = useRef<any[]>(elements.map(() => React.createRef()));
   const dividerRef = useRef<HTMLDivElement>(null)
+
   const [showDivider, setShowDivider] = React.useState(false)
 
-
-  const calculateDividerOverlap = () => {
-    if(!dividerRef.current) return false
+  useEffect(() => {
+    if(!dividerRef.current) return
     const divider = dividerRef.current
     const dividerRect = divider?.getBoundingClientRect()
     const uglyElements = document.querySelectorAll('#ugly-element')
     const uglyElementsRects = Array.from(uglyElements).map(element => element.getBoundingClientRect())
-    const uglyElementsOverlap = uglyElementsRects.some(element => {
-      const overlap = element.left + 5  < dividerRect.left + dividerRect.width && element.left + element.width > dividerRect.left
-      return overlap
-    })
-    return uglyElementsOverlap
-  }
-
-  useEffect(() => {
     let frame = 0
     function overlapCheck(){
-      const dividerVisible = calculateDividerOverlap()
+      const dividerVisible = calculateDividerOverlap(dividerRect, uglyElementsRects)
       setShowDivider(dividerVisible)
       frame = requestAnimationFrame(overlapCheck)
     }
@@ -51,10 +49,10 @@ export const Carousel = () => {
     overlapCheck()
 
     return () => cancelAnimationFrame(frame)
-  })
+  }, [])
+
 
   const renderUgly = () => elements.map((element:any, index) => {
-
     return (
       <div
       id='ugly-element'
@@ -62,7 +60,7 @@ export const Carousel = () => {
       ref={elementRefs.current[index]}
       className="relative h-[250px] sm:h-[170px] w-[400px] sm:w-[300px]  bg-black rounded-md"
     >
-{      element.ugly && <Image fill src={element.ugly} alt="ugly" />}
+{      element.ugly && <Image priority fill src={element.ugly} alt="ugly" />}
     </div>
     );
   })
@@ -75,23 +73,23 @@ export const Carousel = () => {
         key={index}
         className="relative h-[250px] sm:h-[170px] w-[400px] sm:w-[300px]  rounded-md"
       >
-      { element.pretty && <Image src={element.pretty} alt="pretty" fill />}
+      { element.pretty && <Image priority src={element.pretty} alt="pretty" fill />}
 
       </div>
     );
   })
   
   return (
-    <section className="my-28 h-[50vh] w-full flex flex-col items-center">
+    <section className="my-28 min-h-[80vh] w-full flex flex-col items-center">
       <span className=" tracking-[.25rem] w-full whitespace-nowrap self-center text-center  sm:text-decorText text-base  font-semibold  text-transparent bg-clip-text bg-gradient-to-b from-orange to-red-800">
         MASTERING INSTRUMENTS
       </span>
       <h1 className="  mt-1 text-6xl xl:text-5xl lg:text-5xl sm:text-4xl text-center font-black text-transparent bg-clip-text bg-gradient-to-b from-stone-600 from-40%  via-stone-700 via-60% to-stone-800 to-100%  ">
         Acquire new look
       </h1>
-      <div className="relative w-screen ">
-      <div className=" mt-6 absolute w-full flex overflow-hidden clip-path-reverse sm:clip-path-reverse-small ">
-      <div className={`absolute z-40 h-[80%] sm:h-[90%] left-[50%] top-[50%] -translate-y-[50%] -translate-x-[50%] w-2 bg-[#6045D6] rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}></div>
+      <div className="relative w-screen min-h-[425px] sm:min-h-[275px] ">
+        <div className=" mt-6 absolute w-full flex overflow-hidden clip-path-reverse sm:clip-path-reverse-small ">
+        <div className={`absolute z-40 h-[80%] sm:h-[90%] left-[50%] top-[50%] -translate-y-[50%] -translate-x-[50%] w-2 bg-[#6045D6] rounded-sm ${showDivider ? "opacity-100" : "opacity-50 bg-stone-200"} transition-opacity `}></div>
         <div className="py-12 sm:py-6 flex gap-16 flex-row animate-scroll ">
          {renderUgly()}
         </div>
@@ -100,10 +98,10 @@ export const Carousel = () => {
         </div>
       </div>
       <div className=" mt-6 absolute flex gap-16 w-screen overflow-hidden clip-path sm:clip-path-small">
-      <div  ref={dividerRef} className={`absolute z-40 h-[250px] sm:h-[170px] left-[50%] top-[50%] -translate-y-[50%]  w-6 bg-gradient-to-r from-purple from-10% to-transparent rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}>
-
+      <div  ref={dividerRef} className={`absolute flex items-center gap-2  z-40 h-[250px] sm:h-[170px] left-[50%] top-[50%] -translate-y-[50%]  w-3 bg-gradient-to-r from-purple from-10% to-transparent rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}>
+        <div className="w-[9px] blur-sm h-[95%] my-2 self-center bg-white drop-shadow-glow ">1</div>
       </div>
-      <div  ref={dividerRef} className={`absolute z-40 h-[80%] sm:h-[90%] left-[50%] top-[50%] -translate-y-[50%] -translate-x-[50%] w-4 bg-[#6045D6] rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}>
+      <div  ref={dividerRef} className={`absolute z-40 h-[80%] sm:h-[90%] left-[50%] top-[50%] -translate-y-[50%] -translate-x-[50%] w-4 bg-[#6045D6] rounded-sm ${showDivider ? "opacity-100" : "opacity-50 bg-stone-200"} transition-opacity `}>
 
       </div>
 
@@ -117,6 +115,9 @@ export const Carousel = () => {
       </div>
    
       </div>
+      <p className="text-2xl text-center max-w-[65ch] xl:text-xl md:text-md sm:text-base font-light text-stone-700">
+      Your friendly hub for free website makeovers! Businesses meet volunteer designers ready to sprinkle their magic
+      </p>
          </section>
   );
 };

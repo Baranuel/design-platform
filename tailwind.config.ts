@@ -50,8 +50,8 @@ const config: Config = {
         },
       },
       animation: {
-        scroll2: 'scroll2 25s linear infinite',
-        scroll: 'scroll 25s linear infinite',
+        scroll2: 'scroll2 30s linear infinite',
+        scroll: 'scroll 30s linear infinite',
         text: 'text 4s linear infinite',
       },
       dropShadow: {
@@ -59,7 +59,11 @@ const config: Config = {
         '4xl': [
             '0 35px 35px rgba(0, 0, 0, 0.25)',
             '0 45px 65px rgba(0, 0, 0, 0.15)'
-        ]
+        ],
+          glow: [
+            "2px 0px 5px rgba(132,35, 255, 1)",
+            "2px 0px 25px rgba(126, 99,255, 1)",
+          ]
       },
       colors:{
         purple:'#7359E3',
