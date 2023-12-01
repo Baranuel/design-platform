@@ -37,7 +37,6 @@ export const Carousel = () => {
     if(!dividerRef.current) return
     const divider = dividerRef.current
     const dividerRect = divider?.getBoundingClientRect()
- 
 
     let frame = 0
     function overlapCheck(){
