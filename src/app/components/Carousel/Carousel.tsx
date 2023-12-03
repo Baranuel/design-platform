@@ -81,7 +81,7 @@ export const Carousel = () => {
   })
   
   return (
-    <section className="my-28 min-h-[80vh] w-full flex flex-col items-center">
+    <section className="my-24 sm:my-8 min-h-[80vh] h-[400px] w-full flex flex-col items-center">
       <span className=" tracking-[.25rem] w-full whitespace-nowrap self-center text-center  sm:text-decorText text-base  font-semibold  text-transparent bg-clip-text bg-gradient-to-b from-orange to-red-800">
         MASTERING INSTRUMENTS
       </span>

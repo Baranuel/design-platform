@@ -13,5 +13,9 @@ const checkRole = async () => {
 export default async function Page() {
     await checkRole()
 
-    return <UserButton/>
+    return <div className='w-screen h-screen bg-white'>
+
+    </div>
+
+
 }

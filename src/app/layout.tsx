@@ -32,7 +32,7 @@ export default function RootLayout({
         <Navigation/>
        <Blur/>
 
-        <main className='py-10 pt-[4rem]'>          
+        <main className='py-10 pt-[4rem] w-full overflow-hidden'>          
           {children}
           </main>
         </body>
