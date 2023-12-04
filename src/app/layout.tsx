@@ -7,6 +7,7 @@ import { UserButton } from "@clerk/nextjs";
 import { currentUser } from '@clerk/nextjs'
 import { Blur } from './components/Blur'
 import { Navigation } from './components/Navigation/Navigation'
+import { ConfigProvider } from 'antd'
 
 
 const inter = Inter({
@@ -28,6 +29,14 @@ export default function RootLayout({
     <ClerkProvider>
     <html lang="en">
       <StyledComponentsRegistry>
+      <ConfigProvider theme={{
+          token: {
+            // Seed Token
+            colorPrimary: '#7359E3',
+            borderRadius: 2,
+          },
+      }}>
+
        <body className={inter.className}>
         <Navigation/>
        <Blur/>
@@ -36,6 +45,7 @@ export default function RootLayout({
           {children}
           </main>
         </body>
+      </ConfigProvider>
       </StyledComponentsRegistry>
     </html>
     </ClerkProvider>
