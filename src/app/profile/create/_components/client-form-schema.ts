@@ -52,13 +52,13 @@ export const clientFormSchema: FormProps = {
           label: "City",
         },
         {
-          name: "state-province",
+          name: "stateProvince",
           type: "text",
           placeholder: "State/Province",
           label: "State/Province",
         },
         {
-          name: "postal-code",
+          name: "postalCode",
           type: "text",
           placeholder: "Postal code",
           label: "Postal code",
@@ -70,27 +70,27 @@ export const clientFormSchema: FormProps = {
       description: "Please provide your business information",
       fields: [
         {
-          name: "company-name",
+          name: "companyName",
           type: "text",
           placeholder: "Company name",
           label: "Company name",
         },
         {
-          name: "company-industry",
+          name: "companyIndustry",
           type: "select-multi",
           placeholder: "Industry",
           label: "Industry",
           options: industryOptions
         },
         {
-          name: "company-size",
+          name: "companySize",
           type: "select",
           placeholder: "Company Size",
           label: "Company Size",
           options: companySizeOptions
         },
         {
-          name: "company-registration",
+          name: "companyRegistration",
           type: "text",
           placeholder: "Company Registration Number",
           label: "Company Registration Number",

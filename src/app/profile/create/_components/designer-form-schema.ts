@@ -50,13 +50,13 @@ export const designerFormSchema: FormProps = {
           label: "City",
         },
         {
-          name: "state-province",
+          name: "stateProvince",
           type: "text",
           placeholder: "State/Province",
           label: "State/Province",
         },
         {
-          name: "postal-code",
+          name: "postalCode",
           type: "text",
           placeholder: "Postal code",
           label: "Postal code",
@@ -74,13 +74,13 @@ export const designerFormSchema: FormProps = {
           label: "Attended University",
         },
         {
-          name: "years-of-experience",
+          name: "yearsOfExperience",
           type: "text",
           placeholder: "Years of experience",
           label: "Years of experience",
         },
         {
-          name: "current-status",
+          name: "currentStatus",
           type: "select",
           placeholder: "Current status",
           label: "Current status",
