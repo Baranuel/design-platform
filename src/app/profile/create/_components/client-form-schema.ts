@@ -1,5 +1,5 @@
 
-import { FormProps } from "./RenderForm";
+import { FormProps } from "../types";
 import options from "./countriesOptions"
 
 const industryOptions = [
@@ -77,7 +77,7 @@ export const clientFormSchema: FormProps = {
         },
         {
           name: "company-industry",
-          type: "select",
+          type: "select-multi",
           placeholder: "Industry",
           label: "Industry",
           options: industryOptions

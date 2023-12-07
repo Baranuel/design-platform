@@ -12,3 +12,15 @@ export async function POST(req: Request) {
 
   return NextResponse.json({ success: true });
 }
+
+export async function PUT(req: Request) {
+  const { formData, id } =  await req.json();
+
+  await clerkClient.users.updateUserMetadata(id, {
+    publicMetadata: {
+      formData
+    }
+  }).then((user) => console.log(user))
+
+  return NextResponse.json({ success: true });
+}

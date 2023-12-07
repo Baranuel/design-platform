@@ -1,41 +1,37 @@
-import { Button } from "antd";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Button, FormProps } from "antd";
+import { useCallback,  useMemo, useState } from "react";
 import { FieldsMapper } from "./FieldsMapper";
 import { useFormContext } from "react-hook-form";
+import { useRouter } from 'next/navigation';
+import { RenderFormProps, StepType } from "../types";
 
-export type FieldType = {
-  name: string;
-  type: string;
-  placeholder?: string;
-  label?: string;
-  options?: { value: string; label: string }[];
-  message?: string | string[];
-};
-export type StepType = {
-  category: string;
-  description?: string;
-  fields: FieldType[];
-};
-
-export type FormProps = {
-  [key: string]: StepType;
-};
-
-type RenderFormProps = {
-  formSchema: FormProps;
-};
 
 export const RenderForm = ({ formSchema }: RenderFormProps) => {
-    const {formState:{dirtyFields}} = useFormContext()
-
+  const {formState:{dirtyFields}, handleSubmit} = useFormContext()
+  const router = useRouter()
   const [currentStep, setCurrentStep] = useState(1);
   const maxSteps = Object.keys(formSchema).length;
   const stepKey = `step-${currentStep}` as keyof typeof formSchema;
   const formData = useMemo(() => formSchema[stepKey], [stepKey, formSchema]);
-    const filledFields = formData.fields.map(field => { return dirtyFields[field.name] === true && field.name})
+
+  const filledFields = formData.fields.map(field => { return dirtyFields[field.name] === true && field.name})
+
   const renderFields = useCallback((formData: StepType) => {
     return <FieldsMapper fields={formData.fields} />;
   }, []);
+
+  async function onSubmit(data: FormProps) {
+
+    const response = await fetch("/api/profile", {
+      method: "PUT",
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+
+    if(result.success) {
+      router.push('/profile')
+    }
+  }
 
   return (
     <div className="flex flex-col">
@@ -47,7 +43,7 @@ export const RenderForm = ({ formSchema }: RenderFormProps) => {
       <p className="text-sm text-stone-600">{formData.description}</p>
      </div>
 
-      <form className="p-8 sm:p-4 flex flex-col gap-2  border border-solid border-stone-300 rounded-md" autoComplete="off" action="">
+      <form className="p-8 sm:p-4 flex flex-col gap-2  border border-solid border-stone-300 rounded-md" autoComplete="off" >
         {renderFields(formData)}
       </form>
 
@@ -71,7 +67,7 @@ export const RenderForm = ({ formSchema }: RenderFormProps) => {
         ) : (
           <Button
             type="primary"
-            onClick={() => setCurrentStep(currentStep + 1)}
+            onClick={handleSubmit(onSubmit)}
             className="p-2 w-[150px] h-full mt-2 shadow-none"
           >
             Submit

@@ -6,15 +6,17 @@ const checkRole = async () => {
     if(!user?.publicMetadata.role) {
         return redirect('/profile/create')
     }
-
+    return user
 }
 
 export default async function Page() {
-    await checkRole()
+    const user = await checkRole()
 
-    return <div className='w-screen h-screen bg-white'>
+    return  <section className=" px-72 2xl:px-48 xl:px-32 lg:px-24 md:px-12 sm:px-4 ">
 
-    </div>
+        {user.firstName}
+        <div>{user.publicMetadata.role}</div>
+    </section>
 
 
 }

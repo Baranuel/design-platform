@@ -10,6 +10,7 @@ import {
 
 import { RenderForm } from "./RenderForm";
 import { clientFormSchema } from "./client-form-schema";
+import { designerFormSchema } from "./designer-form-schema";
 
 
 
@@ -55,7 +56,7 @@ export const MultistepForm = () => {
       <div className="flex flex-col gap-2">
         <FormProvider {...methods}>
           <SelectRole />
-          {role && <RenderForm formSchema={clientFormSchema} />}
+          {role && <RenderForm formSchema={role === 'client' ? clientFormSchema : designerFormSchema} />}
         </FormProvider>
       </div>
 
