@@ -1,4 +1,5 @@
 import { User } from "@clerk/nextjs/server";
+import { Button } from "antd";
 import Image from "next/image";
 
 export interface BannerProps {
@@ -30,18 +31,18 @@ export const ProfileBannerClient = ({user}:BannerProps) => {
         </div>
         <div className="flex flex-col gap-6 w-full items-start mt-4">
             <span className="w-full flex justify-between items-center">
-                <h2>{publicMetadata.companyName}</h2>
-                <button>Edit</button>
+                <h2>{publicMetadata.companyName} <span className="text-purple ml-2">{publicMetadata.role}</span></h2>
+                <Button>Edit</Button>
             </span>
             {/* Profile Information*/}
             <div className="flex gap-12 justify-between w-full h-38 ">
                 <div className="flex flex-col gap-3 w-1/2 bg-white h-full">
                     <span className="flex gap-2"><span>Business Owner:</span> <span className="font-semibold">{user.firstName}</span></span>
                     <span className="flex gap-2"><span>Company Size:</span> <span className="font-semibold">{publicMetadata.companySize}</span></span>
-                    <span className="flex gap-2">
+                    <span className="flex flex-col gap-2">
                         <span>Industry Focus:</span> 
                       <span className="flex  gap-2 ">
-                      {publicMetadata.companyIndustry.map((item, index) => <span key={index} className="font-medium border border-solid border-black p-1">{item}</span>)}
+                      {publicMetadata.companyIndustry.map((item, index) => <span key={index} className="whitespace-nowrap rounded-md flex items-center text-sm font-medium border border-solid border-orange text-orange bg-orange/5 p-1">{item}</span>)}
                       </span>
                     </span>
                 </div>

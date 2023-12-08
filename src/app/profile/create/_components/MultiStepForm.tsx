@@ -23,7 +23,7 @@ export const MultistepForm = () => {
         {role && (
           <RenderForm
             formSchema={
-              role === "client" ? clientFormSchema : designerFormSchema
+              role === "CLIENT" ? clientFormSchema : designerFormSchema
             }
           />
         )}
