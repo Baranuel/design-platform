@@ -5,21 +5,21 @@ export interface BannerProps {
     user: User;
 }
 
-    interface UserPublicMetadata {
-    city: string;
-	role: string;
-	street: string;
-    country: string;
-    postalCode: string;
-    companyName: string;
-    companySize: string;
-    stateProvince: string;
-    companyIndustry: string[]
-    companyRegistration: string;
-    }
+interface UserPublicMetadata {
+city: string;
+role: string;
+street: string;
+country: string;
+postalCode: string;
+companyName: string;
+companySize: string;
+stateProvince: string;
+companyIndustry: string[]
+companyRegistration: string;
+}
 
 
-export const ProfileBanner = ({user}:BannerProps) => {
+export const ProfileBannerClient = ({user}:BannerProps) => {
     const publicMetadata = user.publicMetadata as unknown as UserPublicMetadata
 
     return <section className="flex gap-4 border-b border-black mt-[100px] w-full min-h-fit pb-12">
@@ -41,7 +41,7 @@ export const ProfileBanner = ({user}:BannerProps) => {
                     <span className="flex gap-2">
                         <span>Industry Focus:</span> 
                       <span className="flex  gap-2 ">
-                      {publicMetadata.companyIndustry.map((item, index) => <span key={index} className="font-semibold">{item}</span>)}
+                      {publicMetadata.companyIndustry.map((item, index) => <span key={index} className="font-medium border border-solid border-black p-1">{item}</span>)}
                       </span>
                     </span>
                 </div>
@@ -49,8 +49,6 @@ export const ProfileBanner = ({user}:BannerProps) => {
                 <span className="flex gap-2"><span>Country:</span> <span className="font-semibold">{publicMetadata.country}</span></span>
                 <span className="flex gap-2"><span>State / Province:</span> <span className="font-semibold">{publicMetadata.stateProvince}</span></span>
                 <span className="flex gap-2"><span>Street:</span> <span className="font-semibold">{publicMetadata.street}</span></span>
-
-
                 </div>
             </div>
         </div>

@@ -1,26 +1,22 @@
-import { NextResponse } from 'next/server';
-import { clerkClient } from "@clerk/nextjs";
- 
-export async function POST(req: Request) {
-  const { role, id } =  await req.json();
+import { PrismaClient, User } from "@prisma/client";
+import { NextResponse } from "next/server";
 
-  await clerkClient.users.updateUserMetadata(id, {
-    publicMetadata: {
-      role
-    }
-  }).then((user) => console.log(user))
+const prisma = new PrismaClient();
+
+export async function POST(request: Request) {
+  const payload:User = await request.json();
+
+  await prisma.user.create({
+      data: {
+        clerkId: payload.clerkId,
+        role: payload.role
+      }
+  })
+
 
   return NextResponse.json({ success: true });
 }
 
-export async function PUT(req: Request) {
-  const { formData, id } =  await req.json();
-
-  await clerkClient.users.updateUserMetadata(id, {
-    publicMetadata: {
-      formData
-    }
-  }).then((user) => console.log(user))
-
-  return NextResponse.json({ success: true });
+export async function GET() {
+  return Response.json({ message: "Hello World!" });
 }

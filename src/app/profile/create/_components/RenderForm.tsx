@@ -1,9 +1,10 @@
 import { Button, FormProps } from "antd";
 import { useCallback,  useMemo, useState } from "react";
-import { FieldsMapper } from "./FieldsMapper";
+import { FieldsMapper } from "./fields/FieldsMapper";
 import { useFormContext } from "react-hook-form";
 import { useRouter } from 'next/navigation';
 import { RenderFormProps, StepType } from "../types";
+import { axiosInstance } from "@/app/network/axios-instance";
 
 
 export const RenderForm = ({ formSchema }: RenderFormProps) => {
@@ -21,14 +22,13 @@ export const RenderForm = ({ formSchema }: RenderFormProps) => {
   }, []);
 
   async function onSubmit(data: FormProps) {
-
-    const response = await fetch("/api/profile", {
-      method: "PUT",
-      body: JSON.stringify(data),
-    });
-    const result = await response.json();
-
-    if(result.success) {
+    const response = await axiosInstance.put('clerk-profile', data)
+    const profileObject = {
+      clerkId: response.data.id,
+      role: response.data.publicMetadata.role,
+    }
+    const createUser = await axiosInstance.post('user', profileObject)
+    if(createUser.data.success) {
       router.push('/profile')
     }
   }

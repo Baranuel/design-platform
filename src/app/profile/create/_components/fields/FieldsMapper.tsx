@@ -1,6 +1,6 @@
 import { Input, Select } from "antd";
 import { Controller, useFormContext } from "react-hook-form";
-import { FieldType } from "../types";
+import { FieldType } from "../../types";
 
 type FieldsMapperProps = {
   fields: FieldType[];

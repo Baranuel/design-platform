@@ -4,14 +4,44 @@ generator client {
  
 datasource db {
   provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url = env("POSTGRES_PRO_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_PRO_URL_NON_POOLING") // uses a direct connection
 }
  
+
+
+ enum Role {
+  CLIENT
+  DESIGNER
+ }
+
+
 model User {
   id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  image     String
-  createdAt DateTime @default(now())
+  clerkId   String      @unique
+  role     Role
+  collaborationsAsDesigner Collaboration[]  @relation("collaborationsAsDesigner")
+  collaborationsAsClient Collaboration[]  @relation("collaborationsAsClient")
+
+}
+
+
+model Question {
+  id       Int      @id @default(autoincrement())
+  title      String
+  question    String
+  toolTip    String
+}
+
+model Collaboration {
+  id         Int      @id @default(autoincrement())
+  designerId     Int      // Foreign key for User
+  clientId   Int      // Foreign key for User
+  status     String
+  linkToDesign   String
+
+
+  designer   User     @relation("collaborationsAsDesigner", fields: [designerId], references: [id])
+  client     User     @relation("collaborationsAsClient", fields: [clientId], references: [id])
+  
 }

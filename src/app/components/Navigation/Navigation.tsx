@@ -1,5 +1,7 @@
 import { UserButton, auth, currentUser, SignInButton } from "@clerk/nextjs";
 import { LoginButton } from "./LoginButton";
+import { ProfileButton } from "./ProfileButton";
+import Link from "next/link";
 
 export const Navigation = async () => {
     const user =  auth();
@@ -8,9 +10,10 @@ export const Navigation = async () => {
 
 
    return (
-    <nav className="flex fixed top-0 w-full z-40 items-center justify-end flex-wrap bg-white shadow-sm h-16  px-4">
+    <nav className="flex gap-3 fixed top-0 w-full z-40 items-center justify-end flex-wrap bg-white shadow-sm h-16  px-6">
+      <Link className="no-underline" href="/">Listings</Link>
     <div className=''>
-      {!user.userId ? <LoginButton/> : <UserButton afterSignOutUrl="/"/>}
+      {!user.userId ? <LoginButton/> : <ProfileButton/>}
     </div>
    </nav>
    )

@@ -5,8 +5,8 @@ import { Controller, useFormContext } from "react-hook-form"
 export const SelectRole = () => {
     const {control} = useFormContext()
     const roleOptions = [
-        {value: 'designer', label: 'Designer'},
-        {value:'client', label: 'Client'}]
+        {value: 'DESIGNER', label: 'Designer'},
+        {value:'CLIENT', label: 'Client'}]
     return (
         <div className="flex flex-col gap-2">
             <p>What is your role</p>
