@@ -59,7 +59,7 @@ export const Carousel = () => {
       id='ugly-element'
       key={index}
       ref={elementRefs.current[index]}
-      className="relative h-[250px] sm:h-[170px] w-[400px] sm:w-[300px]  bg-black rounded-md"
+      className="relative h-[220px] sm:h-[170px] w-[375px] sm:w-[300px]  bg-black rounded-md"
     >
 {      element.ugly && <Image priority fill src={element.ugly} alt="ugly" />}
     </div>
@@ -72,7 +72,7 @@ export const Carousel = () => {
       id='pretty-element'
       ref={elementRefs.current[index]}
         key={index}
-        className="relative h-[250px] sm:h-[170px] w-[400px] sm:w-[300px]  rounded-md"
+        className="relative  h-[220px] sm:h-[170px] w-[375px] sm:w-[300px]  rounded-md"
       >
       { element.pretty && <Image priority src={element.pretty} alt="pretty" fill />}
 
@@ -81,15 +81,15 @@ export const Carousel = () => {
   })
   
   return (
-    <section className="my-24 sm:my-8 min-h-[80vh] h-[400px] w-full flex flex-col items-center">
+    <section className="my-24 sm:my-8 min-h-[70vh] h-[375px] w-full flex flex-col items-center">
       <span className=" tracking-[.25rem] w-full whitespace-nowrap self-center text-center  sm:text-decorText text-base  font-semibold  text-transparent bg-clip-text bg-gradient-to-b from-orange to-red-800">
         MASTERING INSTRUMENTS
       </span>
       <h1 className="  mt-1 text-6xl xl:text-5xl lg:text-5xl sm:text-4xl text-center font-black text-transparent bg-clip-text bg-gradient-to-b from-stone-600 from-40%  via-stone-700 via-60% to-stone-800 to-100%  ">
         Acquire new look
       </h1>
-      <div className="relative w-screen min-h-[425px] sm:min-h-[275px] ">
-        <div className=" mt-6 absolute w-full flex overflow-hidden clip-path-reverse sm:clip-path-reverse-small ">
+      <div className="relative w-screen min-h-[400px] sm:min-h-[275px] ">
+        <div className=" mt-12 absolute w-full flex overflow-hidden clip-path-reverse sm:clip-path-reverse-small ">
         <div className={`absolute z-40 h-[80%] sm:h-[90%] left-[50%] top-[50%] -translate-y-[50%] -translate-x-[50%] w-2 bg-[#6045D6] rounded-sm ${showDivider ? "opacity-100" : "opacity-50 bg-stone-200"} transition-opacity `}></div>
         <div className="py-12 sm:py-6 flex gap-16 flex-row animate-scroll ">
          {renderUgly()}
@@ -98,7 +98,7 @@ export const Carousel = () => {
           {renderUgly()}
         </div>
       </div>
-      <div className=" mt-6 absolute flex gap-16 w-screen overflow-hidden clip-path sm:clip-path-small">
+      <div className=" mt-12 w-full absolute flex gap-16  overflow-hidden clip-path sm:clip-path-small">
       <div  ref={dividerRef} className={`absolute flex items-center gap-2  z-40 h-[250px] sm:h-[170px] left-[50%] top-[50%] -translate-y-[50%]  w-3 bg-gradient-to-r from-purple from-10% to-transparent rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}>
         <div className="w-[9px] blur-sm h-[95%] my-2 self-center bg-white drop-shadow-glow ">1</div>
       </div>
@@ -116,7 +116,7 @@ export const Carousel = () => {
       </div>
    
       </div>
-      <p className="text-2xl text-center max-w-[65ch] xl:text-xl md:text-md sm:text-base font-light text-stone-700">
+      <p className="text-xl text-center max-w-[65ch] xl:text-xl md:text-md sm:text-base font-light text-stone-700">
       Your friendly hub for free website makeovers! Businesses meet volunteer designers ready to sprinkle their magic
       </p>
          </section>

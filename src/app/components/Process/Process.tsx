@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export const Process = () => {
   return (
-    <section className="my-24 sm:my-8 min-h-screen w-full flex flex-col items-center">
+    <section className="my-12 sm:my-8 min-h-screen w-full flex flex-col items-center">
       <span className=" tracking-[.25rem] w-full whitespace-nowrap self-center text-center  sm:text-decorText text-base  font-semibold  text-transparent bg-clip-text bg-gradient-to-b from-orange to-red-800">
         STEP BY STEP
       </span>
