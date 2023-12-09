@@ -11,7 +11,7 @@ export const Navigation = async () => {
 
    return (
     <nav className="flex gap-3 fixed top-0 w-full z-40 items-center justify-end flex-wrap bg-white shadow-sm h-16  px-6">
-      <Link className="no-underline" href="/">Listings</Link>
+      <Link className="no-underline" href="/" >Listings</Link>
     <div className=''>
       {!user.userId ? <LoginButton/> : <ProfileButton/>}
     </div>

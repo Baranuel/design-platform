@@ -1,6 +1,8 @@
 import { ProfileBannerClient } from "./_components/ProfileBannerClient";
 import { ProfileBannerDesigner } from "./_components/ProfileBannerDesigner";
 import { checkRole } from "../helpers/check-role-server";
+import { Button } from "antd";
+import { ApplicationFlow } from "./_components/ApplicationFlow";
 
 export default async function Page() {
   const user = await checkRole();
@@ -13,6 +15,7 @@ export default async function Page() {
         <ProfileBannerDesigner user={user} />
       )}
       <hr className="border-none h-[1px] bg-stone-300" />
+        <ApplicationFlow />
     </section>
   );
 }

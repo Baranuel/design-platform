@@ -3,11 +3,11 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import StyledComponentsRegistry from '../antd/Registry'
 import { ClerkProvider } from '@clerk/nextjs'
-import { UserButton } from "@clerk/nextjs";
-import { currentUser } from '@clerk/nextjs'
 import { Blur } from './components/Blur'
 import { Navigation } from './components/Navigation/Navigation'
 import { ConfigProvider } from 'antd'
+import TanstackProvider from './providers/TanstackProvider'
+
 
 
 const inter = Inter({
@@ -19,6 +19,8 @@ export const metadata: Metadata = {
   title: 'Design Platform',
   description: 'Place where your business meets design',
 }
+
+
 
 export default function RootLayout({
   children,
@@ -41,8 +43,10 @@ export default function RootLayout({
         <Navigation/>
        <Blur/>
 
-        <main className='py-10 z-30 pt-[4rem] w-full overflow-hidden'>          
+        <main className='py-10 z-30 pt-[4rem] w-full overflow-hidden'>       
+        <TanstackProvider>   
           {children}
+        </TanstackProvider>
           </main>
         </body>
       </ConfigProvider>
