@@ -22,7 +22,7 @@ export const Form = ({isModalVisible, setIsModalVisible}:Props) => {
         onCancel={() => setIsModalVisible(false)}
     >
       <FormProvider {...methods}>
-            
+            <div>hello</div>
     </FormProvider>
         </Modal>
     );
