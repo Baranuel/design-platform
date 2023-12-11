@@ -1,58 +1,105 @@
 import { User } from "@clerk/nextjs/server";
 import { Button } from "antd";
 import Image from "next/image";
+import { ApplicationFlow } from "./ApplicationFlow";
+import prismaClient from "@/app/network/prismaClient";
+import { ProposalPreview } from "./ProposalPreveiw";
+import { useGetProposalsQuery } from "../mutations/getProposals";
 
 export interface BannerProps {
-    user: User;
+  user: User;
 }
 
 interface UserPublicMetadata {
-city: string;
-role: string;
-street: string;
-country: string;
-postalCode: string;
-companyName: string;
-companySize: string;
-stateProvince: string;
-companyIndustry: string[]
-companyRegistration: string;
+  city: string;
+  role: string;
+  street: string;
+  country: string;
+  postalCode: string;
+  companyName: string;
+  companySize: string;
+  stateProvince: string;
+  companyIndustry: string[];
+  companyRegistration: string;
 }
 
+const getProposal = async () => {
+    return await prismaClient.proposal.findFirst();
+}
 
-export const ProfileBannerClient = ({user}:BannerProps) => {
-    const publicMetadata = user.publicMetadata as unknown as UserPublicMetadata
+const getQuestions = async () => {
+    return await prismaClient.question.findMany();
+}
 
-    return <section className="flex gap-4 border-b border-black mt-[100px] w-full min-h-fit pb-12">
-        <div className="w-1/5 justify-center flex">
-            <div className="bg-blue-500 relative rounded-full w-36 h-36 overflow-hidden">
-                <Image src={user.imageUrl} alt='user picture' fill />
-            </div>
+export const ProfileBannerClient = async  ({ user }: BannerProps) => {
+const publicMetadata = user.publicMetadata as unknown as UserPublicMetadata;
+const proposal = await getProposal()
+const questions = await getQuestions()
+
+  return (
+    <section>
+      <div className="flex gap-4 border-b border-black mt-[100px] w-full min-h-fit pb-12">
+        <div className="w-1/5 justify-center items-center flex">
+          <div className="bg-blue-500 relative rounded-full w-36 h-36 overflow-hidden">
+            <Image src={user.imageUrl} alt="user picture" fill />
+          </div>
         </div>
         <div className="flex flex-col gap-6 w-full items-start mt-4">
-            <span className="w-full flex justify-between items-center">
-                <h2>{publicMetadata.companyName} <span className="text-purple ml-2">{publicMetadata.role}</span></h2>
-                <Button>Edit</Button>
-            </span>
-            {/* Profile Information*/}
-            <div className="flex gap-12 justify-between w-full h-38 ">
-                <div className="flex flex-col gap-3 w-1/2 bg-white h-full">
-                    <span className="flex gap-2"><span>Business Owner:</span> <span className="font-semibold">{user.firstName}</span></span>
-                    <span className="flex gap-2"><span>Company Size:</span> <span className="font-semibold">{publicMetadata.companySize}</span></span>
-                    <span className="flex flex-col gap-2">
-                        <span>Industry Focus:</span> 
-                      <span className="flex  gap-2 ">
-                      {publicMetadata.companyIndustry.map((item, index) => <span key={index} className="whitespace-nowrap rounded-md flex items-center text-sm font-medium border border-solid border-orange text-orange bg-orange/5 p-1">{item}</span>)}
-                      </span>
+          <span className="w-full flex justify-between items-center">
+            <h2>
+              {publicMetadata.companyName}{" "}
+              <span className="text-purple ml-2">{publicMetadata.role}</span>
+            </h2>
+            <Button>Edit</Button>
+          </span>
+          {/* Profile Information*/}
+          <div className="flex gap-12 justify-between w-full h-38 ">
+            <div className="flex flex-col gap-3 w-1/2 bg-white h-full">
+              <span className="flex gap-2">
+                <span>Business Owner:</span>{" "}
+                <span className="font-semibold">{user.firstName}</span>
+              </span>
+              <span className="flex gap-2">
+                <span>Company Size:</span>{" "}
+                <span className="font-semibold">
+                  {publicMetadata.companySize}
+                </span>
+              </span>
+              <span className="flex flex-col gap-2">
+                <span>Industry Focus:</span>
+                <span className="flex  gap-2 ">
+                  {publicMetadata.companyIndustry.map((item, index) => (
+                    <span
+                      key={index}
+                      className="whitespace-nowrap rounded-md flex items-center text-sm font-medium border border-solid border-orange text-orange bg-orange/5 p-1"
+                    >
+                      {item}
                     </span>
-                </div>
-                <div className="flex flex-col  gap-2 w-fit bg-white h-full">
-                <span className="flex gap-2"><span>Country:</span> <span className="font-semibold">{publicMetadata.country}</span></span>
-                <span className="flex gap-2"><span>State / Province:</span> <span className="font-semibold">{publicMetadata.stateProvince}</span></span>
-                <span className="flex gap-2"><span>Street:</span> <span className="font-semibold">{publicMetadata.street}</span></span>
-                </div>
+                  ))}
+                </span>
+              </span>
             </div>
+            <div className="flex flex-col  gap-2 w-fit bg-white h-full">
+              <span className="flex gap-2">
+                <span>Country:</span>{" "}
+                <span className="font-semibold">{publicMetadata.country}</span>
+              </span>
+              <span className="flex gap-2">
+                <span>State / Province:</span>{" "}
+                <span className="font-semibold">
+                  {publicMetadata.stateProvince}
+                </span>
+              </span>
+              <span className="flex gap-2">
+                <span>Street:</span>{" "}
+                <span className="font-semibold">{publicMetadata.street}</span>
+              </span>
+            </div>
+          </div>
         </div>
-      
+      </div>
+      <hr className="border-none h-[1px] bg-stone-300" />
+     {!proposal ? <ApplicationFlow /> : <ProposalPreview questions={questions} proposal={proposal} />}
     </section>
-}
+  );
+};

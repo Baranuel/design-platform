@@ -20,7 +20,7 @@ export const Process = () => {
             <div className="w-1/2 lg:w-2/3 sm:w-full h-full relative ">
                 <span className="block lg:hidden absolute w-3 h-3 bg-gradient-to-b from-orange to-red-800 rounded-full -right-0 top-[50%] -translate-y-[50%] translate-x-[50%] z-40"></span>
                 <span className="block lg:hidden absolute top-[50%] right-0 w-[10%] bg-gradient-to-l from-purple to-stone-500 h-[1px] "></span>
-                <div className=" rounded-md bg-gradient-radial from-white from-40% to-stone-300/5 border border-solid border-purple w-[90%] lg:w-full min-h-[225px] p-8 sm:p-6 flex flex-col justify-evenly gap-6 sm:gap-2   "> {/* CONTENT OF THE BOX*/}
+                <div className=" rounded-md bg-gradient-radial from-white from-40% to-stone-300/5 border border-solid border-purple w-[90%] lg:w-full min-h-[275px] p-8 sm:p-6 flex flex-col justify-evenly gap-6 sm:gap-2   "> {/* CONTENT OF THE BOX*/}
                   <div className="flex items-center gap-2 ">  {/* Title Box*/}
                   <span className="relative w-8 h-8 border-purple rounded-md">
                   <Image src={apply} alt="apply" fill/>
@@ -37,7 +37,7 @@ export const Process = () => {
             <div className="w-1/2 lg:w-2/3 sm:w-full flex justify-end h-full relative">
             <span className="block lg:hidden absolute w-3 h-3 bg-gradient-to-b from-orange to-red-800  rounded-full left-0 top-[50%] -translate-y-[50%] -translate-x-[50%] z-40"></span>
               <span className="block lg:hidden absolute top-[50%] left-0 w-[10%] bg-gradient-to-l from-purple to-stone-500 h-[1px]"></span>
-                  <div className=" rounded-md bg-gradient-radial from-white from-40% to-stone-300/5 border border-solid border-purple w-[90%] lg:w-full min-h-[225px] p-8 sm:p-6 flex flex-col justify-evenly gap-6 sm:gap-2   ">
+                  <div className=" rounded-md bg-gradient-radial from-white from-40% to-stone-300/5 border border-solid border-purple w-[90%] lg:w-full min-h-[275px] p-8 sm:p-6 flex flex-col justify-evenly gap-6 sm:gap-2   ">
                   <div className="flex items-center gap-2 ">  {/* Title Box*/}
                   <span className="relative w-8 h-8 border-purple rounded-md">
                   <Image src={explore} alt="apply" fill/>
@@ -54,7 +54,7 @@ export const Process = () => {
             <div className="w-1/2 lg:w-2/3 sm:w-full h-full relative">
             <span className="block lg:hidden absolute w-3 h-3 bg-gradient-to-b from-orange to-red-800  rounded-full -right-0 top-[50%] -translate-y-[50%] translate-x-[50%] z-40"></span>
                 <span className="block lg:hidden absolute top-[50%] right-0 w-[10%] bg-gradient-to-l from-purple to-stone-500 h-[1px]"></span>
-                <div className=" rounded-md bg-gradient-radial from-white from-40% to-stone-300/5 border border-solid border-purple w-[90%] lg:w-full min-h-[225px] p-8 sm:p-6 flex flex-col justify-evenly gap-6 sm:gap-2  "> {/* CONTENT OF THE BOX*/}
+                <div className=" rounded-md bg-gradient-radial from-white from-40% to-stone-300/5 border border-solid border-purple w-[90%] lg:w-full min-h-[275px] p-8 sm:p-6 flex flex-col justify-evenly gap-6 sm:gap-2  "> {/* CONTENT OF THE BOX*/}
                 <div className="flex items-center gap-2 ">  {/* Title Box*/}
                   <span className="relative w-8 h-8 border-purple rounded-md">
                   <Image src={connect} alt="apply" fill/>

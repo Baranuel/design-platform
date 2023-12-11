@@ -1,12 +1,11 @@
-
-import { useState } from "react";
 import { Form } from "./Form";
-import { PrismaClient } from "@prisma/client";
+import prismaClient from "@/app/network/prismaClient";
 
-const prisma = new PrismaClient();
 const getQuestions = async () => {
-    return await prisma.question.findMany();
+    return await prismaClient.question.findMany();
 }
+
+
 
 export const ApplicationFlow = async () => {
    const questions =  await getQuestions();

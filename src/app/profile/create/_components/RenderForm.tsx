@@ -2,10 +2,7 @@ import { Button, FormProps } from "antd";
 import { useCallback, useMemo, useState } from "react";
 import { FieldsMapper } from "./fields/FieldsMapper";
 import { useFormContext } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { RenderFormProps, StepType } from "../types";
-import { axiosInstance } from "@/app/network/axios-instance";
-import { useMutation } from "@tanstack/react-query";
 import { useUpdateProfileMutation } from "../../mutations/update-profile-mutation";
 
 export const RenderForm = ({ formSchema }: RenderFormProps) => {

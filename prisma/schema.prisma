@@ -8,8 +8,6 @@ datasource db {
   directUrl = env("POSTGRES_PRO_URL_NON_POOLING") // uses a direct connection
 }
  
-
-
  enum Role {
   CLIENT
   DESIGNER
@@ -20,12 +18,39 @@ model User {
   id        Int      @id @default(autoincrement())
   clerkId   String      @unique
   role     Role
-  collaborationsAsDesigner Collaboration[]  @relation("collaborationsAsDesigner")
-  collaborationsAsClient Collaboration[]  @relation("collaborationsAsClient")
-
+  designer  Designer?
+  client    Client?
 }
 
+model Designer {
+  id       Int      @id @default(autoincrement())
+  user    User     @relation(fields: [id], references: [id])
+  collaboration Collaboration?
+}
 
+model Client {
+  id       Int      @id @default(autoincrement())
+  user    User     @relation(fields: [id], references: [id])
+  proposal Proposal?
+  collaboration Collaboration[]
+}
+
+model Proposal {
+  id       Int      @id @default(autoincrement())
+  clientId   Int          @unique
+  title      String
+  brief    String
+  currentState    String
+  redesignFix    String
+  features    String
+  usefulFeatures    String
+  userDescription    String
+  competitorDescription    String
+  files    String[]
+
+  client    Client   @relation(fields: [clientId], references: [id])
+
+}
 model Question {
   id       Int      @id @default(autoincrement())
   title      String
@@ -35,13 +60,12 @@ model Question {
 
 model Collaboration {
   id         Int      @id @default(autoincrement())
-  designerId     Int      // Foreign key for User
-  clientId   Int      // Foreign key for User
+  designerId     Int      @unique
+  clientId   Int          @unique
   status     String
   linkToDesign   String
 
-
-  designer   User     @relation("collaborationsAsDesigner", fields: [designerId], references: [id])
-  client     User     @relation("collaborationsAsClient", fields: [clientId], references: [id])
+  client    Client   @relation(fields: [clientId], references: [id])
+  designer  Designer @relation(fields: [designerId], references: [id])
   
 }

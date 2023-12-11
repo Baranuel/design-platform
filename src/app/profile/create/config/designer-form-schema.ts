@@ -38,22 +38,10 @@ export const designerFormSchema: FormProps = {
           options: options,
         },
         {
-          name: "street",
-          type: "text",
-          placeholder: "Street",
-          label: "Street",
-        },
-        {
           name: "city",
           type: "text",
           placeholder: "City",
           label: "City",
-        },
-        {
-          name: "stateProvince",
-          type: "text",
-          placeholder: "State/Province",
-          label: "State/Province",
         },
         {
           name: "postalCode",
