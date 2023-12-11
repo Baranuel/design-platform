@@ -47,7 +47,7 @@ export const ProposalPreview = async ({ proposal, questions }: Props) => {
                     <div className="flex gap-2">
                     {files.map((file, index) => {
                         return (
-                            <div key={index} className=" w-24 h-24  relative items-center border border-solid border-stone-200 rounded-md shadow-md">
+                            <div key={index} className=" w-24 h-24 overflow-hidden relative items-center border border-solid border-stone-200 rounded-md shadow-md">
                                 <Image unoptimized src={file} alt="file" fill/>
                             </div>
                         )
