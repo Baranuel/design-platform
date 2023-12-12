@@ -8,7 +8,7 @@ import { FormProps } from "antd";
 export const useUploadFileMutation = () => {
 
     return useMutation({
-        mutationFn: async (data: any, ) => {
+        mutationFn: async (data: any) => {
             const formData = new FormData();
             formData.append("file", data.file);
         

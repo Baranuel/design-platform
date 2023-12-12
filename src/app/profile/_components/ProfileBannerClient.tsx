@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ApplicationFlow } from "./ApplicationFlow";
 import prismaClient from "@/app/network/prismaClient";
 import { ProposalPreview } from "./ProposalPreveiw";
-import { useGetProposalsQuery } from "../mutations/getProposals";
+
 
 export interface BannerProps {
   user: User;
@@ -23,8 +23,20 @@ interface UserPublicMetadata {
   companyRegistration: string;
 }
 
-const getProposal = async () => {
-    return await prismaClient.proposal.findFirst();
+const getProposal = async (clerkUser:User) => {
+
+    const user = await prismaClient.user.findUnique({
+      where: {
+        clerkId: clerkUser.id
+      }
+    });
+    if(!user) return null 
+
+    return await prismaClient.proposal.findFirst({
+      where: {
+        clientId: user.id
+      }
+    });
 }
 
 const getQuestions = async () => {
@@ -33,7 +45,7 @@ const getQuestions = async () => {
 
 export const ProfileBannerClient = async  ({ user }: BannerProps) => {
 const publicMetadata = user.publicMetadata as unknown as UserPublicMetadata;
-const proposal = await getProposal()
+const proposal = await getProposal(user)
 const questions = await getQuestions()
 
   return (

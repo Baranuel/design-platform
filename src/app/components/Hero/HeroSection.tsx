@@ -1,7 +1,7 @@
 
 export const HeroSection = () => {
   return (
-    <section className="w-full mb-16 relative min-h-[80vh]  h-fit flex  flex-col gap-10 sm:gap-4 items-center justify-center">
+    <section className="w-full mb-16 relative min-h-[85vh]  h-fit flex  flex-col gap-10 sm:gap-4 items-center justify-center">
       <h1 className=" text-7xl xl:text-7xl lg:text-6xl sm:text-5xl text-center font-bold text-transparent bg-clip-text bg-gradient-to-b from-stone-600 from-40%  via-stone-700 via-60% to-stone-800 to-100%  ">
           Let Talent Take Care of Your{" "}
           <span className="animate-text  font-bold text-center text-transparent bg-clip-text bg-gradient-to-l from-[#896FFD] from-30% 2xl:from-40%  via-[#6B11C6] via-70% to-[#896FFD] to-90% ">

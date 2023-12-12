@@ -11,7 +11,7 @@ interface Props {
 
 export const RenderQuestion = ({ question }: Props) => {
   const { control, watch } = useFormContext();
-  console.log('watch', watch() )
+
   return (
     <div className=" flex flex-col gap-4">
       <h3>{question.question}</h3>

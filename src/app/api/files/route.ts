@@ -10,11 +10,12 @@ export async function POST(request: NextRequest) {
   const file = formData.get('file');
   if(!file) return NextResponse.error();
 
-  const blob = await put(filename, file, {
-    access: 'public',
-  });
+
+  // const blob = await put(filename, file, {
+  //   access: 'public',
+  // });
 
 
  
-  return NextResponse.json(blob );
+  return NextResponse.json("blob");
 }
