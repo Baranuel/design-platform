@@ -15,7 +15,7 @@
 <rect width="400" height="29" fill="white"/>
 <rect x="102" y="71" width="196" height="74" rx="10" fill="#B2A3D2"/>
 </g>
-<rect x="0.5" y="0.5" width="399" height="249" rx="4.5" stroke="#D5D4D4"/>
+<rect x="0.5" y="0.5" width="399" height="249" rx="4.5" />
 <defs>
 <filter id="filter0_f_171_250" x="-252" y="-248" width="537" height="527" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
