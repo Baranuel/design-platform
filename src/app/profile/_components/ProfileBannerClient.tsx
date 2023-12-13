@@ -111,6 +111,12 @@ const questions = await getQuestions()
         </div>
       </div>
       <hr className="border-none h-[1px] bg-stone-300" />
+      <div className="min-h-[400px] flex flex-col p-12  gap-4 items-start">
+        <div className="w-full bg-purple h-10"></div>
+        <div className="w-full bg-purple h-10"></div>
+        <div className="w-full bg-purple h-10"></div>
+      </div>
+      <hr className="border-none h-[1px] bg-stone-300" />
      {!proposal ? <ApplicationFlow /> : <ProposalPreview questions={questions} proposal={proposal} />}
     </section>
   );
