@@ -67,7 +67,8 @@ const config: Config = {
       },
       colors:{
         purple:'#7359E3',
-        orange:'#FB825C'
+        orange:'#FB825C',
+        background: "#F9F9F9"
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

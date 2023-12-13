@@ -26,28 +26,28 @@ export const ProposalPreview = async ({ proposal, questions }: Props) => {
   const secondaryColumn = proposalQuestions.filter(q => q.title === 'files')
 
 
-  return <div className=" min-h-[800px] w-full  p-8 flex gap-8">
-    <div className="w-3/5 h-full flex flex-col gap-8">
+  return <div className=" min-h-[800px] w-full  p-8 flex gap-2">
+    <div className="w-1/2 h-full flex flex-col gap-4">
         {primaryColumn.map((question, index) => {
             return (
-                <div key={index} className="flex flex-col gap-4 p-6 bg-white rounded-xl shadow-md border border-solid border-stone-200">
-                    <span className="text-base font-bold">{question.question}</span>
+                <div key={index} className="flex flex-col gap-4 p-6 bg-white rounded-xl border border-solid border-stone-300">
+                    <span className="text-base font-semibold">{question.question}</span>
                     <span>{question.answer}</span>
                 </div>
             )
         })}
     </div>
-    <div className="w-2/5 h-full">
+    <div className="w-1/2 h-full">
         {secondaryColumn.map((question, index) => {
             const files = question.answer as string[]
             return (
-                <div key={index} className="flex flex-col gap-4 p-6">
+                <div key={index} className="flex flex-col gap-4 px-6">
                     <span className="text-base">{question.question}</span>
                     <hr className="border-none bg-stone-300 h-[1px]" />
                     <div className="flex gap-2">
                     {files.map((file, index) => {
                         return (
-                            <div key={index} className=" w-24 h-24 overflow-hidden relative items-center border border-solid border-stone-200 rounded-md shadow-md">
+                            <div key={index} className=" w-20 h-20 overflow-hidden relative items-center border border-solid border-stone-300 rounded-md ">
                                 <Image unoptimized src={file} alt="file" fill/>
                             </div>
                         )

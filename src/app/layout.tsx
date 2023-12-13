@@ -39,16 +39,16 @@ export default function RootLayout({
           },
       }}>
 
+        <TanstackProvider>   
        <body className={inter.className}>
         <Navigation/>
        <Blur/>
 
-        <main className='py-10 z-30 pt-[4rem] w-full overflow-hidden'>       
-        <TanstackProvider>   
+        <main className='py-10 z-30 pt-[4rem] w-full min-h-screen overflow-hidden bg-background'>       
           {children}
-        </TanstackProvider>
           </main>
         </body>
+        </TanstackProvider>
       </ConfigProvider>
       </StyledComponentsRegistry>
     </html>

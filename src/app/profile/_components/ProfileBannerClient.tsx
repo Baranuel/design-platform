@@ -52,33 +52,33 @@ const questions = await getQuestions()
     <section>
       <div className="flex gap-4 border-b border-black mt-[100px] w-full min-h-fit pb-12">
         <div className="w-1/5 justify-center items-center flex">
-          <div className="bg-blue-500 relative rounded-full w-36 h-36 overflow-hidden">
+          <div className="bg-blue-500 relative rounded-full w-32 h-32 overflow-hidden">
             <Image src={user.imageUrl} alt="user picture" fill />
           </div>
         </div>
-        <div className="flex flex-col gap-6 w-full items-start mt-4">
-          <span className="w-full flex justify-between items-center">
+        <div className="flex flex-col gap-3 w-full items-start mt-4">
+          <span className="w-full flex justify-between items-center text-xl">
             <h2>
               {publicMetadata.companyName}{" "}
               <span className="text-purple ml-2">{publicMetadata.role}</span>
             </h2>
-            <Button>Edit</Button>
+            <Button className="min-w-[120px]">Edit</Button>
           </span>
           {/* Profile Information*/}
           <div className="flex gap-12 justify-between w-full h-38 ">
-            <div className="flex flex-col gap-3 w-1/2 bg-white h-full">
+            <div className="flex flex-col gap-1 w-1/2 bg-white h-full">
               <span className="flex gap-2">
-                <span>Business Owner:</span>{" "}
+                <span className="text-sm">Business Owner:</span>{" "}
                 <span className="font-semibold">{user.firstName}</span>
               </span>
               <span className="flex gap-2">
-                <span>Company Size:</span>{" "}
+                <span className="text-sm">Company Size:</span>{" "}
                 <span className="font-semibold">
                   {publicMetadata.companySize}
                 </span>
               </span>
               <span className="flex flex-col gap-2">
-                <span>Industry Focus:</span>
+                <span className="text-sm">Industry Focus:</span>
                 <span className="flex  gap-2 ">
                   {publicMetadata.companyIndustry.map((item, index) => (
                     <span
@@ -91,19 +91,19 @@ const questions = await getQuestions()
                 </span>
               </span>
             </div>
-            <div className="flex flex-col  gap-2 w-fit bg-white h-full">
+            <div className="flex flex-col  gap-1 w-fit bg-white h-full">
               <span className="flex gap-2">
-                <span>Country:</span>{" "}
+                <span className="text-sm">Country:</span>{" "}
                 <span className="font-semibold">{publicMetadata.country}</span>
               </span>
               <span className="flex gap-2">
-                <span>State / Province:</span>{" "}
+                <span className="text-sm">State / Province:</span>{" "}
                 <span className="font-semibold">
                   {publicMetadata.stateProvince}
                 </span>
               </span>
               <span className="flex gap-2">
-                <span>Street:</span>{" "}
+                <span className="text-sm">Street:</span>{" "}
                 <span className="font-semibold">{publicMetadata.street}</span>
               </span>
             </div>

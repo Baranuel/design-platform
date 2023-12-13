@@ -13,7 +13,7 @@ export const Process = () => {
         How does it work ?
       </h1>
       <div className="relative flex gap-6 flex-col h-full w-full mt-24 sm:mt-12 ">
-        <span className="absolute z-0 top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%] w-3/4 h-3/4 bg-purple/5 rounded-full bg-gradient-radial from-purple/5 from-90%  to-transparent to-10% blur-[199px]"></span>  {/* Blur*/}
+        <span className="absolute z-0 top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%] w-3/4 h-3/4 bg-purple/5 opacity-0 rounded-full bg-gradient-radial from-purple/5 from-90%  to-transparent to-10% blur-[199px]"></span>  {/* Blur*/}
       <span className="absolute block lg:hidden left-[50%] h-full w-[1px] bg-gradient-to-b from-transparent via-purple to-transparent"></span>    {/* Divider*/}
         {/* First element*/}
         <div className=" w-full  h-1/6 bg-transparent flex lg:items-center lg:justify-center ">
