@@ -25,12 +25,13 @@ export const ClientProfile = async () => {
           </span>
           <p className="text-purple">{user.role}</p>
           </div>
-          <div className="flex gap-6">
-          <span>
+          <div className="flex gap-10">
+          <span className="min-w-[110px]">
             <span className="text-stone-700 text-sm mb-1">Business Owner</span>
             <p className="text-base font-medium">{clerkUser?.firstName} {clerkUser?.lastName}</p>
           </span>
-          <span>
+          
+          <span className="min-w-[110px]">
             <span className="text-stone-700 text-sm mb-1">Company Size</span>
             <p className="text-base font-medium">{info?.companySize} </p>
           </span>
@@ -48,12 +49,12 @@ export const ClientProfile = async () => {
                   ))}
                 </span>
           </span>
-          <div className="flex gap-6">
-          <span>
+          <div className="flex gap-10">
+          <span className="min-w-[110px]">
             <span className="text-stone-700 text-sm mb-1">Country</span>
             <p className="text-base font-medium">{user?.country} </p>
           </span>
-          <span>
+          <span className="min-w-[100px]">
             <span className="text-stone-700 text-sm mb-1">Zip</span>
             <p className="text-base font-medium">{user?.postalCode} </p>
           </span>
@@ -62,13 +63,6 @@ export const ClientProfile = async () => {
           {/* Profile Information*/}
             </div>
           </div>
-
-
-      <div className="min-h-[400px] flex flex-col p-12  gap-4 items-start">
-        <div className="w-full bg-purple h-10"></div>
-        <div className="w-full bg-purple h-10"></div>
-        <div className="w-full bg-purple h-10"></div>
-      </div>
     </div>
   );
 };
