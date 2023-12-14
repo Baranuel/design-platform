@@ -9,6 +9,7 @@ export const useCreateProposalMutation = () => {
 
     return useMutation({
         mutationFn: async (proposalData:any) => {
+            console.log(proposalData);
             const {data} = await axiosInstance.post("proposal", proposalData);
             return data;
         },

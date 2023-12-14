@@ -1,10 +1,11 @@
 "use client";
 
 import { InboxOutlined } from "@ant-design/icons";
-import { Upload, UploadFile } from "antd";
-import { useCallback, useState } from "react";
+import { Spin, Upload, UploadFile } from "antd";
+import { useCallback, useRef, useState } from "react";
 import { useUploadFileMutation } from "../mutations/upload-file-mutation";
 import { useFormContext } from "react-hook-form";
+import { PutBlobResult } from "@vercel/blob";
 
 
 const { Dragger } = Upload;
@@ -15,10 +16,9 @@ interface Props {
 
 export const UploadFiles = ({ onChange }: Props) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [urls, setUrls] = useState<string[]>([]);
+  const files = useRef<string[]>([])
 
-  const {mutateAsync, status,} = useUploadFileMutation()
-  const { watch } = useFormContext();
+  const {mutateAsync, status} = useUploadFileMutation()
 
   const handleOnChange = useCallback(async (fileData: any) => {
     if(fileData.file.status === 'removed') return
@@ -26,12 +26,13 @@ export const UploadFiles = ({ onChange }: Props) => {
     setFileList(fileSet)
 
     const data = await mutateAsync(fileData)
-    onChange([...urls, data.url]);
-    
-  },[fileList, mutateAsync, onChange, urls])
+    files.current = [...files.current, data.url]
+
+    onChange(files.current);
+  },[fileList, mutateAsync, onChange])
   
-  console.log(fileList)
-  console.log(watch('files'))
+
+  
 
   return (
     <>
@@ -45,6 +46,7 @@ export const UploadFiles = ({ onChange }: Props) => {
         const index = fileList.indexOf(file);
         const newFileList = fileList.slice();
         newFileList.splice(index, 1);
+        files.current.splice(index, 1);
         setFileList(newFileList);
       }}
       >
@@ -57,7 +59,15 @@ export const UploadFiles = ({ onChange }: Props) => {
       </p>
       <p className="ant-upload-hint">Support for a single or bulk upload.</p>
     </Dragger>
-
+      <div className="flex justify-start">
+      <Spin spinning={status === 'pending'} />
+      {
+        fileList.length > 0 && <>
+        {status === 'error' && <div className="text-red-500">Error uploading file</div>}
+      {status === 'success' && <div className="text-green-500">Files uploaded successfully</div>}
+        </>
+      }
+      </div>
       </>
   );
 };

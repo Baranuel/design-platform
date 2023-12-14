@@ -15,6 +15,7 @@ export const RenderQuestion = ({ question }: Props) => {
   return (
     <div className=" flex flex-col gap-4">
       <h3>{question.question}</h3>
+      
       {question.toolTip && (
         <Tooltip  className="flex gap-1 w-fit hover:cursor-pointer" placement="right" title={question.toolTip}>
             <QuestionCircleOutlined className="text-purple" />

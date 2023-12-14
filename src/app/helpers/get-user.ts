@@ -6,13 +6,12 @@ export const getUser = async () => {
     const clerkUser = await currentUser()
     const user = await prismaClient.user.findUnique({where: {clerkId: clerkUser?.id}, include: {
         client: {
-            include: {clientInformation: true}
+            include: {clientInformation: true, proposal: true}
         },
         designer: {
             include: {designerInformation: true}
         }
     }})
-        console.log(user)
     if(!user?.role) {
         return redirect('/profile/create')
     }

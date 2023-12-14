@@ -6,14 +6,28 @@ const getQuestions = async () => {
   return await prismaClient.question.findMany();
 };
 
-interface Props {
-  proposal: Proposal;
-  questions: Question[];
+const getProposal = async (id: number) => {
+  return await prismaClient.proposal.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      client: {
+        include: {
+          user: true,
+          clientInformation: true,
+        },
+      },
+    },
+  });
 }
 
-export const ProposalPreview = async ({ proposal, questions }: Props) => {
+export const ProposalPreview = async ({id}: {id:number | undefined}) => {
+  if(!id) return null 
+  const questions = await getQuestions();
+  const proposal = await getProposal(id)
   const proposalQuestions = questions.map((question) => {
-    const proposalKey = proposal[question.title as keyof Proposal];
+    const proposalKey = proposal?.[question.title as keyof Proposal];
 
     return {
       question: [question.question],
@@ -26,33 +40,14 @@ export const ProposalPreview = async ({ proposal, questions }: Props) => {
   const secondaryColumn = proposalQuestions.filter(q => q.title === 'files')
 
 
-  return <div className=" min-h-[800px] w-full  p-8 flex gap-2">
-    <div className="w-1/2 h-full flex flex-col gap-4">
+  return <div className=" min-h-[800px] my-24   flex items-center justify-center gap-2">
+    
+    <div className="max-w-[804px] h-full flex items-center justify-center flex-wrap gap-4">
         {primaryColumn.map((question, index) => {
             return (
-                <div key={index} className="flex flex-col gap-4 p-6 bg-white rounded-xl border border-solid border-stone-300">
+                <div key={index} className="w-full min-h-[150px] flex flex-col gap-2 p-10 bg-white rounded-md border border-solid border-stone-300">
                     <span className="text-base font-semibold">{question.question}</span>
-                    <span>{question.answer}</span>
-                </div>
-            )
-        })}
-    </div>
-    <div className="w-1/2 h-full">
-        {secondaryColumn.map((question, index) => {
-            const files = question.answer as string[]
-            return (
-                <div key={index} className="flex flex-col gap-4 px-6">
-                    <span className="text-base">{question.question}</span>
-                    <hr className="border-none bg-stone-300 h-[1px]" />
-                    <div className="flex gap-2">
-                    {files.map((file, index) => {
-                        return (
-                            <div key={index} className=" w-20 h-20 overflow-hidden relative items-center border border-solid border-stone-300 rounded-md ">
-                                <Image unoptimized src={file} alt="file" fill/>
-                            </div>
-                        )
-                    })}
-                    </div>
+                    <p className="text-stone-600">{question.answer}</p>
                 </div>
             )
         })}
