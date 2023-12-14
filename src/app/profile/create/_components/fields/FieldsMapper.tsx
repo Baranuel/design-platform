@@ -75,6 +75,23 @@ export const FieldsMapper = ({ fields }: FieldsMapperProps) => {
                 {checkIfArray(field.message) ? <ul className="flex flex-col gap-2">{checkIfArray(field.message)}</ul> : <p>{field.message}</p>}
                 </div>
             );
+        case "textarea":
+            return (
+              <div key={index + field.name} className="flex flex-col gap-2 ">
+              <label className="text-sm font-bold" htmlFor={field.name}>{field.label}</label>
+              <Controller
+                control={control}
+                name={field.name}
+                render={({ field: controlledField }) => (
+                  <Input.TextArea
+                  className="min-h-[100px]"
+                    {...controlledField}
+                    placeholder={field.placeholder}
+                  />
+                )}
+              />
+            </div>
+            );
       default:
         return null;
     }

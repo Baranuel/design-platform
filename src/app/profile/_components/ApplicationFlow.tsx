@@ -8,14 +8,13 @@ const getQuestions = async () => {
 
 
 export const ApplicationFlow = async () => {
-   const questions =  await getQuestions();
 
   return (
     <section>
       <div className="flex mt-2 gap-2 items-center">
         <div className="">Apply for website redesign here</div>
       </div>
-      <Form questions={questions} />
+
     </section>
   );
 };

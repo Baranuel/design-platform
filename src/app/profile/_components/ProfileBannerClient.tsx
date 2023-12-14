@@ -1,40 +1,20 @@
-import { User } from "@clerk/nextjs/server";
+
 import { Button } from "antd";
 import Image from "next/image";
 import { ApplicationFlow } from "./ApplicationFlow";
 import prismaClient from "@/app/network/prismaClient";
 import { ProposalPreview } from "./ProposalPreveiw";
+import { User } from "../../../../global";
+import { currentUser } from "@clerk/nextjs";
 
 
 export interface BannerProps {
   user: User;
 }
-
-interface UserPublicMetadata {
-  city: string;
-  role: string;
-  street: string;
-  country: string;
-  postalCode: string;
-  companyName: string;
-  companySize: string;
-  stateProvince: string;
-  companyIndustry: string[];
-  companyRegistration: string;
-}
-
-const getProposal = async (clerkUser:User) => {
-
-    const user = await prismaClient.user.findUnique({
-      where: {
-        clerkId: clerkUser.id
-      }
-    });
-    if(!user) return null 
-
+const getProposal = async (user:User) => {
     return await prismaClient.proposal.findFirst({
       where: {
-        clientId: user.id
+        clientId: user.client?.id
       }
     });
 }
@@ -44,23 +24,25 @@ const getQuestions = async () => {
 }
 
 export const ProfileBannerClient = async  ({ user }: BannerProps) => {
-const publicMetadata = user.publicMetadata as unknown as UserPublicMetadata;
+const clerkUser = await currentUser()
 const proposal = await getProposal(user)
 const questions = await getQuestions()
+
+const info = user.client?.clientInformation 
 
   return (
     <section>
       <div className="flex gap-4 border-b border-black mt-[100px] w-full min-h-fit pb-12">
         <div className="w-1/5 justify-center items-center flex">
           <div className="bg-blue-500 relative rounded-full w-32 h-32 overflow-hidden">
-            <Image src={user.imageUrl} alt="user picture" fill />
+            <Image src={clerkUser?.imageUrl ?? ""} alt="user picture" fill />
           </div>
         </div>
         <div className="flex flex-col gap-3 w-full items-start mt-4">
           <span className="w-full flex justify-between items-center text-xl">
             <h2>
-              {publicMetadata.companyName}{" "}
-              <span className="text-purple ml-2">{publicMetadata.role}</span>
+              {info?.companyName}{" "}
+              <span className="text-purple ml-2">{user.role}</span>
             </h2>
             <Button className="min-w-[120px]">Edit</Button>
           </span>
@@ -69,18 +51,18 @@ const questions = await getQuestions()
             <div className="flex flex-col gap-1 w-1/2 bg-white h-full">
               <span className="flex gap-2">
                 <span className="text-sm">Business Owner:</span>{" "}
-                <span className="font-semibold">{user.firstName}</span>
+                <span className="font-semibold">{clerkUser?.firstName}</span>
               </span>
               <span className="flex gap-2">
                 <span className="text-sm">Company Size:</span>{" "}
                 <span className="font-semibold">
-                  {publicMetadata.companySize}
+                  {info?.companySize}
                 </span>
               </span>
               <span className="flex flex-col gap-2">
                 <span className="text-sm">Industry Focus:</span>
                 <span className="flex  gap-2 ">
-                  {publicMetadata.companyIndustry.map((item, index) => (
+                  {info?.companyIndustry.map((item, index) => (
                     <span
                       key={index}
                       className="whitespace-nowrap rounded-md flex items-center text-sm font-medium border border-solid border-orange text-orange bg-orange/5 p-1"
@@ -94,18 +76,13 @@ const questions = await getQuestions()
             <div className="flex flex-col  gap-1 w-fit bg-white h-full">
               <span className="flex gap-2">
                 <span className="text-sm">Country:</span>{" "}
-                <span className="font-semibold">{publicMetadata.country}</span>
+                <span className="font-semibold">{user.country}</span>
               </span>
               <span className="flex gap-2">
-                <span className="text-sm">State / Province:</span>{" "}
-                <span className="font-semibold">
-                  {publicMetadata.stateProvince}
-                </span>
+                <span className="text-sm">Zip:</span>{" "}
+                <span className="font-semibold">{user.postalCode}</span>
               </span>
-              <span className="flex gap-2">
-                <span className="text-sm">Street:</span>{" "}
-                <span className="font-semibold">{publicMetadata.street}</span>
-              </span>
+           
             </div>
           </div>
         </div>

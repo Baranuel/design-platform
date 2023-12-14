@@ -38,12 +38,6 @@ export const designerFormSchema: FormProps = {
           options: options,
         },
         {
-          name: "city",
-          type: "text",
-          placeholder: "City",
-          label: "City",
-        },
-        {
           name: "postalCode",
           type: "text",
           placeholder: "Postal code",
@@ -66,13 +60,6 @@ export const designerFormSchema: FormProps = {
           type: "text",
           placeholder: "Years of experience",
           label: "Years of experience",
-        },
-        {
-          name: "currentStatus",
-          type: "select",
-          placeholder: "Current status",
-          label: "Current status",
-          options: currentStatusOptions,
         },
         {
           name: "portfolio",

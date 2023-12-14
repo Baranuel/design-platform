@@ -198,7 +198,7 @@ const countries = ['Afghanistan',
 const options = countries.map((country) => {
     return {
         label: country,
-        value: country.toLowerCase()
+        value: country
     }
 })
 

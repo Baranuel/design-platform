@@ -1,71 +1,119 @@
 generator client {
   provider = "prisma-client-js"
 }
- 
+
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRO_PRISMA_URL") // uses connection pooling
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRO_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_PRO_URL_NON_POOLING") // uses a direct connection
 }
- 
- enum Role {
+
+enum Role {
   CLIENT
   DESIGNER
- }
-
+}
 
 model User {
-  id        Int      @id @default(autoincrement())
-  clerkId   String      @unique
-  role     Role
+  id        Int       @id @default(autoincrement())
+  clerkId   String    @unique
+  createdAt DateTime  @default(now())
+  role      Role
+  country  String
+  postalCode String
   designer  Designer?
   client    Client?
+  messages  Message[]
 }
 
 model Designer {
-  id       Int      @id @default(autoincrement())
-  user    User     @relation(fields: [id], references: [id])
-  collaboration Collaboration?
+  id                  Int                  @id @default(autoincrement())
+  userId              Int                  @unique
+  collaboration       Collaboration?
+  designerInformation DesignerInformation?
+  user                User                 @relation(fields: [id], references: [id], onDelete: Cascade)
+}
+
+model DesignerInformation {
+  id                Int      @id @default(autoincrement())
+  designerId        Int      @unique
+  university        String
+  yearsOfExperience Int
+  portfolio         String
+  designer          Designer @relation(fields: [designerId], references: [id], onDelete: Cascade)
 }
 
 model Client {
-  id       Int      @id @default(autoincrement())
-  user    User     @relation(fields: [id], references: [id])
-  proposal Proposal?
-  collaboration Collaboration[]
+  id                Int                @id @default(autoincrement())
+  userId            Int                @unique
+  clientInformation ClientInformation?
+  proposal          Proposal?
+  collaboration     Collaboration[]
+  user              User               @relation(fields: [id], references: [id], onDelete: Cascade)
+}
+
+model ClientInformation {
+  id                  Int      @id @default(autoincrement())
+  clientId            Int      @unique
+  companyName         String
+  companyWebsite      String
+  companyDescription  String
+  companyIndustry     String[]
+  companySize         String
+  companyRegistration String
+  client              Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }
 
 model Proposal {
-  id       Int      @id @default(autoincrement())
-  clientId   Int          @unique
-  title      String
-  brief    String
-  currentState    String
-  redesignFix    String
-  features    String
-  usefulFeatures    String
-  userDescription    String
-  competitorDescription    String
-  files    String[]
+  id                    Int      @id @default(autoincrement())
+  clientId              Int      @unique
+  views                 Int      @default(0)
+  title                 String
+  brief                 String
+  currentState          String
+  redesignFix           String
+  features              String
+  usefulFeatures        String
+  userDescription       String
+  competitorDescription String
+  files                 String[]
 
-  client    Client   @relation(fields: [clientId], references: [id])
-
+  client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }
+
 model Question {
-  id       Int      @id @default(autoincrement())
-  title      String
-  question    String
-  toolTip    String
+  id       Int    @id @default(autoincrement())
+  title    String
+  question String
+  toolTip  String
 }
 
 model Collaboration {
-  id         Int      @id @default(autoincrement())
-  designerId     Int      @unique
-  clientId   Int          @unique
-  status     String
-  linkToDesign   String
+  id           Int    @id @default(autoincrement())
+  designerId   Int    @unique
+  clientId     Int    @unique
+  chatId       Int    @unique
+  status       String
+  progress     String
+  linkToDesign String
 
-  client    Client   @relation(fields: [clientId], references: [id])
-  designer  Designer @relation(fields: [designerId], references: [id])
-  
+  client   Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  designer Designer @relation(fields: [designerId], references: [id])
+  chat     Chat     @relation(fields: [chatId], references: [id])
+}
+
+model Chat {
+  id            Int            @id @default(autoincrement())
+  messages      Message[]
+  collaboration Collaboration?
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  chatId    Int
+  senderId  Int
+  text      String
+
+  chat   Chat @relation(fields: [chatId], references: [id])
+  sender User @relation(fields: [senderId], references: [id])
 }

@@ -40,12 +40,6 @@ export const clientFormSchema: FormProps = {
           options: options,
         },
         {
-          name: "city",
-          type: "text",
-          placeholder: "City",
-          label: "City",
-        },
-        {
           name: "postalCode",
           type: "text",
           placeholder: "Postal code",
@@ -62,6 +56,12 @@ export const clientFormSchema: FormProps = {
           type: "text",
           placeholder: "Company name",
           label: "Company name",
+        },
+        {
+          name: "companyDescription",
+          type: "textarea",
+          placeholder: "Company Description",
+          label: "Company Description",
         },
         {
           name: "companyIndustry",
@@ -83,6 +83,12 @@ export const clientFormSchema: FormProps = {
           placeholder: "Company Registration Number",
           label: "Company Registration Number",
         },
+        {
+          name: "companyWebsite",
+          type: "text",
+          placeholder: "Company Website",
+          label: "Company Website",
+        }
       ],
     },
     "step-3": {

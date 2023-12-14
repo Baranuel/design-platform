@@ -26,7 +26,7 @@ export const RenderForm = ({ formSchema }: RenderFormProps) => {
     return <FieldsMapper fields={formData.fields} />;
   }, []);
 
-  async function onSubmit(data: FormProps) {
+  async function onSubmit(data: any) {
     mutate(data);
   }
 
@@ -41,7 +41,7 @@ export const RenderForm = ({ formSchema }: RenderFormProps) => {
       </div>
 
       <form
-        className="p-8 sm:p-4 flex flex-col gap-2  border border-solid border-stone-300 rounded-md "
+        className="p-8 sm:p-4 bg-white flex flex-col gap-2  border border-solid border-stone-300 rounded-md "
         autoComplete="off"
       >
         {renderFields(formData)}
