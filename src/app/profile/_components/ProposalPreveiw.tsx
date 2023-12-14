@@ -22,12 +22,14 @@ const getProposal = async (id: number) => {
   });
 }
 
+type ProposalKey = keyof Omit<Proposal, "createdAt">;
+
 export const ProposalPreview = async ({id}: {id:number | undefined}) => {
   if(!id) return null 
   const questions = await getQuestions();
   const proposal = await getProposal(id)
   const proposalQuestions = questions.map((question) => {
-    const proposalKey = proposal?.[question.title as keyof Proposal];
+    const proposalKey = proposal?.[question.title as ProposalKey];
 
     return {
       question: [question.question],
