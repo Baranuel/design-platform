@@ -1,6 +1,7 @@
 import { Proposal, Question } from "@prisma/client";
 import prismaClient from "@/app/network/prismaClient";
 import Image from "next/image";
+import { ProposalHeader } from "./ProposalHeader";
 
 const getQuestions = async () => {
   return await prismaClient.question.findMany();
@@ -39,11 +40,11 @@ export const ProposalPreview = async ({id}: {id:number | undefined}) => {
   });
 
   const primaryColumn = proposalQuestions.filter(q => q.title !== 'files')
-  const secondaryColumn = proposalQuestions.filter(q => q.title === 'files')
 
 
-  return <div className=" min-h-[800px] my-24   flex items-center justify-center gap-2">
-    
+
+  return <div className=" min-h-[800px] flex flex-col items-center justify-center gap-2">
+    <ProposalHeader />
     <div className="max-w-[804px] h-full flex items-center justify-center flex-wrap gap-4">
         {primaryColumn.map((question, index) => {
             return (

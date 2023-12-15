@@ -13,6 +13,11 @@ enum Role {
   DESIGNER
 }
 
+enum ProposalStatus {
+  DRAFT
+  PUBLISHED
+}
+
 model User {
   id         Int       @id @default(autoincrement())
   clerkId    String    @unique
@@ -30,6 +35,7 @@ model Designer {
   userId              Int                  @unique
   collaboration       Collaboration?
   designerInformation DesignerInformation?
+  interestedInListings DesignerListing[]
   user                User                 @relation(fields: [id], references: [id], onDelete: Cascade)
 }
 
@@ -66,8 +72,9 @@ model ClientInformation {
 model Proposal {
   id                 Int      @id @default(autoincrement())
   clientId           Int      @unique
-  views              Int      @default(0)
   createdAt          DateTime @default(now())
+  proposalListing    ProposalListing?
+  status             ProposalStatus @default(DRAFT)
   brief              String
   websiteUse         String
   websiteLacking     String
@@ -78,6 +85,24 @@ model Proposal {
   files              String[]
 
   client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+}
+
+model ProposalListing {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  views              Int      @default(0)
+  interestedDesigners DesignerListing[]
+  proposalId Int    @unique
+  proposal  Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+}
+model DesignerListing {
+  createdAt DateTime @default(now())
+  designerId Int      
+  proposalId Int      
+  designer   Designer @relation(fields: [designerId], references: [id], onDelete: Cascade)
+  proposalListing ProposalListing @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+
+  @@id([designerId, proposalId])
 }
 
 model Question {
