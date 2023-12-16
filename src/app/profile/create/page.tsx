@@ -1,11 +1,9 @@
 import { currentUser } from "@clerk/nextjs";
 import { MultistepForm } from "./_components/MultiStepForm";
-import { redirect } from "next/navigation";
 
 
 const ProfileCreate = async () => {
-  const user = await currentUser();
-  if(user?.publicMetadata.role)  return redirect('/profile')
+  const user = await currentUser()
   
   return (
     <section className=" flex flex-col items-center justify-start min-h-[calc(100vh-120px)] w-screen px-72 2xl:px-64 xl:px-32 lg:px-24 md:px-12 sm:px-4 ">

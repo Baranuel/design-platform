@@ -53,6 +53,7 @@ model Client {
   userId            Int                @unique
   clientInformation ClientInformation?
   proposal          Proposal?
+  listings          ProposalListing?
   collaboration     Collaboration[]
   user              User               @relation(fields: [id], references: [id], onDelete: Cascade)
 }
@@ -92,7 +93,9 @@ model ProposalListing {
   createdAt DateTime @default(now())
   views              Int      @default(0)
   interestedDesigners DesignerListing[]
+  clientId           Int      @unique
   proposalId Int    @unique
+  client     Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
   proposal  Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
 }
 model DesignerListing {

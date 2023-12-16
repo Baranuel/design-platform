@@ -1,9 +1,10 @@
 import { Button, FormProps } from "antd";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useTransition } from "react";
 import { FieldsMapper } from "./fields/FieldsMapper";
 import { useFormContext } from "react-hook-form";
 import { RenderFormProps, StepType } from "../types";
-import { useUpdateProfileMutation } from "../../mutations/update-profile-mutation";
+import { createUserProfile } from "@/app/actions/user-actions";
+
 
 export const RenderForm = ({ formSchema }: RenderFormProps) => {
   const {
@@ -12,7 +13,7 @@ export const RenderForm = ({ formSchema }: RenderFormProps) => {
     handleSubmit,
   } = useFormContext();
 
-  const {mutate, status} = useUpdateProfileMutation()
+  const [isPending, startTransition] = useTransition()
   const [currentStep, setCurrentStep] = useState(1);
   const maxSteps = Object.keys(formSchema).length;
   const stepKey = `step-${currentStep}` as keyof typeof formSchema;
@@ -26,8 +27,11 @@ export const RenderForm = ({ formSchema }: RenderFormProps) => {
     return <FieldsMapper fields={formData.fields} />;
   }, []);
 
-  async function onSubmit(data: any) {
-    mutate(data);
+   function onSubmit(data: any) {
+    startTransition(async () => {
+      await createUserProfile(data)
+    })
+
   }
 
   return (
@@ -68,7 +72,7 @@ export const RenderForm = ({ formSchema }: RenderFormProps) => {
           <Button
             type="primary"
             onClick={handleSubmit(onSubmit)}
-            loading={status !== "idle"}
+            loading={isPending}
             className="p-2 w-[150px] h-full mt-2 shadow-none"
           >
             Submit

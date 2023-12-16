@@ -1,6 +1,9 @@
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('CLIENT', 'DESIGNER');
 
+-- CreateEnum
+CREATE TYPE "ProposalStatus" AS ENUM ('DRAFT', 'PUBLISHED');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
@@ -58,18 +61,38 @@ CREATE TABLE "ClientInformation" (
 CREATE TABLE "Proposal" (
     "id" SERIAL NOT NULL,
     "clientId" INTEGER NOT NULL,
-    "views" INTEGER NOT NULL DEFAULT 0,
-    "title" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "status" "ProposalStatus" NOT NULL DEFAULT 'DRAFT',
     "brief" TEXT NOT NULL,
-    "currentState" TEXT NOT NULL,
-    "redesignFix" TEXT NOT NULL,
-    "features" TEXT NOT NULL,
-    "usefulFeatures" TEXT NOT NULL,
-    "userDescription" TEXT NOT NULL,
-    "competitorDescription" TEXT NOT NULL,
+    "websiteUse" TEXT NOT NULL,
+    "websiteLacking" TEXT NOT NULL,
+    "websiteFeatures" TEXT NOT NULL,
+    "websiteNiceToHave" TEXT NOT NULL,
+    "targetGroup" TEXT NOT NULL,
+    "competitorAnalysis" TEXT NOT NULL,
     "files" TEXT[],
 
     CONSTRAINT "Proposal_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ProposalListing" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "views" INTEGER NOT NULL DEFAULT 0,
+    "clientId" INTEGER NOT NULL,
+    "proposalId" INTEGER NOT NULL,
+
+    CONSTRAINT "ProposalListing_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "DesignerListing" (
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "designerId" INTEGER NOT NULL,
+    "proposalId" INTEGER NOT NULL,
+
+    CONSTRAINT "DesignerListing_pkey" PRIMARY KEY ("designerId","proposalId")
 );
 
 -- CreateTable
@@ -132,6 +155,12 @@ CREATE UNIQUE INDEX "ClientInformation_clientId_key" ON "ClientInformation"("cli
 CREATE UNIQUE INDEX "Proposal_clientId_key" ON "Proposal"("clientId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "ProposalListing_clientId_key" ON "ProposalListing"("clientId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ProposalListing_proposalId_key" ON "ProposalListing"("proposalId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Collaboration_designerId_key" ON "Collaboration"("designerId");
 
 -- CreateIndex
@@ -154,6 +183,18 @@ ALTER TABLE "ClientInformation" ADD CONSTRAINT "ClientInformation_clientId_fkey"
 
 -- AddForeignKey
 ALTER TABLE "Proposal" ADD CONSTRAINT "Proposal_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProposalListing" ADD CONSTRAINT "ProposalListing_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProposalListing" ADD CONSTRAINT "ProposalListing_proposalId_fkey" FOREIGN KEY ("proposalId") REFERENCES "Proposal"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "DesignerListing" ADD CONSTRAINT "DesignerListing_designerId_fkey" FOREIGN KEY ("designerId") REFERENCES "Designer"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "DesignerListing" ADD CONSTRAINT "DesignerListing_proposalId_fkey" FOREIGN KEY ("proposalId") REFERENCES "ProposalListing"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Collaboration" ADD CONSTRAINT "Collaboration_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;

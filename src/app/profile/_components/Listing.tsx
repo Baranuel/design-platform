@@ -17,7 +17,7 @@ const getProposalList = async () => {
 export const Listing = async () => {
     const list = await getProposalList()
     return (
-        <div className="w-full h-[250px] flex flex-col gap-3   ">
+        <div className="w-full min-h-[250px] flex flex-col gap-3   ">
             <h1>Active Listing</h1>
             <div className="w-full h-full flex flex-col items-center justify-start gap-4">
                 {list.map((proposal) => {

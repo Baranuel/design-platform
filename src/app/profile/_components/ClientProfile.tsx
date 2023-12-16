@@ -2,10 +2,15 @@ import { currentUser } from "@clerk/nextjs";
 
 import Image from "next/image";
 import { getUser } from "@/app/helpers/get-user";
+import { userCheck } from "@/app/helpers/server/userCheck";
+import { redirect } from "next/navigation";
+
 
 
 export const ClientProfile = async () => {
-  const user = await getUser();
+  const user = await userCheck();
+  if(!user) redirect('/profile/create')
+  
   const clerkUser = await currentUser();
   const info = user.client?.clientInformation;
 

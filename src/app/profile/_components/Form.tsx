@@ -1,11 +1,12 @@
 "use client";
 import { Button, Modal } from "antd";
 import { FormProvider, useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Question } from "@prisma/client";
 import { RenderQuestion } from "./RenderQuestion";
-import { axiosInstance } from "@/app/network/axios-instance";
+
 import { useCreateProposalMutation } from "../mutations/create-proposal-mutation";
+import { createProposal } from "@/app/actions";
 
 interface Props {
   questions: Question[];
@@ -14,6 +15,8 @@ interface Props {
 export const Form = ({ questions }: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+  const [isPending, startTransition] = useTransition()
+  console.log(isPending)
   const { mutate, status } = useCreateProposalMutation();
   const methods = useForm();
 
@@ -37,8 +40,10 @@ export const Form = ({ questions }: Props) => {
     });
   }
 
-  async function submit(data: any) {
-    mutate(data);
+   function submit(data: any) {
+
+    startTransition( async () => await createProposal(data))
+    // mutate(data);
   }
 
   function onClose() {
@@ -62,7 +67,7 @@ export const Form = ({ questions }: Props) => {
           <Button
             key="submit"
             type="primary"
-            loading={status === "pending"}
+            loading={isPending}
             onClick={
               isLastQuestion ? methods.handleSubmit(submit) : handleNextQuestion
             }

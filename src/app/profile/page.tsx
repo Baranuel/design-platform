@@ -16,12 +16,12 @@ export default async function Page() {
         <Suspense fallback={<div>Loading...</div>}>
       <ClientProfile/>
       </Suspense>
-        <Suspense fallback={<div>Loading...</div>}>
+        {/* <Suspense fallback={<div>Loading...</div>}>
           <hr className="my-10" />
         <Listing />
         <Collaborations />
         <Proposal />
-      </Suspense>
+      </Suspense> */}
     </section>
   );
 }
