@@ -1,5 +1,5 @@
 import { getUserFromDb } from "@/app/helpers/server/get-user-from-db";
-import prismaClient from "@/app/network/prismaClient";
+import prismaClient from "@/app/(network)/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
 

@@ -3,10 +3,10 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import StyledComponentsRegistry from '../antd/Registry'
 import { ClerkProvider } from '@clerk/nextjs'
-import { Blur } from './components/Blur'
-import { Navigation } from './components/Navigation/Navigation'
+import { Blur } from './(components)/Blur'
+import { Navigation } from './(components)/Navigation/Navigation'
 import { ConfigProvider } from 'antd'
-import TanstackProvider from './providers/TanstackProvider'
+import TanstackProvider from './(providers)/TanstackProvider'
 
 
 

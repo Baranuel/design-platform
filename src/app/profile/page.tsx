@@ -1,8 +1,8 @@
 
 import { Suspense } from "react";
-import { Listing } from "./_components/Listing";
-import { ClientProfile } from "./_components/ClientProfile";
-import { Proposal } from "./_components/Proposal";
+import { Listing } from "./(components)/Listing";
+import { ClientProfile } from "./(components)/ClientProfile";
+import { Proposal } from "./(components)/Proposal";
 
 
 export default async function Page() {

@@ -1,6 +1,6 @@
 import { Suspense, cache } from "react"
 import { ProposalsList } from "./(components)/ProposalsList"
-import { axiosInstance } from "../network/axios-instance";
+import { axiosInstance } from "../(network)/axios-instance";
 
 
 

@@ -1,19 +1,8 @@
 
 import Image from "next/image";
-import { axiosInstance } from "@/app/network/axios-instance";
-import { cache } from "react";
 import { currentUser } from "@clerk/nextjs/server";
-import { auth } from "@clerk/nextjs";
-import { User } from "../../../../global";
+import { getUser } from "@/app/helpers/get-user";
 
-  const getUser = cache(async () => {
-    const {getToken} =  auth();
-    const token = await getToken();
-    const {data} = await axiosInstance.get<User>('/profile', 
-    {headers: {Authorization: `Bearer ${token}`}});
-
-    return await data;
-  })
 
 
 export const ClientProfile = async () => {

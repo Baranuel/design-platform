@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/app/network/axios-instance";
+import { axiosInstance } from "@/app/(network)/axios-instance";
 import { useMutation } from "@tanstack/react-query";
 import { FormProps } from "antd";
 import { useUser } from "@clerk/nextjs";

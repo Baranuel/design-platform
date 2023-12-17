@@ -1,17 +1,6 @@
-import { axiosInstance } from "@/app/network/axios-instance";
-import { auth } from "@clerk/nextjs";
-import { cache } from "react";
-import { UserListing } from "../../../../global";
+import { getActiveListing } from "@/app/(server-calls)/server-listing-api";
 
-const getActiveListing = cache( async () => {
-   const {getToken} =  auth();
-    const token = await getToken();
-    const {data } = await axiosInstance.get<UserListing>("/listing", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
 
-    return  data
-  })
 
 export const Listing = async () => {
   const listing = await getActiveListing();

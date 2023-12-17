@@ -1,6 +1,6 @@
-import { Proposal, Question } from "@prisma/client";
-import prismaClient from "@/app/network/prismaClient";
-import Image from "next/image";
+import { Proposal } from "@prisma/client";
+import prismaClient from "@/app/(network)/prismaClient";
+
 import { ProposalHeader } from "./ProposalHeader";
 
 const getQuestions = async () => {
@@ -23,7 +23,7 @@ const getProposal = async (id: number) => {
   });
 }
 
-type ProposalKey = keyof Omit<Proposal, "createdAt">;
+type ProposalKey = keyof Omit<Proposal, "createdAt" | "id" | "clientId" | "status">;
 
 export const ProposalPreview = async ({id}: {id:number | undefined}) => {
   if(!id) return null 
@@ -44,7 +44,7 @@ export const ProposalPreview = async ({id}: {id:number | undefined}) => {
 
 
   return <div className=" min-h-[800px] flex flex-col items-center justify-center gap-2">
-    <ProposalHeader />
+    <ProposalHeader status={proposal?.status ?? "DRAFT"} id={proposal?.id} />
     <div className="max-w-[804px] h-full flex items-center justify-center flex-wrap gap-4">
         {primaryColumn.map((question, index) => {
             return (

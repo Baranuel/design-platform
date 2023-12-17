@@ -1,6 +1,6 @@
 import { currentUser } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
-import prismaClient from "../network/prismaClient"
+import prismaClient from "../(network)/prismaClient"
 
 export const getUser = async () => {
     const clerkUser = await currentUser()

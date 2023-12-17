@@ -1,4 +1,4 @@
-import prismaClient from "@/app/network/prismaClient";
+import prismaClient from "@/app/(network)/prismaClient";
 import Link from "next/link";
 
 

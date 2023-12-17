@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/app/network/axios-instance";
+import { axiosInstance } from "@/app/(network)/axios-instance";
 import { useQuery } from "@tanstack/react-query";
 
 

@@ -1,6 +1,6 @@
-import prismaClient from "@/app/network/prismaClient";
-import { ProposalPreview } from "@/app/profile/_components/ProposalPreveiw";
-import { clerkClient, currentUser } from "@clerk/nextjs";
+import prismaClient from "@/app/(network)/prismaClient";
+import { ProposalPreview } from "@/app/profile/(components)/ProposalPreveiw";
+import { clerkClient } from "@clerk/nextjs";
 import { Button } from "antd";
 import Image from "next/image";
 

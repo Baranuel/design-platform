@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Question } from "@prisma/client";
 import { Controller, useFormContext } from "react-hook-form";
 import { Input, Tooltip, Upload } from "antd";
@@ -7,10 +7,18 @@ import { UploadFiles } from "./UploadFiles";
 
 interface Props {
   question: Question;
+  setCurrentFieldValid: (b:boolean) => void
 }
 
-export const RenderQuestion = ({ question }: Props) => {
-  const { control, watch } = useFormContext();
+export const RenderQuestion = ({ question, setCurrentFieldValid}: Props) => {
+  const { control, formState:{errors}} = useFormContext();
+
+  const validator = (data: string) => {
+    const valid  = data.trim() && data.length >=10  ? true : false
+    valid ? setCurrentFieldValid(true) : setCurrentFieldValid(false)
+   return  valid
+  }
+
 
   return (
     <div className=" flex flex-col gap-4">
@@ -27,12 +35,19 @@ export const RenderQuestion = ({ question }: Props) => {
     key={question.id}
         name={question.title}
         control={control}
-        render={({ field }) => <UploadFiles  onChange={field.onChange} />}    
+        render={({ 
+          field,
+         }) => <UploadFiles  onChange={field.onChange} />}    
     />  :  <Controller 
-    key={question.id}
+      key={question.id}
       name={question.title}
+      rules={{  validate: validator  }}
       control={control}
-      render={({ field }) => <Input.TextArea className="min-h-[200px]" {...field} />}
+      render={({ 
+        field,
+       }) => {
+        return  <Input.TextArea  className="min-h-[200px]" {...field}  />
+       }}
     />}
     </div>
   );

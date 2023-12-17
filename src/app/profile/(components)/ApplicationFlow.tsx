@@ -1,5 +1,5 @@
 import { Form } from "./Form";
-import prismaClient from "@/app/network/prismaClient";
+import prismaClient from "@/app/(network)/prismaClient";
 
 const getQuestions = async () => {
     return await prismaClient.question.findMany();

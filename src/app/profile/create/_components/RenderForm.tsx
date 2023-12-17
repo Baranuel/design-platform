@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState, useTransition } from "react";
 import { FieldsMapper } from "./fields/FieldsMapper";
 import { useFormContext } from "react-hook-form";
 import { RenderFormProps, StepType } from "../types";
-import { createUserProfile } from "@/app/actions/user-actions";
+import { createUserProfile } from "@/app/(actions)/user-actions";
 
 
 export const RenderForm = ({ formSchema }: RenderFormProps) => {

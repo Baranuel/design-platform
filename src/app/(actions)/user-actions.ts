@@ -1,7 +1,7 @@
 'use server'
 
 import { currentUser } from "@clerk/nextjs";
-import prismaClient from "../network/prismaClient";
+import prismaClient from "../(network)/prismaClient";
 import { redirect } from "next/navigation";
 import { getUserFromDb } from "../helpers/server/get-user-from-db";
 

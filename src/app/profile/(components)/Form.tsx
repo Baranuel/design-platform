@@ -1,12 +1,11 @@
 "use client";
+
 import { Button, Modal } from "antd";
 import { FormProvider, useForm } from "react-hook-form";
 import { useState, useTransition } from "react";
 import { Question } from "@prisma/client";
 import { RenderQuestion } from "./RenderQuestion";
 
-import { useCreateProposalMutation } from "../mutations/create-proposal-mutation";
-import { createProposal } from "@/app/actions";
 
 interface Props {
   questions: Question[];
@@ -15,10 +14,14 @@ interface Props {
 export const Form = ({ questions }: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+  const[currentFieldValid, setCurrentFieldValid] = useState(false)
   const [isPending, startTransition] = useTransition()
-  console.log(isPending)
-  const { mutate, status } = useCreateProposalMutation();
-  const methods = useForm();
+  const methods = useForm({
+    mode: "onChange",
+  });
+
+  console.log(currentFieldValid)
+
 
   const isLastQuestion = currentQuestion.id === questions.length;
 
@@ -41,9 +44,8 @@ export const Form = ({ questions }: Props) => {
   }
 
    function submit(data: any) {
-
-    startTransition( async () => await createProposal(data))
-    // mutate(data);
+    console.log(data);
+    // startTransition( async () => await createProposal(data))
   }
 
   function onClose() {
@@ -92,7 +94,7 @@ export const Form = ({ questions }: Props) => {
             </p>
           )}
           <FormProvider {...methods}>
-            <RenderQuestion question={currentQuestion} />
+            <RenderQuestion setCurrentFieldValid={setCurrentFieldValid} question={currentQuestion} />
           </FormProvider>
         </form>
       </Modal>
