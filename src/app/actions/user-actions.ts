@@ -3,7 +3,7 @@
 import { currentUser } from "@clerk/nextjs";
 import prismaClient from "../network/prismaClient";
 import { redirect } from "next/navigation";
-import { userCheck } from "../helpers/server/userCheck";
+import { getUserFromDb } from "../helpers/server/get-user-from-db";
 
 
 
@@ -34,7 +34,7 @@ export const createUserProfile = async (profileData:any) => {
 }
 
 export const createClientProfile = async (profileData:any) => {
-    const user = await userCheck(); // get the user from database
+    const user = await getUserFromDb(); // get the user from database
     if(!user) { throw new Error('User not found') }
 
     await prismaClient.client.create({data:{
@@ -53,7 +53,7 @@ export const createClientProfile = async (profileData:any) => {
 }
 
 export const createDesignerProfile = async (profileData:any) => {
-    const user = await userCheck(); // get the user from database
+    const user = await getUserFromDb(); // get the user from database
     if(!user) { throw new Error('User not found') }
 
     await prismaClient.designer.create({data:{

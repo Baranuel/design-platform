@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   strictMode:false,
+  // logging: {
+  //   fetches: {
+  //     fullUrl: false,
+  //   },
+  // },
     images: {
         remotePatterns: [
           {

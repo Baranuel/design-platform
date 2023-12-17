@@ -1,17 +1,25 @@
-import { currentUser } from "@clerk/nextjs";
 
 import Image from "next/image";
-import { getUser } from "@/app/helpers/get-user";
-import { userCheck } from "@/app/helpers/server/userCheck";
-import { redirect } from "next/navigation";
+import { axiosInstance } from "@/app/network/axios-instance";
+import { cache } from "react";
+import { currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs";
+import { User } from "../../../../global";
 
+  const getUser = cache(async () => {
+    const {getToken} =  auth();
+    const token = await getToken();
+    const {data} = await axiosInstance.get<User>('/profile', 
+    {headers: {Authorization: `Bearer ${token}`}});
+
+    return await data;
+  })
 
 
 export const ClientProfile = async () => {
-  const user = await userCheck();
-  if(!user) redirect('/profile/create')
-  
   const clerkUser = await currentUser();
+  const user = await getUser();
+
   const info = user.client?.clientInformation;
 
   return (
@@ -45,7 +53,7 @@ export const ClientProfile = async () => {
           <span>
             <span className="text-stone-700 text-sm mb-1">Industry Focus</span>
             <span className="flex  gap-2 ">
-                  {info?.companyIndustry.map((item, index) => (
+                  {info?.companyIndustry.map((item:any, index:any) => (
                     <span
                       key={index}
                       className="whitespace-nowrap p-1 rounded-md flex items-center text-[13px] text-purple border-solid border-purple font-medium "

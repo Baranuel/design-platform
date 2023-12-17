@@ -1,16 +1,23 @@
-import { authMiddleware, currentUser, redirectToSignIn, RedirectToUserProfile } from "@clerk/nextjs";
+import { authMiddleware, redirectToSignIn, } from "@clerk/nextjs/server";
+
 
 export default authMiddleware({
 
- async  afterAuth(auth, req, evt) {
-    // handle users who aren't authenticated
-    if (!auth.userId && !auth.isPublicRoute) {
-      return redirectToSignIn({ returnBackUrl: req.url });
-    } },
+  async afterAuth(auth, req, evt) {
 
+      console.log('auth', auth)
+      // handle users who aren't authenticated
+      if (!auth.userId && !auth.isPublicRoute) {
+        return redirectToSignIn({ returnBackUrl: req.url });
+      } 
+    
+    },
+    
+  apiRoutes: ["/api/(.*)"],
   publicRoutes: ["/"],
+
 });
  
 export const config = {
-      matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 };

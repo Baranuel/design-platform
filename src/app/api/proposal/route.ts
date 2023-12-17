@@ -1,3 +1,4 @@
+import { getUserFromDb } from '@/app/helpers/server/get-user-from-db';
 import { getAuth } from '@clerk/nextjs/server';
 import { PrismaClient } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
@@ -6,21 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
 const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
-    const { userId } = getAuth(request);
-    if (!userId) {
-        return NextResponse.json({ status: 401, error: "Not authenticated" });
-    }
-
-    const user = await prisma.user.findUnique({
-        where: {
-            clerkId: userId,
-        },
-        include: {
-            client: true,
-        },
-    })
-
-    if (!user || !user.client) return NextResponse.json({ status: 404, error: "User not found" });
+    const user = await getUserFromDb();
 
 
     const body = await request.json();
@@ -35,21 +22,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-    const { userId } = getAuth(request);
-    if (!userId) {
-        return NextResponse.json({ status: 401, error: "Not authenticated" });
-    }
-    const user = await prisma.user.findUnique({
-        where: {
-            clerkId: userId,
-        },
-        include: {
-            client: true,
-        },
-    })
-
-    if (!user || !user.client) return NextResponse.json({ status: 404, error: "User not found" });
-
+    const user = await getUserFromDb();
     const proposal = await prisma.proposal.findFirst({
         where: {
             clientId: user.id,
@@ -59,5 +32,5 @@ export async function GET(request: NextRequest) {
         },
     })
 
-    return NextResponse.json({ status: 200, data: proposal });
+    return NextResponse.json(proposal);
 }

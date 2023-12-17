@@ -1,10 +1,11 @@
-import { Suspense } from "react"
+import { Suspense, cache } from "react"
 import { ProposalsList } from "./(components)/ProposalsList"
-
+import { axiosInstance } from "../network/axios-instance";
 
 
 
 export default async function Listings () { 
+
 
 
     return (

@@ -1,10 +1,10 @@
 import prismaClient from "@/app/network/prismaClient";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 
 
-export const userCheck = async () => {
+export const getUserFromDb = async () => {
     const user = await currentUser();
     if (!user) { throw new Error('Not authenticated')}
 
@@ -21,7 +21,7 @@ export const userCheck = async () => {
             }
         },
     })
-    if(!prismaUser) redirect('/profile/create')
 
+    if(!prismaUser) redirect('/profile/create')
     return prismaUser
 }
