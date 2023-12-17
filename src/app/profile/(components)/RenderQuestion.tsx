@@ -11,11 +11,10 @@ interface Props {
 }
 
 export const RenderQuestion = ({ question, setCurrentFieldValid}: Props) => {
-  const { control, formState:{errors}} = useFormContext();
+  const { control } = useFormContext();
 
   const validator = (data: string) => {
     const valid  = data.trim() && data.length >=10  ? true : false
-    valid ? setCurrentFieldValid(true) : setCurrentFieldValid(false)
    return  valid
   }
 

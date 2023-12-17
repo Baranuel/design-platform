@@ -1,10 +1,11 @@
 "use client";
 
 import { Button, Modal } from "antd";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, set, useForm } from "react-hook-form";
 import { useState, useTransition } from "react";
 import { Question } from "@prisma/client";
 import { RenderQuestion } from "./RenderQuestion";
+import { createProposal } from "@/app/(actions)/proposal-actions";
 
 
 interface Props {
@@ -20,7 +21,7 @@ export const Form = ({ questions }: Props) => {
     mode: "onChange",
   });
 
-  console.log(currentFieldValid)
+  const currentFieldHasError = !!methods.formState.errors[currentQuestion.title];
 
 
   const isLastQuestion = currentQuestion.id === questions.length;
@@ -44,8 +45,7 @@ export const Form = ({ questions }: Props) => {
   }
 
    function submit(data: any) {
-    console.log(data);
-    // startTransition( async () => await createProposal(data))
+    startTransition( async () => await createProposal(data))
   }
 
   function onClose() {
@@ -69,6 +69,7 @@ export const Form = ({ questions }: Props) => {
           <Button
             key="submit"
             type="primary"
+            disabled={currentFieldHasError}
             loading={isPending}
             onClick={
               isLastQuestion ? methods.handleSubmit(submit) : handleNextQuestion
