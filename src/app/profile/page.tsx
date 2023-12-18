@@ -14,8 +14,8 @@ export default async function Page() {
       </Suspense>
     </div>
 
-      <hr className="my-10" />
-      <div className="w-full min-h-[200px] flex flex-col gap-3 my-6 relative  ">
+      <hr className="my-10 border-none h-[1px] bg-stone-200"  />
+      <div className="w-full min-h-[100px] flex flex-col gap-3 my-6 relative  ">
         <h1>Active Listings</h1>
       <Suspense fallback={<div>Loading...</div>}>
         <Listing />
