@@ -12,9 +12,8 @@ export const ClientProfile = async () => {
   const info = user.client?.clientInformation;
 
   return (
-    <div className="flex flex-col gap-3 mt-24">
-        <h1 className="text-2xl">Profile Information</h1>
-      <div className="flex gap-4 bg-white border-solid border-stone-200 rounded-md  h-[320px] w-full min-h-fit p-6">
+ 
+      <div className="flex gap-4 bg-white border-solid border-stone-200 rounded-md   w-full min-h-fit p-6">
         <div className="w-1/5 justify-center items-start flex">
           <div className="bg-blue-500 relative rounded-full w-32 h-32 overflow-hidden">
             <Image src={clerkUser?.imageUrl ?? ""} alt="user picture" fill />
@@ -66,6 +65,5 @@ export const ClientProfile = async () => {
           {/* Profile Information*/}
             </div>
           </div>
-    </div>
   );
 };

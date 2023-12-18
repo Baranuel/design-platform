@@ -30,13 +30,14 @@ export const RenderQuestion = ({ question}: Props) => {
       )}
     {question.title === 'files' ? 
     <Controller
-    key={question.id}
+        key={question.id}
         name={question.title}
         control={control}
         render={({ 
           field,
          }) => <UploadFiles  onChange={field.onChange} />}    
-    />  :  <Controller 
+    />  : 
+     <Controller 
       key={question.id}
       name={question.title}
       rules={{ required:true, validate: validator  }}

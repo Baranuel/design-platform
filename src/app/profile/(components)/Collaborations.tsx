@@ -1,35 +1,19 @@
-import prismaClient from "@/app/(network)/prismaClient"
+import { getCollaborations } from "@/app/(database-queries)/collaboration-queries"
 
 
-const getProposalList = async () => {
-    return await prismaClient.proposal.findMany({
-        include: {
-            client: {
-                include: {
-                    user: true,
-                    clientInformation: true
-                }
-            }
-        }
-    })
-
-}
 
 export const Collaborations = async () => {
-    const list = await getProposalList()
+    const collaborations = await getCollaborations()
     return (
-        <div className="w-full h-[250px] flex flex-col gap-3   ">
-        <h1>Ongoing Collaborations</h1>
-        <div className="w-full h-full flex flex-col items-center justify-start gap-4">
-            {list.map((proposal) => {
-                return (
-                    <div key={proposal.id} className="w-full h-20 p-6 flex bg-white rounded-md border-solid border-stone-200 items-center justify-start gap-4">
-                        <span>{proposal.client?.clientInformation?.companyName}</span>
+        <>
+        {collaborations.length > 0 ? 
+        <div>yes</div> :
+        <div className="flex items-start justify-center h-full p-6 border-solid border-stone-200 rounded-md bg-stone-50 flex-col gap-3">
+                <span>No Ongoing Collaborations, if you approve designers to work on your website you will abe able to see their work here.</span>
 
-                    </div>
-                )
-            })}
             </div>
-    </div>
+        }
+        </>
+
     )
 }

@@ -1,21 +1,9 @@
 
 import { ApplicationFlow } from "./ApplicationFlow";
 import { ProposalPreview } from "./ProposalPreveiw";
-import { auth } from "@clerk/nextjs";
-import { axiosInstance } from "@/app/(network)/axios-instance";
-import { UserProposal } from "../../../../global";
-import { getUser } from "@/app/(server-calls)/server-user-api";
+import { getUser } from "@/app/(database-queries)/user-queries";
+import { getProposal } from "@/app/(database-queries)/proposal-queries";
 
-
-
-const getProposal = async () => {
-  const {getToken} =  auth();
-  const token = await getToken();
-  const {data} = await axiosInstance.get<UserProposal>(`/proposal`,{
-    headers: {Authorization: `Bearer ${token}`}
-  })
-  return data
-}
 
 
 export const Proposal = async () => {

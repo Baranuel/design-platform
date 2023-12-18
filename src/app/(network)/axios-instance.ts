@@ -12,17 +12,4 @@ export const axiosInstance = axios.create({
 
 
 
-axiosInstance.interceptors.request.use(
-    async config => {
-        const {getToken} = auth()
-      const token = await getToken()
-      if (token) {
-        config.headers.Authorization = "Bearer "+token
-      }
-      return config
-    },
-    error => {
-      return Promise.reject(error)
-    }
-  );
 

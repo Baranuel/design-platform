@@ -1,6 +1,7 @@
 import { Suspense, cache } from "react"
-import { ProposalsList } from "./(components)/ProposalsList"
-import { axiosInstance } from "../(network)/axios-instance";
+import { ActiveListings } from "./(components)/ActiveListings"
+
+
 
 
 
@@ -13,7 +14,7 @@ export default async function Listings () {
             <div className="min-h-[300px]"></div>
             <hr />
         <Suspense fallback={<div>Loading...</div>}>
-            <ProposalsList />
+            <ActiveListings />
         </Suspense>
         </section>
     )

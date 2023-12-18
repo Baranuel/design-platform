@@ -96,7 +96,10 @@ export const Form = ({ questions }: Props) => {
           <FormProvider {...methods}>
             <RenderQuestion  question={currentQuestion} />
           </FormProvider>
-          <span className={`pt-2 ${currentFieldHasError ? "text-red-500" : "text-green-500"}`}>{`Your answer needs to contain at least 50 characters | ${currentFieldValue ? currentFieldValue.length : 0}`}</span>
+          {currentQuestion.id !== 8 && (
+            <span className={`pt-2 ${currentFieldHasError ? "text-red-500" : "text-green-500"}`}>{`Your answer needs to contain at least 50 characters | ${currentFieldValue ? currentFieldValue.length : 0}`}</span>
+
+          )}
         </form>
       </Modal>
     </>

@@ -6,6 +6,7 @@ import { useCallback, useRef, useState } from "react";
 import { useUploadFileMutation } from "../mutations/upload-file-mutation";
 import { useFormContext } from "react-hook-form";
 import { PutBlobResult } from "@vercel/blob";
+import { UploadChangeParam } from "antd/es/upload";
 
 
 const { Dragger } = Upload;
@@ -20,12 +21,15 @@ export const UploadFiles = ({ onChange }: Props) => {
 
   const {mutateAsync, status} = useUploadFileMutation()
 
-  const handleOnChange = useCallback(async (fileData: any) => {
+  const handleOnChange = useCallback(async (fileData:UploadChangeParam<UploadFile>) => {
     if(fileData.file.status === 'removed') return
     const fileSet = Array.from(new Set([...fileList, ...fileData.fileList]))
     setFileList(fileSet)
 
-    const data = await mutateAsync(fileData)
+    const form = new FormData()
+    form.append('file', fileData.file as unknown as Blob) 
+
+    const data = await mutateAsync(form)
     files.current = [...files.current, data.url]
 
     onChange(files.current);

@@ -5,7 +5,6 @@ export default authMiddleware({
 
   async afterAuth(auth, req, evt) {
 
-      console.log('auth', auth)
       // handle users who aren't authenticated
       if (!auth.userId && !auth.isPublicRoute) {
         return redirectToSignIn({ returnBackUrl: req.url });

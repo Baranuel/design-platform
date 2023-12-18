@@ -8,18 +8,17 @@ import prismaClient from "../(network)/prismaClient";
 export const createProposal = async (proposalData:any) => {
     const user = await getUserFromDb();
     const proposal = { ...proposalData, clientId: user?.client?.id };
-   await prismaClient.proposal.create({
+    
+   const createdProposal = await prismaClient.proposal.create({
         data: proposal
     })
-    revalidatePath('/profile')
-}
+    if(!createdProposal) return;
 
-
-export const publishProposal = async (proposalId:number) => {
-
-    await prismaClient.proposal.update({
-        where: {id: proposalId},
-        data: {status: 'PUBLISHED'}
+    await prismaClient.proposalListing.create({
+        data: {
+            proposalId: createdProposal.id,
+            clientId: createdProposal.clientId
+        }
     })
     revalidatePath('/profile')
 }

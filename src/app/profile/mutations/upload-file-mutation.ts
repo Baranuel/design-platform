@@ -8,13 +8,13 @@ import { PutBlobResult } from "@vercel/blob";
 export const useUploadFileMutation = () => {
 
     return useMutation({
-        mutationFn: async (data: any) => {
-            const formData = new FormData();
-            formData.append("file", data.file);
+        mutationFn: async (data: FormData) => {
+
+            const file = data.get('file') as File;
         
             const { data: blob } = await axiosInstance.post<PutBlobResult>(
-              `/files?filename=${data.file.name}`,
-              formData,
+              `/files?filename=${file.name}`,
+              data,
               {
                 headers: {
                   "Content-Type": "multipart/form-data",

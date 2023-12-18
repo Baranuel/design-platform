@@ -13,9 +13,9 @@ enum Role {
   DESIGNER
 }
 
-enum ProposalStatus {
-  DRAFT
-  PUBLISHED
+enum ProposalListingStatus {
+  ACTIVE
+  INACTIVE
 }
 
 model User {
@@ -75,7 +75,6 @@ model Proposal {
   clientId           Int      @unique
   createdAt          DateTime @default(now())
   proposalListing    ProposalListing?
-  status             ProposalStatus @default(DRAFT)
   brief              String
   websiteUse         String
   websiteLacking     String
@@ -95,6 +94,7 @@ model ProposalListing {
   interestedDesigners DesignerListing[]
   clientId           Int      @unique
   proposalId Int    @unique
+  status             ProposalListingStatus @default(ACTIVE)
   client     Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
   proposal  Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
 }
