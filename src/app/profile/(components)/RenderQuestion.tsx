@@ -7,15 +7,14 @@ import { UploadFiles } from "./UploadFiles";
 
 interface Props {
   question: Question;
-  setCurrentFieldValid: (b:boolean) => void
 }
 
-export const RenderQuestion = ({ question, setCurrentFieldValid}: Props) => {
-  const { control } = useFormContext();
+export const RenderQuestion = ({ question}: Props) => {
+  const { control, formState:{errors} } = useFormContext();
 
   const validator = (data: string) => {
-    const valid  = data.trim() && data.length >=10  ? true : false
-   return  valid
+  const valid  = data.length && data.length >= 50 ? true : false
+   return valid
   }
 
 
@@ -40,12 +39,12 @@ export const RenderQuestion = ({ question, setCurrentFieldValid}: Props) => {
     />  :  <Controller 
       key={question.id}
       name={question.title}
-      rules={{  validate: validator  }}
+      rules={{ required:true, validate: validator  }}
       control={control}
       render={({ 
         field,
        }) => {
-        return  <Input.TextArea  className="min-h-[200px]" {...field}  />
+        return  <Input.TextArea   className="min-h-[200px]" {...field}  />
        }}
     />}
     </div>

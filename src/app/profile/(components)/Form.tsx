@@ -15,16 +15,15 @@ interface Props {
 export const Form = ({ questions }: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
-  const[currentFieldValid, setCurrentFieldValid] = useState(false)
   const [isPending, startTransition] = useTransition()
   const methods = useForm({
     mode: "onChange",
   });
 
-  const currentFieldHasError = !!methods.formState.errors[currentQuestion.title];
-
-
+  const currentFieldValue = methods.watch(currentQuestion.title);
+  const currentFieldHasError =  currentFieldValue === undefined || !!methods.formState.errors[currentQuestion.title]
   const isLastQuestion = currentQuestion.id === questions.length;
+
 
   function handleNextQuestion() {
     setCurrentQuestion((prevQuestion) => {
@@ -95,8 +94,9 @@ export const Form = ({ questions }: Props) => {
             </p>
           )}
           <FormProvider {...methods}>
-            <RenderQuestion setCurrentFieldValid={setCurrentFieldValid} question={currentQuestion} />
+            <RenderQuestion  question={currentQuestion} />
           </FormProvider>
+          <span className={`pt-2 ${currentFieldHasError ? "text-red-500" : "text-green-500"}`}>{`Your answer needs to contain at least 50 characters | ${currentFieldValue ? currentFieldValue.length : 0}`}</span>
         </form>
       </Modal>
     </>
