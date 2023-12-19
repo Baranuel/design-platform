@@ -15,6 +15,13 @@ export const getActiveListing = cache(async () => {
         },
         include: {
             proposal: true,
+            interestedDesigners:{
+                include: {
+                    designer: {
+                        include: { designerInformation: true, user: true }
+                    },
+                }
+            },
             client: {
                 include: { clientInformation: true, proposal: true }
             }
