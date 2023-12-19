@@ -1,5 +1,5 @@
 import { Carousel } from './(components)/Carousel/Carousel'
-import { Blur } from "./(components)/Blur";
+
 import { HeroSection } from "./(components)/Hero/HeroSection";
 import { Process } from './(components)/Process/Process';
 

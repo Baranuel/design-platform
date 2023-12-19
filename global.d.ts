@@ -22,6 +22,13 @@ const userListing = Prisma.validator<Prisma.ProposalListingDefaultArgs>()({
         proposal: true,
         client: {
             include: { clientInformation: true, proposal: true }
+        },
+        interestedDesigners: {
+            include: {
+                designer: {
+                    include: { designerInformation: true, user: true }
+                },
+            }
         }
     }
 })

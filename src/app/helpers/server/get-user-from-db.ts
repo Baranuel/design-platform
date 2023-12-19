@@ -5,12 +5,12 @@ import { redirect } from "next/navigation";
 
 
 export const getUserFromDb = async () => {
-    const user = await currentUser();
-    if (!user) { throw new Error('Not authenticated')}
+    const clerkUser = await currentUser();
+    if (!clerkUser) { throw new Error('Not authenticated')}
 
     const prismaUser = await prismaClient.user.findUnique({
         where: {
-            clerkId: user.id,
+            clerkId: clerkUser.id,
         },
         include: {
             client: {

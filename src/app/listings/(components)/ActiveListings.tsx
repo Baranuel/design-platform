@@ -11,7 +11,7 @@ export const ActiveListings = async () => {
          <div className="my-4 flex flex-col gap-3">
         {activeListings.map((listings) => {
                 return (
-                    <Link href={`/listings/${listings.id}`} className="flex flex-col gap-1 no-underline text-black bg-white shadow-sm min-h-[140px] border-solid border-stone-200 rounded-md p-6" key={listings.id}>
+                    <Link href={`/listing/${listings.id}`} className="flex flex-col gap-1 no-underline text-black bg-white shadow-sm min-h-[140px] border-solid border-stone-200 rounded-md p-6" key={listings.id}>
                         <div className=" flex items-center gap-2">
                         <span className="text-lg font-semibold">{listings.client?.clientInformation?.companyName}</span>
                         <div className="mb-1 flex gap-2">{listings.client?.clientInformation?.companyIndustry.map((category,index) => (

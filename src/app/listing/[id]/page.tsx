@@ -3,6 +3,8 @@ import { ProposalPreview } from "@/app/profile/(components)/ProposalPreveiw";
 import { clerkClient } from "@clerk/nextjs";
 import { Button } from "antd";
 import Image from "next/image";
+import { RequestCollaborationButton } from "./(components)/RequestCollaborationButton";
+import { getUser } from "@/app/(database-queries)/user-queries";
 
 
 
@@ -14,7 +16,7 @@ export default async function ListingPage ({
     params: { id: string };
     searchParams?: { [key: string]: string | string[] | undefined };
   }) {
-
+    const user = await getUser();
     const listingById = await getListingById(+params.id)
     const clerkUser = await clerkClient.users.getUser(listingById?.client?.user?.clerkId ?? "");
 
@@ -64,10 +66,13 @@ export default async function ListingPage ({
                 <span className="text-purple opacity-70">{listingById?.client.user.role}</span>
                 </span>
                </div>
-                <Button type="primary" className="rounded-md min-h-[40px]">Request Collaboration</Button>
+                {listingById && (
+                    <RequestCollaborationButton listing={listingById} user={user} />
+                
+                )}
           </div>
           <hr />
-          <ProposalPreview id={listingById?.proposalId} />
+          {/* <ProposalPreview id={listingById?.proposalId} /> */}
         </section>
     )   
 }

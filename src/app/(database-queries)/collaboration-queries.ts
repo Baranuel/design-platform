@@ -9,3 +9,5 @@ export const getCollaborations = cache(async () => {
     const collaborations = await prismaClient.collaboration.findMany()
     return collaborations
   })
+
+
