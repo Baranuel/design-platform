@@ -1,5 +1,6 @@
 import { getDesignersRequestingCollaboration } from "@/app/(database-queries)/listing-queries";
 import { DesignerListItem } from "./DesignerListItem";
+import { AliwangwangOutlined } from "@ant-design/icons";
 
 export const RequestedCollaboration = async () => {
   const requestedCollaborations = await getDesignersRequestingCollaboration();
@@ -16,19 +17,24 @@ export const RequestedCollaboration = async () => {
   };
 
   return (
-   <div className="min-h-[200px] w-full">
-     <table className=" border-separate border-spacing-4  table-auto w-full">
-          <thead className="">
-            <tr className="text-left">
-              <th className="font-semibold">Name</th>
-              <th className="font-semibold">Years of experience</th>
-              <th className="font-semibold">Contact</th>
-              <th className="font-semibold">Portfolio</th>
-            </tr>
-          </thead>
+   <div className="min-h-[200px] h-[200px] w-full">
+    {requestedCollaborations.length > 0 ? (
+         <table className=" border-separate border-spacing-4  table-auto w-full">
+         <thead className="">
+           <tr className="text-left">
+             <th className="font-semibold">Name</th>
+             <th className="font-semibold">Years of experience</th>
+             <th className="font-semibold">Contact</th>
+             <th className="font-semibold">Portfolio</th>
+           </tr>
+         </thead>
 
-          <tbody className="">{renderRequestedCollaborations()}</tbody>
-    </table>
+         <tbody className="">{renderRequestedCollaborations()}</tbody>
+   </table>
+    ) : <div className="w-full h-full flex flex-col gap-1 items-center justify-center bg-stone-100 rounded-md">
+        <AliwangwangOutlined className="text-5xl text-stone-600" />
+         <span className="text-base">   Once a designer has requested to collaborate with you, you will see them here.</span>
+        </div>}
    </div>
   );
 };
