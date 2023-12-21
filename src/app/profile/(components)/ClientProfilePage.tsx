@@ -39,7 +39,7 @@ export const ClientProfilePage = async () => {
       children: 
       <section className="min-h-[700px]">
       <div className="w-full min-h-[500px] flex flex-col gap-3 my-6 relative  ">
-     <h1>Designer who would like to start working with you</h1>
+     <h1>Designer Requested working with you</h1>
      <Suspense fallback={<div>Loading...</div>}>
        <RequestedCollaboration />
      </Suspense>

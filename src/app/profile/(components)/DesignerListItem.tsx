@@ -31,6 +31,9 @@ export const DesignerListItem = async ({
         {user?.designer?.designerInformation?.yearsOfExperience}
       </td>
       <td>
+        {clerkUser?.emailAddresses?.[0]?.emailAddress}
+      </td>
+      <td>
         <Link target="blank" href={`https://${user?.designer?.designerInformation?.portfolio}`}>{user?.designer?.designerInformation?.portfolio}</Link>
       </td>
       <td className=" text-end ">
