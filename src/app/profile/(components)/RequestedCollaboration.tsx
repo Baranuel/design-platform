@@ -32,7 +32,7 @@ export const RequestedCollaboration = async () => {
          <tbody className="">{renderRequestedCollaborations()}</tbody>
    </table>
     ) : <div className="w-full h-full flex flex-col gap-1 items-center justify-center bg-stone-100 rounded-md">
-        <AliwangwangOutlined className="text-5xl text-stone-600" />
+        <AliwangwangOutlined className="text-5xl " />
          <span className="text-base">   Once a designer has requested to collaborate with you, you will see them here.</span>
         </div>}
    </div>

@@ -28,8 +28,8 @@ export const Listing = async () => {
         </>
        )
        : 
-       <div className="w-full h-20 p-6 flex bg-stone-50 rounded-md border-solid border-stone-200 items-center justify-start gap-4">
-         <span>Please publish your proposal to see an active listing</span>
+       <div className="w-full h-20 p-6 flex bg-stone-100 rounded-md  items-center justify-start gap-4">
+         <span className="text-base">Please publish your proposal to see an active listing</span>
         </div>
        }
       </div>
