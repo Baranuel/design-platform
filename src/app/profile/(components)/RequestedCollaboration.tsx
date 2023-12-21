@@ -1,6 +1,7 @@
 import { getDesignersRequestingCollaboration } from "@/app/(database-queries)/listing-queries";
 import { DesignerListItem } from "./DesignerListItem";
 import { AliwangwangOutlined } from "@ant-design/icons";
+import { Suspense } from "react";
 
 export const RequestedCollaboration = async () => {
   const requestedCollaborations = await getDesignersRequestingCollaboration();
@@ -8,6 +9,7 @@ export const RequestedCollaboration = async () => {
   const renderRequestedCollaborations = () => {
     return requestedCollaborations.map((designer) => {
       return (
+
         <DesignerListItem
           key={designer.designerId}
           designerId={designer.designerId}
@@ -28,8 +30,11 @@ export const RequestedCollaboration = async () => {
              <th className="font-semibold">Portfolio</th>
            </tr>
          </thead>
-
-         <tbody className="">{renderRequestedCollaborations()}</tbody>
+         <tbody className="">
+            <Suspense fallback={<div>Loading...</div>}>
+            {renderRequestedCollaborations()}
+            </Suspense>
+        </tbody>
    </table>
     ) : <div className="w-full h-full flex flex-col gap-1 items-center justify-center bg-stone-100 rounded-md">
         <AliwangwangOutlined className="text-5xl " />
