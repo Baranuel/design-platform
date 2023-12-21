@@ -1,7 +1,7 @@
 import { getActiveListing } from "@/app/(database-queries)/listing-queries";
 import Link from "next/link";
 import { UpdateListingStatus } from "./UpdateListingStatus";
-
+import { LinkOutlined } from "@ant-design/icons";
 
 
 export const Listing = async () => {
@@ -18,7 +18,10 @@ export const Listing = async () => {
           <span className={`${listing.status === 'ACTIVE' ? ' bg-gradient-to-b from-green-400 to-green-600' : 'bg-amber-400'} rounded-full w-2 h-2`}></span>
           <p className="text-sm font-medium">{listing.status}</p>
          <p className="flex-grow">
-         <Link href={`/listing/${listing.id}`} target="blank" className="no-underline  text-stone-900 text-sm font-semibold hover:underline">{listing?.client?.clientInformation?.companyName}</Link>
+         <Link href={`/listing/${listing.id}`}  className="no-underline  text-stone-900 flex gap-1 text-sm font-semibold hover:underline">
+          <span>{listing?.client?.clientInformation?.companyName} </span>
+         <LinkOutlined />
+         </Link>
          </p>
          <span className="justify-self-end text-sm">Views:{listing.views}</span>
        </div>

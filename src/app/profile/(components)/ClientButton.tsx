@@ -1,6 +1,6 @@
 "use client";
 
-import { handleEvent } from "@/app/(actions)/pusher-events";
+
 import { Button } from "antd";
 import { useTransition } from "react";
 
@@ -11,7 +11,7 @@ export const ClientButton = () => {
     <Button
       onClick={() => {
         startTransition(async () => {
-          await handleEvent();
+
         });
       }}
     >

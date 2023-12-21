@@ -1,7 +1,5 @@
 import { getListingById } from "@/app/(database-queries)/listing-queries"
-import { ProposalPreview } from "@/app/profile/(components)/ProposalPreveiw";
 import { clerkClient } from "@clerk/nextjs";
-import { Button } from "antd";
 import Image from "next/image";
 import { RequestCollaborationButton } from "./(components)/RequestCollaborationButton";
 import { getUser } from "@/app/(database-queries)/user-queries";
@@ -66,10 +64,7 @@ export default async function ListingPage ({
                 <span className="text-purple opacity-70">{listingById?.client.user.role}</span>
                 </span>
                </div>
-                {listingById && (
-                    <RequestCollaborationButton listing={listingById} user={user} />
-                
-                )}
+                {listingById && user.role === 'DESIGNER' && (  <RequestCollaborationButton listing={listingById} user={user} /> )}
           </div>
           <hr />
           {/* <ProposalPreview id={listingById?.proposalId} /> */}

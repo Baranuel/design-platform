@@ -15,7 +15,7 @@ export const getActiveListing = cache(async () => {
         },
         include: {
             proposal: true,
-            interestedDesigners:{
+            interestedDesigners: {
                 include: {
                     designer: {
                         include: { designerInformation: true, user: true }
@@ -73,4 +73,28 @@ export const getListingById = cache(async (id: number) => {
     })
 
     return listing
+})
+
+
+export const getDesignersRequestingCollaboration = cache(async () => {
+    const user = await getUserFromDb();
+    if (!user) return [];
+
+    const designers = await prismaClient.designerListing.findMany({
+        where: {
+            proposalListing: {
+                clientId: user.client?.id
+            }
+        },
+        include: {
+            designer: {
+                include: { designerInformation: true, user: true }
+            },
+            proposalListing: true
+        }
+    })
+    if (!designers) return [];
+
+    return designers
+
 })

@@ -1,9 +1,13 @@
 'use client'
-
 import { pusherClient } from "@/app/(network)/pusher-client"
+import {  Dropdown, MenuProps } from "antd"
 import { useEffect, useState } from "react"
 
 export const Notifications = () => {
+    const items: MenuProps['items'] = [
+    
+      ];
+
     const [events, setEvents] = useState(0)
     
     useEffect(() => {
@@ -19,5 +23,7 @@ export const Notifications = () => {
             pusherClient.unbind_all();
         }
     },[])
-    return <div>Notifications: {events}</div>
+    return  <Dropdown menu={{ items }} placement="bottomLeft">
+    <p>Notifications</p>
+  </Dropdown>
 }
