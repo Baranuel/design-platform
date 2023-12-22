@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { currentUser } from "@clerk/nextjs/server";
 import { getUser } from "@/app/helpers/get-user";
+import Link from "next/link";
 
 
 
@@ -36,6 +37,12 @@ export const ClientProfile = async () => {
           <span className="min-w-[110px]">
             <span className="text-stone-700 text-sm mb-1">Company Size</span>
             <p className="text-base font-medium">{info?.companySize} </p>
+          </span>
+          <span className="min-w-[110px]">
+            <span className="text-stone-700 text-sm mb-1">Company Website</span>
+            <p>
+            <Link href={`https://${info?.companyWebsite}`} target="blank" className="no-underline text-purple text-base font-medium">{info?.companyWebsite} </Link>
+            </p>
           </span>
           </div>
           <span>

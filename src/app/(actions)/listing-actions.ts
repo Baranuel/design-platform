@@ -31,6 +31,20 @@ export const setListingStatusInactive = async (id: number) => {
 }
 
 
+export const setDesignerListingStatus = async (id: number, status: 'APPROVED' | 'REJECTED') => {
+
+    await prismaClient.designerListing.update({
+        where: {
+            id: id
+        },
+        data: {
+            status: status
+        }
+    })
+    revalidatePath('/profile')
+
+}
+
 export const requestCollaborationForListing = async (id: number) => {
     const user = await getUserFromDb();
     if(user.role !== 'DESIGNER') throw new Error('Only designers can request collaborations')

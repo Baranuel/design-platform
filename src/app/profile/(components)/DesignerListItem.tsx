@@ -1,13 +1,21 @@
 import { getUserByDesignerId } from "@/app/(database-queries)/user-queries";
+import dayjs from "@/app/(packages)/extended-dayjs";
 import { clerkClient } from "@clerk/nextjs";
 import { Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { ServerActionButton } from "./ServerActionButton";
+import { notifyClientForCollaboration } from "@/app/(actions)/pusher-events";
+import { setDesignerListingStatus } from "@/app/(actions)/listing-actions";
 
 export const DesignerListItem = async ({
   designerId,
+  createdAt,
+  id
 }: {
   designerId: number;
+  createdAt: Date;
+  id: number;
 }) => {
   const user = await getUserByDesignerId(designerId);
   const clerkUser = await clerkClient.users.getUser(user?.clerkId ?? "");
@@ -23,9 +31,10 @@ export const DesignerListItem = async ({
           width={50}
           height={50}
         />
-        <span>
-          {clerkUser.firstName} {clerkUser.lastName}
-        </span>
+        <div className="flex flex-col">
+        <span>  {clerkUser.firstName} {clerkUser.lastName}</span>
+        <span className="text-xs text-stone-500">{dayjs(createdAt).fromNow()}</span>
+        </div>
       </td>
       <td className="">
         {user?.designer?.designerInformation?.yearsOfExperience}
@@ -37,8 +46,16 @@ export const DesignerListItem = async ({
         <Link target="blank" href={`https://${user?.designer?.designerInformation?.portfolio}`}>{user?.designer?.designerInformation?.portfolio}</Link>
       </td>
       <td className=" text-end ">
-        <Button className="mx-1">Accept</Button>
-        <Button>Decline</Button>
+
+        <ServerActionButton action={ async () =>  {
+          'use server'
+          await setDesignerListingStatus(id, 'APPROVED')
+        }} className="mx-1">Approve</ServerActionButton>
+
+        <ServerActionButton action={ async () =>  {
+          'use server'
+          await setDesignerListingStatus(id, 'REJECTED')
+        }}>Reject</ServerActionButton>
       </td>
 
     </tr>

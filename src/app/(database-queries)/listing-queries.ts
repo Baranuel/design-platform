@@ -87,6 +87,9 @@ export const getDesignersRequestingCollaboration = cache(async () => {
         where: {
             proposalListing: {
                 clientId: user.client?.id
+            },
+            AND: {
+                status: 'PENDING'
             }
         },
         include: {

@@ -7,12 +7,14 @@ export const RequestedCollaboration = async () => {
   const requestedCollaborations = await getDesignersRequestingCollaboration();
 
   const renderRequestedCollaborations = () => {
-    return requestedCollaborations.map((designer) => {
+    return requestedCollaborations.map((designerListing) => {
       return (
 
         <DesignerListItem
-          key={designer.designerId}
-          designerId={designer.designerId}
+          key={designerListing.designerId}
+          designerId={designerListing.designerId}
+          createdAt={designerListing.proposalListing.createdAt}
+          id={designerListing.id}
         />
       );
     });

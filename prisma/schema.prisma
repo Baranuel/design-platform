@@ -18,6 +18,12 @@ enum ProposalListingStatus {
   INACTIVE
 }
 
+enum DesignerListingStatus {
+  APPROVED
+  PENDING
+  REJECTED
+}
+
 model User {
   id         Int       @id @default(autoincrement())
   clerkId    String    @unique
@@ -99,13 +105,13 @@ model ProposalListing {
   proposal  Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
 }
 model DesignerListing {
+  id         Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   designerId Int      
   proposalId Int      
+  status     DesignerListingStatus @default(PENDING)
   designer   Designer @relation(fields: [designerId], references: [id], onDelete: Cascade)
   proposalListing ProposalListing @relation(fields: [proposalId], references: [id], onDelete: Cascade)
-
-  @@id([designerId, proposalId])
 }
 
 model Question {

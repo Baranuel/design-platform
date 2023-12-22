@@ -6,8 +6,11 @@ import { Collaborations } from "./Collaborations";
 import { Proposal } from "./Proposal";
 import { ClientProfile } from "./ClientProfile";
 import { RequestedCollaboration } from "./RequestedCollaboration";
+import { getDesignersRequestingCollaboration } from "@/app/(database-queries)/listing-queries";
 
 export const ClientProfilePage = async () => {
+  const requestedCollaborations = await getDesignersRequestingCollaboration();
+
   const items: TabsProps['items'] = [
     {
       key: '1',
@@ -35,7 +38,11 @@ export const ClientProfilePage = async () => {
     },
     {
       key: '2',
-      label: <span className="p-4">Requested Collaborations</span>,
+      label: <div className="p-4 relative">
+       <span> Requested Collaborations</span>
+       {requestedCollaborations.length > 0 && <span className="absolute top-0 right-0 p-1 bg-red-500 rounded-full w-4 h-4 text-[10px] flex items-center justify-center font-bold text-white ">{requestedCollaborations.length}</span> }
+      
+        </div>,
       children: 
       <section className="min-h-[700px]">
       <div className="w-full min-h-[500px] flex flex-col gap-3 my-6 relative  ">
