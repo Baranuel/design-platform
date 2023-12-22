@@ -6,6 +6,7 @@ import prismaClient from "../(network)/prismaClient";
 
 export const getProposal = cache(async () => {
     const user = await getUserFromDb();
+    if (!user) return null;
     const proposal = await prismaClient.proposal.findUnique({
         where: {
             clientId: user.client?.id

@@ -27,6 +27,7 @@ export const getActiveListing = cache(async () => {
             }
         }
     })
+    if (!listing) return null;
 
     return listing
 })
@@ -74,6 +75,8 @@ export const getListingById = cache(async (id: number) => {
 
     return listing
 })
+
+
 
 
 export const getDesignersRequestingCollaboration = cache(async () => {

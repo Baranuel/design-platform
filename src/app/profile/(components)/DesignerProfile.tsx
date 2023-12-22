@@ -9,7 +9,7 @@ export const DesignerProfile = async () => {
   const clerkUser = await currentUser();
   const user = await getUser();
 
-  const info = user.client?.clientInformation;
+  const info = user.designer?.designerInformation;
 
   return (
  
@@ -22,34 +22,25 @@ export const DesignerProfile = async () => {
         <div className="flex flex-col gap-3 w-full items-start mt-4">
           <div className="w-full flex justify-between items-center">
           <span>
-            <span className="text-stone-700 text-sm mb-1">Company</span>
-            <h1 className="text-xl">{info?.companyName}</h1>
+            <span className="text-stone-700 text-sm mb-1">University</span>
+            <h1 className="text-xl">{info?.university}</h1>
           </span>
           <p className="text-purple">{user.role}</p>
           </div>
           <div className="flex gap-10">
           <span className="min-w-[110px]">
-            <span className="text-stone-700 text-sm mb-1">Business Owner</span>
+            <span className="text-stone-700 text-sm mb-1">Designer</span>
             <p className="text-base font-medium">{clerkUser?.firstName} {clerkUser?.lastName}</p>
           </span>
           
           <span className="min-w-[110px]">
-            <span className="text-stone-700 text-sm mb-1">Company Size</span>
-            <p className="text-base font-medium">{info?.companySize} </p>
+            <span className="text-stone-700 text-sm mb-1">Years of Experience</span>
+            <p className="text-base font-medium">{info?.yearsOfExperience} </p>
           </span>
           </div>
-          <span>
-            <span className="text-stone-700 text-sm mb-1">Industry Focus</span>
+            <span className="text-stone-700 text-sm mb-1">Portfolio</span>
             <span className="flex  gap-2 ">
-                  {info?.companyIndustry.map((item:any, index:any) => (
-                    <span
-                      key={index}
-                      className="whitespace-nowrap p-1 rounded-md flex items-center text-[13px] text-purple border-solid border-purple font-medium "
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </span>
+                {info?.portfolio}
           </span>
           <div className="flex gap-10">
           <span className="min-w-[110px]">
