@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { currentUser } from "@clerk/nextjs/server";
 import { getUser } from "@/app/helpers/get-user";
+import Link from "next/link";
 
 
 
@@ -38,9 +39,12 @@ export const DesignerProfile = async () => {
             <p className="text-base font-medium">{info?.yearsOfExperience} </p>
           </span>
           </div>
+          <span className="min-w-[110px]">
             <span className="text-stone-700 text-sm mb-1">Portfolio</span>
-            <span className="flex  gap-2 ">
-                {info?.portfolio}
+            <p>
+            <Link href={`https://${info?.portfolio}`} target={'blank'} className="no-underline text-purple text-base font-medium">{info?.portfolio} </Link>
+
+            </p>
           </span>
           <div className="flex gap-10">
           <span className="min-w-[110px]">
