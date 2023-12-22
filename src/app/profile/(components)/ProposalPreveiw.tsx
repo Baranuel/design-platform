@@ -29,7 +29,7 @@ export const ProposalPreview = async ({id}: {id:number | undefined}) => {
 
 
 
-  return <div className=" min-h-[800px] rounded-md border-solid border-stone-200 p-6 flex flex-col items-center justify-center gap-3">
+  return <div className=" min-h-[800px] rounded-md border-solid border-[1px] border-gray-300  p-6 flex flex-col items-center justify-center gap-3">
 
 <div className="w-full flex flex-col gap-3">
   <h3>Files</h3>

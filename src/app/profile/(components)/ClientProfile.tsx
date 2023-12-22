@@ -14,7 +14,7 @@ export const ClientProfile = async () => {
 
   return (
  
-      <div className="flex gap-4 bg-white border-solid border-stone-200 rounded-md   w-full min-h-fit p-6">
+      <div className="flex gap-4 bg-white border-solid border-[1px] border-gray-300  rounded-md   w-full min-h-fit p-6">
         <div className="w-1/5 justify-center items-start flex">
           <div className="bg-blue-500 relative rounded-full w-32 h-32 overflow-hidden">
             <Image src={clerkUser?.imageUrl ?? ""} alt="user picture" fill />

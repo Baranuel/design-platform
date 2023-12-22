@@ -1,19 +1,37 @@
 import { getListingById } from "@/app/(database-queries)/listing-queries"
+import { clerkClient } from "@clerk/nextjs"
+import Image from "next/image"
+import Link from "next/link"
 
 
 export const ListingBanner = async ({id}:{id:number}) => {
     const listingById = await getListingById(id)
-
+    const clerkUser = await clerkClient.users.getUser(listingById?.client?.user?.clerkId ?? "")
+    const info = listingById?.client.clientInformation
 
     return (
         <>
           <div className=" flex flex-col w-3/5 gap-6 ">
           <span>
-          <span className="text-stone-700 text-sm mb-1">Company</span>
-          <h1 className="text-xl">
-              {listingById?.client?.clientInformation?.companyName}
-            </h1>
+            <span className="text-stone-700 text-sm mb-1">Company</span>
+            <h1 className="text-xl">{info?.companyName}</h1>
           </span>
+        <div className="flex gap-4">
+          <span className="min-w-[110px]">
+            <span className="text-stone-700 text-sm mb-1">Business Owner</span>
+            <p className="text-base font-medium">{clerkUser?.firstName} {clerkUser?.lastName}</p>
+          </span>
+        <span className="min-w-[110px]">
+            <span className="text-stone-700 text-sm mb-1">Company Size</span>
+            <p className="text-base font-medium">{info?.companySize} </p>
+          </span>
+          <span className="min-w-[110px]">
+            <span className="text-stone-700 text-sm mb-1">Company Website</span>
+            <p>
+            <Link href={`https://${info?.companyWebsite}`} target="blank" className="no-underline text-purple text-base font-medium">{info?.companyWebsite} </Link>
+            </p>
+          </span>
+        </div>
           <span>
           <span className="text-stone-700 text-sm mb-1">Industry Focus</span>
             <div className="mt-1 flex gap-1">
@@ -33,24 +51,10 @@ export const ListingBanner = async ({id}:{id:number}) => {
             <p className="text-base ">{listingById?.client.clientInformation?.companyDescription}</p>
           </span>
           </div>
-          <div className="w-2/5 h-full bg-stone-500 rounded-md ">
-    
-          </div>
-          {/* <div className="h-[80px] my-4 flex items-center justify-between ">
-               <div className="flex gap-2 items-center w-[200px] h-full ">
-                <div className="w-12 h-12 rounded-full relative overflow-hidden bg-black">
-                    <Image src={clerkUser?.imageUrl ?? ""} alt="image" fill />
-                </div>
-                <span className="flex  flex-col ">
-                <span className="flex gap-1">
-                <p className="text-base ">{clerkUser?.firstName}</p>
-                <p className="text-base ">{clerkUser?.lastName}</p>
-                </span>
-                <span className="text-purple opacity-70">{listingById?.client.user.role}</span>
-                </span>
-               </div>
-                {listingById && user.role === 'DESIGNER' && (  <RequestCollaborationButton listing={listingById} user={user} /> )}
-          </div> */}
+          <div className=" relative w-2/5 h-full bg-stone-500 rounded-md overflow-hidden ">
+            <Image className="object-cover" src={clerkUser.imageUrl} alt="company logo" fill />
+          </div>    
+   
         </>
     )
 }

@@ -31,18 +31,51 @@ export const setListingStatusInactive = async (id: number) => {
 }
 
 
-export const setDesignerListingStatus = async (id: number, status: 'APPROVED' | 'REJECTED') => {
+export const approveDesignerListing = async (id: number) => {
 
-    await prismaClient.designerListing.update({
+    const listing = await prismaClient.designerListing.update({
         where: {
             id: id
         },
         data: {
-            status: status
+            status: "APPROVED"
+        },
+        include: {
+            designer: true,
+            proposalListing: true
         }
+    })
+    if(!listing || !listing.designer || !listing.proposalListing) return;
+
+    const chat = await prismaClient.chat.create({})
+
+     await prismaClient.collaboration.create({
+        data: {
+            clientId: listing.proposalListing.clientId,
+            designerId: listing.designer.id,
+            designerListingId: listing.id,
+            chatId: chat.id,
+            status: 'PENDING',
+            progress: "0",
+            linkToDesign: ""
+        }
+       
     })
     revalidatePath('/profile')
 
+}
+
+export const rejectDesignerListing = async (id: number) => {
+    
+        await prismaClient.designerListing.update({
+            where: {
+                id: id
+            },
+            data: {
+                status: "REJECTED"
+            }
+        })
+        revalidatePath('/profile')
 }
 
 export const requestCollaborationForListing = async (id: number) => {

@@ -51,7 +51,7 @@ export const RequestCollaborationButton = ({
               await requestCollaborationForListing(listing.id);
             });
           }}
-          className="w-[100px] min-h-[40px] rounded-md text-white font-semibold"
+          className="min-w-[100px] min-h-[40px] rounded-md text-white font-semibold"
         >
           Click me
         </Button>

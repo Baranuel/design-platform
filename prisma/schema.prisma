@@ -112,6 +112,7 @@ model DesignerListing {
   status     DesignerListingStatus @default(PENDING)
   designer   Designer @relation(fields: [designerId], references: [id], onDelete: Cascade)
   proposalListing ProposalListing @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+  collaboration Collaboration?
 }
 
 model Question {
@@ -123,16 +124,19 @@ model Question {
 
 model Collaboration {
   id           Int    @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  designerListingId Int   @unique
   designerId   Int    @unique
   clientId     Int    @unique
-  chatId       Int    @unique
+  chatId       Int?    @unique
   status       String
   progress     String
   linkToDesign String
 
+  designerListing DesignerListing @relation(fields: [designerListingId], references: [id])
   client   Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  designer Designer @relation(fields: [designerId], references: [id])
-  chat     Chat     @relation(fields: [chatId], references: [id])
+  designer Designer @relation(fields: [designerId], references: [id], onDelete: Cascade)
+  chat     Chat?     @relation(fields: [chatId], references: [id])
 }
 
 model Chat {

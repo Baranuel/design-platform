@@ -14,7 +14,7 @@ export const ClientProfilePage = async () => {
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: <span className="p-4">Overview</span>,
+      label: <span className="px-2">Overview</span>,
       children: 
       <section className="min-h-[700px]">
          <div className="w-full min-h-[100px] flex flex-col gap-3 my-6 relative  ">
@@ -38,10 +38,9 @@ export const ClientProfilePage = async () => {
     },
     {
       key: '2',
-      label: <div className="p-4 relative">
+      label: <div className="px-2 relative">
        <span> Requested Collaborations</span>
-       {requestedCollaborations.length > 0 && <span className="absolute top-0 right-0 p-1 bg-red-500 rounded-full w-4 h-4 text-[10px] flex items-center justify-center font-bold text-white ">{requestedCollaborations.length}</span> }
-      
+       {requestedCollaborations.length > 0 && <span className="absolute -top-3 right-0  bg-red-500 rounded-full w-4 h-4 text-[10px] flex items-center justify-center font-bold text-white ">{requestedCollaborations.length}</span> }
         </div>,
       children: 
       <section className="min-h-[700px]">

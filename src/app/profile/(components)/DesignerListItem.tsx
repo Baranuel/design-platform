@@ -1,12 +1,11 @@
 import { getUserByDesignerId } from "@/app/(database-queries)/user-queries";
 import dayjs from "@/app/(packages)/extended-dayjs";
 import { clerkClient } from "@clerk/nextjs";
-import { Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { ServerActionButton } from "./ServerActionButton";
-import { notifyClientForCollaboration } from "@/app/(actions)/pusher-events";
-import { setDesignerListingStatus } from "@/app/(actions)/listing-actions";
+
+import { approveDesignerListing, rejectDesignerListing } from "@/app/(actions)/listing-actions";
 
 export const DesignerListItem = async ({
   designerId,
@@ -49,12 +48,12 @@ export const DesignerListItem = async ({
 
         <ServerActionButton action={ async () =>  {
           'use server'
-          await setDesignerListingStatus(id, 'APPROVED')
+          await approveDesignerListing(id)
         }} className="mx-1">Approve</ServerActionButton>
 
         <ServerActionButton action={ async () =>  {
           'use server'
-          await setDesignerListingStatus(id, 'REJECTED')
+          await rejectDesignerListing(id)
         }}>Reject</ServerActionButton>
       </td>
 

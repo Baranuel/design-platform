@@ -14,7 +14,7 @@ export const Listing = async () => {
        {listing ? (
         <>
         <UpdateListingStatus {...listing} />
-         <div className="w-full h-16 p-6 flex bg-white rounded-md border-solid border-stone-200 items-center justify-start gap-3">
+         <div className="w-full h-16 p-6 flex bg-white rounded-md border-solid border-[1px] border-gray-300 items-center justify-start gap-3">
           <span className={`${listing.status === 'ACTIVE' ? ' bg-gradient-to-b from-green-400 to-green-600' : 'bg-amber-400'} rounded-full w-2 h-2`}></span>
           <p className="text-sm font-medium">{listing.status}</p>
          <p className="flex-grow">
