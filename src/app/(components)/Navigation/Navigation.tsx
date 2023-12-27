@@ -14,7 +14,6 @@ export const Navigation = async () => {
 
    return (
     <nav className="flex gap-3 fixed top-0 w-full z-40 items-center justify-end flex-wrap bg-white shadow-sm h-16  px-6">
-     {clerkUser.userId ? <Notifications /> : null}
       <Link className="no-underline" href="/" >Home</Link>
       <Link className="no-underline" href="/listings" >Listings</Link>
     <div className=''>

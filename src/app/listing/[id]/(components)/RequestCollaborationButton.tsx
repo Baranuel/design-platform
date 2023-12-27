@@ -53,7 +53,7 @@ export const RequestCollaborationButton = ({
           }}
           className="min-w-[100px] min-h-[40px] rounded-md text-white font-semibold"
         >
-          Click me
+          Request Collaboration
         </Button>
       )}
     </>

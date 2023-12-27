@@ -17,7 +17,7 @@ export const DesignerProfilePage = async () => {
       children: 
       <section className="min-h-[700px]">
 
-      <div className="w-full min-h-[200px] h-[200px] flex flex-col gap-3 my-6  ">
+      <div className="w-full min-h-[200px] flex flex-col gap-3 my-6  ">
         <h1>Ongoing Collaborations</h1>
         <Suspense fallback={<div>Loading...</div>}>
           <Collaborations />

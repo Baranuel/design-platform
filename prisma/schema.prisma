@@ -24,6 +24,19 @@ enum DesignerListingStatus {
   REJECTED
 }
 
+enum CollaborationStatus {
+ REJECTED
+ ONGOING
+}
+
+enum CollaborationProgress {
+  Research
+  Analysis
+  Ideation
+  Prototype
+  Testing
+}
+
 model User {
   id         Int       @id @default(autoincrement())
   clerkId    String    @unique
@@ -127,10 +140,10 @@ model Collaboration {
   createdAt    DateTime @default(now())
   designerListingId Int   @unique
   designerId   Int    @unique
-  clientId     Int    @unique
+  clientId     Int    
   chatId       Int?    @unique
-  status       String
-  progress     String
+  status       CollaborationStatus  @default(ONGOING)
+  progress     CollaborationProgress @default(Research)
   linkToDesign String
 
   designerListing DesignerListing @relation(fields: [designerListingId], references: [id])

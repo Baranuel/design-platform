@@ -52,7 +52,7 @@ export const ListingBanner = async ({id}:{id:number}) => {
           </span>
           </div>
           <div className=" relative w-2/5 h-full bg-stone-500 rounded-md overflow-hidden ">
-            <Image className="object-cover" src={clerkUser.imageUrl} alt="company logo" fill />
+            <Image  src={clerkUser.imageUrl} alt="company logo" fill />
           </div>    
    
         </>

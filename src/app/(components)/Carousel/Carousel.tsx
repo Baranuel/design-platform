@@ -81,15 +81,15 @@ export const Carousel = () => {
   })
   
   return (
-    <section className="my-24 sm:my-8 min-h-[70vh] h-[375px] w-full flex flex-col items-center">
-      <span className=" tracking-[.25rem] w-full whitespace-nowrap self-center text-center  sm:text-decorText text-base  font-semibold  text-transparent bg-clip-text bg-gradient-to-b from-orange to-red-800">
+    <section className="my-24 sm:my-8 min-h-[70vh] h-[485px] w-full flex flex-col items-center">
+      <span className=" tracking-[.25rem] w-full whitespace-nowrap self-center text-center  sm:text-xs text-base  font-semibold  text-transparent bg-clip-text bg-gradient-to-b from-orange to-red-800">
         MASTERING INSTRUMENTS
       </span>
-      <h1 className="  mt-1 text-6xl xl:text-5xl lg:text-5xl sm:text-4xl text-center font-black text-transparent bg-clip-text bg-gradient-to-b from-stone-600 from-40%  via-stone-700 via-60% to-stone-800 to-100%  ">
+      <h1 className="  mt-1 text-6xl xl:text-5xl lg:text-5xl sm:text-3xl text-center font-black text-transparent bg-clip-text bg-gradient-to-b from-stone-600 from-40%  via-stone-700 via-60% to-stone-800 to-100%  ">
         Acquire new look
       </h1>
       <div className="relative w-screen h-[410px] sm:h-[305px] ">
-        <div className=" mt-8 absolute w-full flex overflow-hidden clip-path-reverse sm:clip-path-reverse-small ">
+        <div className=" mt-4 absolute w-full flex overflow-hidden clip-path-reverse sm:clip-path-reverse-small ">
         <div className={`absolute z-40 h-[80%] sm:h-[90%] left-[50%] top-[50%] -translate-y-[50%] -translate-x-[50%] w-2 bg-[#6045D6] rounded-sm ${showDivider ? "opacity-100" : "opacity-50 bg-stone-200"} transition-opacity `}></div>
         <div className="py-12 sm:py-8 flex gap-16 flex-row animate-scroll ">
          {renderUgly()}
@@ -98,7 +98,7 @@ export const Carousel = () => {
           {renderUgly()}
         </div>
       </div>
-      <div className=" mt-8 w-full absolute flex gap-16  overflow-hidden clip-path sm:clip-path-small">
+      <div className=" mt-4 w-full absolute flex gap-16  overflow-hidden clip-path sm:clip-path-small">
       <div  ref={dividerRef} className={`absolute flex items-center gap-2  z-40 h-[250px] sm:h-[190px] left-[50%] top-[50%] -translate-y-[50%]  w-3 bg-gradient-to-r from-purple from-10% to-transparent rounded-sm ${showDivider ? "opacity-100" : "opacity-0"} transition-opacity `}>
         <div className="w-[9px] blur-sm h-[95%] my-2 self-center bg-white drop-shadow-glow ">1</div>
       </div>

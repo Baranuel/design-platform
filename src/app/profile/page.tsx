@@ -1,7 +1,6 @@
 
 import { getUser } from "../(database-queries)/user-queries";
 import { ClientProfilePage } from "./(components)/ClientProfilePage";
-import { DesignerProfile } from "./(components)/DesignerProfile";
 import { DesignerProfilePage } from "./(components)/DesignerProfilePage";
 
 export default async function Page() {

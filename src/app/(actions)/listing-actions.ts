@@ -32,13 +32,10 @@ export const setListingStatusInactive = async (id: number) => {
 
 
 export const approveDesignerListing = async (id: number) => {
-
-    const listing = await prismaClient.designerListing.update({
+    // find listing
+    const listing = await prismaClient.designerListing.findUnique({
         where: {
             id: id
-        },
-        data: {
-            status: "APPROVED"
         },
         include: {
             designer: true,
@@ -47,20 +44,43 @@ export const approveDesignerListing = async (id: number) => {
     })
     if(!listing || !listing.designer || !listing.proposalListing) return;
 
-    const chat = await prismaClient.chat.create({})
+    // create transaction for collaboration creation
+      const [updatedListing, collaboration, chat] = await prismaClient.$transaction([
+        prismaClient.designerListing.update({
+        where: {
+            id: listing.id
+        },
+        data: {
+            status: "APPROVED"
+        },
+        include: {
+            designer: true,
+            proposalListing: true
+        }
+    }),
 
-     await prismaClient.collaboration.create({
+    prismaClient.collaboration.create({
         data: {
             clientId: listing.proposalListing.clientId,
             designerId: listing.designer.id,
             designerListingId: listing.id,
-            chatId: chat.id,
-            status: 'PENDING',
-            progress: "0",
+            status: 'ONGOING',
+            progress: 'Research',
             linkToDesign: ""
-        }
-       
+        }}),
+        prismaClient.chat.create({})
+    ])
+
+
+
+     await prismaClient.collaboration.update({
+        where: {
+            id: collaboration.id
+        },
+        data: { chatId: chat.id}
     })
+
+
     revalidatePath('/profile')
 
 }

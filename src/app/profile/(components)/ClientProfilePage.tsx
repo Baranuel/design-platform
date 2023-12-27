@@ -24,8 +24,9 @@ export const ClientProfilePage = async () => {
         </Suspense>
       </div>
 
-      <div className="w-full min-h-[200px] h-[200px] flex flex-col gap-3 my-6  ">
+      <div className="w-full min-h-[200px]  flex flex-col gap-3 my-6  ">
         <h1>Ongoing Collaborations</h1>
+        <hr className="h-[1px] bg-stone-200 border-none" />
         <Suspense fallback={<div>Loading...</div>}>
           <Collaborations />
         </Suspense>
