@@ -1,4 +1,4 @@
-import { getUserFromDb } from "@/app/helpers/server/get-user-from-db";
+import { getUserFromDb } from "@/app/(helpers)/server/get-user-from-db";
 import { NextRequest, NextResponse } from "next/server";
 
 

@@ -3,7 +3,7 @@
 import { currentUser } from "@clerk/nextjs";
 import prismaClient from "../(network)/prismaClient";
 import { redirect } from "next/navigation";
-import { getUserFromDb } from "../helpers/server/get-user-from-db";
+import { getUserFromDb } from "../(helpers)/server/get-user-from-db";
 
 
 

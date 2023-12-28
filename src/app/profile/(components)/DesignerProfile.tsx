@@ -1,7 +1,7 @@
 
 import Image from "next/image";
 import { currentUser } from "@clerk/nextjs/server";
-import { getUser } from "@/app/helpers/get-user";
+import { getUser } from "@/app/(helpers)/get-user";
 import Link from "next/link";
 
 

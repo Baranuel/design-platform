@@ -10,7 +10,7 @@ import pretty1 from '../../../../public/pretty-1.svg'
 import pretty2 from '../../../../public/pretty-2.svg'
 import pretty3 from '../../../../public/pretty-3.svg'
 import pretty4 from '../../../../public/pretty-4.svg'
-import { calculateDividerOverlap } from "@/app/helpers/calculate-divider-overlap";
+import { calculateDividerOverlap } from "@/app/(helpers)/calculate-divider-overlap";
 
 const elements = [{
   ugly: ugly1,

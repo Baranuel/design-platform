@@ -1,7 +1,6 @@
 import { cache } from "react";
-import { getUserFromDb } from "../helpers/server/get-user-from-db";
+import { getUserFromDb } from "../(helpers)/server/get-user-from-db";
 import prismaClient from "../(network)/prismaClient";
-
 
 
 export const getCollaborations = cache(async () => {
@@ -17,4 +16,24 @@ export const getCollaborations = cache(async () => {
     return collaborations
   })
 
+  export const getCollaborationById = cache(async (id: number) => {
+    const collaboration = await prismaClient.collaboration.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        designer: {
+          include: {
+            user: true,
+          }
+        },
+        client: {
+          include: {
+            user: true,
+          }
+        },
+      }
+    })
+    return collaboration
+  })
 

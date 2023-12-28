@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import prismaClient from "../(network)/prismaClient";
-import { getUserFromDb } from "../helpers/server/get-user-from-db";
+import { getUserFromDb } from "../(helpers)/server/get-user-from-db";
 import { notifyClientForCollaboration } from "./pusher-events";
 
 
@@ -68,6 +68,7 @@ export const approveDesignerListing = async (id: number) => {
             progress: 'Research',
             linkToDesign: ""
         }}),
+        
         prismaClient.chat.create({})
     ])
 

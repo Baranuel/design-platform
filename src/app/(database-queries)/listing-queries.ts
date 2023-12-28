@@ -1,7 +1,7 @@
 import { cache } from "react";
 
 import prismaClient from "../(network)/prismaClient";
-import { getUserFromDb } from "../helpers/server/get-user-from-db";
+import { getUserFromDb } from "../(helpers)/server/get-user-from-db";
 
 
 

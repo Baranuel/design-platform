@@ -1,4 +1,4 @@
-import { getUserFromDb } from '@/app/helpers/server/get-user-from-db';
+import { getUserFromDb } from '@/app/(helpers)/server/get-user-from-db';
 import { getAuth } from '@clerk/nextjs/server';
 import { PrismaClient } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';

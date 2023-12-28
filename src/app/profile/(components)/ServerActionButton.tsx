@@ -7,9 +7,11 @@ type ServerActionButtonProps<T> = {
   action: () => Promise<void>;
   children: React.ReactNode;
   className?: string;
+  disabled?: boolean;
+  type?: "primary" | "dashed" | "link" | "text" | undefined;
 };
 
-export const ServerActionButton = <T, >({action, children, className}:ServerActionButtonProps<T>) => {
+export const ServerActionButton = <T, >({action, children, className, type,disabled}:ServerActionButtonProps<T>) => {
   const [isPending, startTransition] = useTransition();
 
   return (
@@ -19,6 +21,8 @@ export const ServerActionButton = <T, >({action, children, className}:ServerActi
       onClick={() => {
         startTransition(async () => await action());
       }}
+      type={type}
+      disabled={disabled}
     >
       {children}
     </Button>
