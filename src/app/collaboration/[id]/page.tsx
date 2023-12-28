@@ -8,6 +8,7 @@ import { LinkToDesign } from "./(components)/LinkToDesign";
 import { getUser } from "@/app/(database-queries)/user-queries";
 import { getCollaborationById } from "@/app/(database-queries)/collaboration-queries";
 import { permanentRedirect, redirect } from "next/navigation";
+import { CollaborationBanner } from "./(components)/CollaborationBanner";
 
 
 
@@ -85,7 +86,7 @@ export default async function CollaborationPage ({
  return  <section className=" min-h-[calc(100vh-120px)] mt-32 px-80 2xl:px-48 xl:px-32 lg:px-24 md:px-12 sm:px-4 ">
 <div className="  bg-white border-solid border-[1px] border-gray-300 rounded-md flex gap-4 h-[320px] p-6 w-full my-4 ">
  <Suspense fallback={<div>Loading...</div>}>
- <ListingBanner id={+params.id} />
+ <CollaborationBanner id={+params.id} />
 </Suspense>
 </div>
 <div className=" rounded-sm  flex gap-4 h-[100px] items-center  w-full ">

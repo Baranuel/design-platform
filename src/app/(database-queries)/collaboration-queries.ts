@@ -24,11 +24,13 @@ export const getCollaborations = cache(async () => {
       include: {
         designer: {
           include: {
+            designerInformation: true,
             user: true,
           }
         },
         client: {
           include: {
+            clientInformation: true,
             user: true,
           }
         },
