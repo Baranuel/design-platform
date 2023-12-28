@@ -7,7 +7,7 @@ import { ProgressButtons } from "./(components)/ProgressButtons";
 import { LinkToDesign } from "./(components)/LinkToDesign";
 import { getUser } from "@/app/(database-queries)/user-queries";
 import { getCollaborationById } from "@/app/(database-queries)/collaboration-queries";
-import { redirect } from "next/navigation";
+import { permanentRedirect, redirect } from "next/navigation";
 
 
 
@@ -22,11 +22,11 @@ export default async function CollaborationPage ({
     const collaboration = await getCollaborationById(+params.id);
 
     if( user.role === 'CLIENT')  {
-      collaboration?.client.id !== user?.client?.id && redirect('/listings')
+      collaboration?.client.id !== user?.client?.id && permanentRedirect('/listings')
     }
 
     if( user.role === 'DESIGNER')  {
-      collaboration?.designer.id !== user?.designer?.id && redirect('/listings')
+      collaboration?.designer.id !== user?.designer?.id && permanentRedirect('/profile')
     }
 
     const items: TabsProps['items'] = [

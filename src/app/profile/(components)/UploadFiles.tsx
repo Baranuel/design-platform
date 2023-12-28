@@ -3,7 +3,7 @@
 import { InboxOutlined } from "@ant-design/icons";
 import { Spin, Upload, UploadFile } from "antd";
 import { useCallback, useRef, useState } from "react";
-import { useUploadFileMutation } from "../mutations/upload-file-mutation";
+import { useUploadFileMutation } from "../(mutations)/upload-file-mutation";
 import { useFormContext } from "react-hook-form";
 import { PutBlobResult } from "@vercel/blob";
 import { UploadChangeParam } from "antd/es/upload";

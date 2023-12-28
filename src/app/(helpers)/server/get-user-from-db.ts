@@ -1,6 +1,6 @@
 import prismaClient from "@/app/(network)/prismaClient";
 import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import { permanentRedirect, redirect } from "next/navigation";
 
 
 
@@ -22,6 +22,6 @@ export const getUserFromDb = async () => {
         },
     })
 
-    if(!prismaUser) redirect('/profile/create')
+    if(!prismaUser) permanentRedirect('/profile/create')
     return prismaUser
 }
