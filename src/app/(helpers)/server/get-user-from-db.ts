@@ -14,10 +14,10 @@ export const getUserFromDb = async () => {
         },
         include: {
             client: {
-                include: {clientInformation: true, proposal: true}
+                include: {clientInformation: true, proposal: true, collaboration: true}
             },
             designer: {
-                include: {designerInformation: true}
+                include: {designerInformation: true, collaboration: true}
             }
         },
     })

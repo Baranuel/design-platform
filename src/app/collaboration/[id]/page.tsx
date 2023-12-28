@@ -5,6 +5,9 @@ import { CollaborationRow } from "./(components)/CollaborationRow";
 import { DesignerRow } from "./(components)/DesignerRow";
 import { ProgressButtons } from "./(components)/ProgressButtons";
 import { LinkToDesign } from "./(components)/LinkToDesign";
+import { getUser } from "@/app/(database-queries)/user-queries";
+import { getCollaborationById } from "@/app/(database-queries)/collaboration-queries";
+import { redirect } from "next/navigation";
 
 
 
@@ -14,6 +17,17 @@ export default async function CollaborationPage ({
   }: {
     params: { id: string };
   }) {
+
+    const user = await getUser();
+    const collaboration = await getCollaborationById(+params.id);
+
+    if( user.role === 'CLIENT')  {
+      collaboration?.client.id !== user?.client?.id && redirect('/listings')
+    }
+
+    if( user.role === 'DESIGNER')  {
+      collaboration?.designer.id !== user?.designer?.id && redirect('/listings')
+    }
 
     const items: TabsProps['items'] = [
       {
@@ -30,12 +44,23 @@ export default async function CollaborationPage ({
     
         <div className="w-full min-h-[100px]  flex flex-col gap-3 my-6  ">
           <h1>Current Stage of the design</h1>
+          <Suspense fallback={<div>Loading...</div>}>
           <ProgressButtons id={+params.id} />
+          </Suspense>
         </div>
     
         <div className="w-full min-h-[200px]  flex flex-col gap-3 my-6  ">
           <h1>Link to Design file</h1>
+          <Suspense fallback={<div>Loading...</div>}>
           <LinkToDesign id={+params.id} />
+          </Suspense>
+        </div>
+
+        <div className="w-full min-h-[100px] flex flex-col gap-3 my-6 relative  ">
+          <h1>Chat</h1>
+          <Suspense fallback={<div>Loading...</div>}>
+            <DesignerRow id={+params.id} />
+          </Suspense>
         </div>
     
        
