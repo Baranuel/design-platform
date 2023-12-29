@@ -33,7 +33,7 @@ export const Messages =  ({ messages, chatId, senderId, clerkId, collaborationId
     
     return () => {
       pusherClient.unsubscribe(`chat-${chatId}`);
-      pusherClient.unbind("message");
+
     };
   },[chatId, setOptimisticMessage])
 
