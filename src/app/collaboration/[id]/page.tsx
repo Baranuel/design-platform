@@ -62,7 +62,7 @@ export default async function CollaborationPage ({
         <div className="w-full min-h-[300px]  flex flex-col gap-3 my-6 relative  ">
           <h1>Chat</h1>
           <Suspense fallback={<div>Loading...</div>}>
-            <Chat chatId={collaboration?.chatId!} collaborationId={+params.id} />
+            <Chat client={collaboration.client.user.clerkId} designer={collaboration.designer.user.clerkId} chatId={collaboration?.chatId!} collaborationId={+params.id} />
           </Suspense>
         </div>
     
