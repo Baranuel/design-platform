@@ -1,12 +1,9 @@
 import { Proposal } from "@prisma/client";
 import prismaClient from "@/app/(network)/prismaClient";
 import Image from "next/image";
-import { getProposal } from "@/app/(database-queries)/proposal-queries";
+import { getProposal, getQuestions } from "@/app/(database-queries)/proposal-queries";
 import Link from "next/link";
 
-const getQuestions = async () => {
-  return await prismaClient.question.findMany();
-};
 
 type ProposalKey = keyof Omit<Proposal, "createdAt" | "id" | "clientId" >;
 
@@ -14,6 +11,7 @@ export const ProposalPreview = async ({id}: {id:number | undefined}) => {
   if(!id) return null 
   const questions = await getQuestions();
   const proposal = await getProposal()
+
   const proposalQuestions = questions.map((question) => {
     const proposalKey = proposal?.[question.title as ProposalKey];
 

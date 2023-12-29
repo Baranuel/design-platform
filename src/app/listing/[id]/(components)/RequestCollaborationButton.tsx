@@ -18,15 +18,15 @@ export const RequestCollaborationButton = ({
 
 
   const [isPending, startTransition] = useTransition();
-
-  const alreadyRequested = listing.interestedDesigners.some(
+  console.log(listing)
+  const interestedDesigner = listing.interestedDesigners.find(
     (interestedDesigner) => interestedDesigner.designerId === user.designer?.id
   );
 
   return (
     <>
-      {alreadyRequested ? (
-        <span className="text-amber-500">Approval Pending</span>
+      {interestedDesigner ? (
+        <span className={`text-amber-500 ${interestedDesigner.status === "APPROVED" && "text-green-500"}`}>{interestedDesigner.status}</span>
       ) : (
         <Button
           type="primary"
@@ -36,7 +36,7 @@ export const RequestCollaborationButton = ({
               await requestCollaborationForListing(listing.id);
             });
           }}
-          className="min-w-[100px] min-h-[40px] rounded-md text-white font-semibold"
+          className="min-w-[120px] min-h-[40px] rounded-md text-white font-semibold"
         >
           Request Collaboration
         </Button>

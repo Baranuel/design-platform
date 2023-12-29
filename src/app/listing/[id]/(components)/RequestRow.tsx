@@ -14,18 +14,25 @@ export const RequestRow = async ({id}:{id:number}) => {
     return (
         <div className="h-full w-full my-4 p-4 flex flex-col gap-3 items-start justify-between ">
             <h3 className="font-medium">Client</h3>
-               <div className="flex gap-2 items-center w-[200px] h-full ">
+               <div className="flex gap-2 items-center justify-between w-full h-full ">
+                <div className="flex gap-2 items-center">
+
                 <div className="w-12 h-12 rounded-full relative overflow-hidden bg-black">
                     <Image src={clerkUser?.imageUrl ?? ""} alt="image" fill />
                 </div>
-                <span className="flex  flex-col ">
+
+
+
                 <span className="flex gap-1 mb-1">
                 <p className="text-base ">{clerkUser?.firstName}</p>
                 <p className="text-base ">{clerkUser?.lastName}</p>
                 </span>
-                </span>
+
+                </div>
+
+               {user.role !== 'CLIENT' && listingById && listingById.status === 'ACTIVE' && (  <RequestCollaborationButton listing={listingById} user={user} /> )}
                </div>
-                {user.role !== 'CLIENT' && listingById && listingById.status === 'ACTIVE' && (  <RequestCollaborationButton listing={listingById} user={user} /> )}
+
           </div> 
     )
 
