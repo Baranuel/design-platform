@@ -3,7 +3,7 @@ import { ChatMessage } from "../../../../../global";
 import { Button, Input } from "antd";
 
 import { MessageContent } from "./MessageContent";
-import {  useEffect, useOptimistic, useTransition } from "react";
+import {  useEffect, useOptimistic, useRef, useTransition } from "react";
 
 import { sendMessage } from "@/app/(actions)/collaboration-actions";
 import { Controller, useForm } from "react-hook-form";
@@ -12,26 +12,25 @@ import { pusherClient } from "@/app/(network)/pusher-client";
 
 export const Messages =  ({ messages, chatId, senderId, clerkId, collaborationId}: { messages: ChatMessage[], chatId:number , senderId:number, clerkId:string, collaborationId:number}) => {
     const [isPending, startTransition] = useTransition();
-  const {control, handleSubmit} = useForm({
+    const chatEnd = useRef<HTMLDivElement>(null)
+  const {control, handleSubmit, reset} = useForm({
     mode:'onChange',
   })
 
   const [optimisticMessages, setOptimisticMessage] = useOptimistic( messages,  (prevList, message: ChatMessage) => [
-    ...prevList,message
+    ...prevList, message
   ])
 
   const handleSubmitMessage = async (data:Record<string,string>) => {
     const {message} = data
-    await sendMessage(chatId, senderId,clerkId, new Date(), message, collaborationId)
-
+    reset()
+    await sendMessage(chatId, senderId, clerkId, new Date(), message, collaborationId)
   }
 
   useEffect(() => {
     const channel = pusherClient.subscribe(`chat-${chatId}`);
-
     channel.bind("message", function (data: ChatMessage) {
-    startTransition( () => setOptimisticMessage(data))
-});
+    startTransition( () => { setOptimisticMessage(data)  })});
     
     return () => {
       pusherClient.unsubscribe(`chat-${chatId}`);
@@ -39,15 +38,23 @@ export const Messages =  ({ messages, chatId, senderId, clerkId, collaborationId
     };
   },[chatId, setOptimisticMessage])
 
+  useEffect(() => {
+    if(chatEnd.current){
+        console.log(optimisticMessages)
+        chatEnd.current.scrollIntoView({behavior:'smooth'})
+      }
+  },[optimisticMessages])
+
 
   return (
     <div className="flex flex-col gap-2 h-full w-full">
-      <div className=" bg-gray-100 min-h-[300px]">
+      <div className=" p-4 flex flex-col gap-3 overflow-scroll bg-gray-100 min-h-[300px] max-h-[300px]">
         {optimisticMessages.map((message, index) => {
           return (
-            <MessageContent message={message} key={index} />
+            <MessageContent senderId={senderId} message={message} key={index} />
           );
         })}
+        <div ref={chatEnd}></div>
       </div>
       <div className="flex gap-2 w-full h-full">
         <Controller

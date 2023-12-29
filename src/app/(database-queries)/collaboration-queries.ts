@@ -59,7 +59,7 @@ export const getChatForCollaboration = cache(async (id: number) => {
         orderBy: {
           createdAt: 'asc'
         },
-        take: 20,
+
       }
     }
   })
