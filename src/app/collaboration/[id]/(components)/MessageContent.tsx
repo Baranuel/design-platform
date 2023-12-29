@@ -4,13 +4,11 @@ import Image
 export const MessageContent = ({
   message,
   senderId,
-  clerkId,
 clientChatPerson,
 designerChatPerson
 }: {
   message: ChatMessage;
   senderId: number;
-  clerkId: string;
   clientChatPerson: Record<string, any>;
   designerChatPerson: Record<string, any>;
 }) => {
