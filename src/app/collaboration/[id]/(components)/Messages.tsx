@@ -17,7 +17,7 @@ export const Messages =  ({ messages, chatId, senderId, clerkId, collaborationId
     mode:'onChange',
   })
 
-  const [optimisticMessages, setOptimisticMessage] = useState( messages)
+  const [optimisticMessages, setOptimisticMessage] = useOptimistic( messages, (prevMessages, message:ChatMessage) => [...prevMessages, message] )
 
   const handleSubmitMessage = async (data:Record<string,string>) => {
     const {message} = data
@@ -28,7 +28,7 @@ export const Messages =  ({ messages, chatId, senderId, clerkId, collaborationId
   useEffect(() => {
     const channel = pusherClient.subscribe(`chat-${chatId}`);
     channel.bind("message", function (data: ChatMessage) {
-    setOptimisticMessage((prev) => [...prev, data]);
+    setOptimisticMessage(data);
 });
     
     return () => {
