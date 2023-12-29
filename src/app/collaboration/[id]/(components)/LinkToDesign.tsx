@@ -7,6 +7,7 @@ import { getUser } from "@/app/(database-queries)/user-queries";
 export const LinkToDesign = async ({ id }: { id: number }) => {
   const collaborationById = await getCollaborationById(id);
   const user = await getUser();
+  
   return (
     <div className=" flex flex-col gap-2 w-full h-full">
       <div className="min-h-[50px]">

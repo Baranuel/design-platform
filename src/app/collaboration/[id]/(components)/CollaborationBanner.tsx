@@ -7,7 +7,6 @@ import Link from "next/link"
 
 export const CollaborationBanner = async ({id}:{id:number}) => {
     const collaboration = await getCollaborationById(id)
-    console.log(collaboration?.client?.user)
     const clerkUser = await clerkClient.users.getUser(collaboration?.client?.user?.clerkId ?? "")
     const info = collaboration?.client.clientInformation
 

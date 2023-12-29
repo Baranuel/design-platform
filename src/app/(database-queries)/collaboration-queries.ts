@@ -16,6 +16,7 @@ export const getCollaborations = cache(async () => {
     return collaborations
   })
 
+
   export const getCollaborationById = cache(async (id: number) => {
     const collaboration = await prismaClient.collaboration.findUnique({
       where: {
@@ -39,3 +40,28 @@ export const getCollaborations = cache(async () => {
     return collaboration
   })
 
+
+export const getChatForCollaboration = cache(async (id: number) => {
+  const chat = await prismaClient.chat.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      messages: {
+        include: {
+          sender: {
+            select: {
+              id: true,
+              clerkId: true,
+            }
+          },
+        },
+        orderBy: {
+          createdAt: 'asc'
+        },
+        take: 20,
+      }
+    }
+  })
+  return chat
+})

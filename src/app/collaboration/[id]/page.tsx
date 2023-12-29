@@ -9,6 +9,7 @@ import { getUser } from "@/app/(database-queries)/user-queries";
 import { getCollaborationById } from "@/app/(database-queries)/collaboration-queries";
 import { permanentRedirect, redirect } from "next/navigation";
 import { CollaborationBanner } from "./(components)/CollaborationBanner";
+import { Chat } from "./(components)/Chat";
 
 
 
@@ -21,7 +22,8 @@ export default async function CollaborationPage ({
 
     const user = await getUser();
     const collaboration = await getCollaborationById(+params.id);
-
+    if(!collaboration) return
+    
     if( user.role === 'CLIENT')  {
       collaboration?.client.id !== user?.client?.id && permanentRedirect('/listings')
     }
@@ -36,31 +38,31 @@ export default async function CollaborationPage ({
         label: <span className="px-2">Overview</span>,
         children: 
         <section className="min-h-[700px]">
-           <div className="w-full min-h-[100px] flex flex-col gap-3 my-6 relative  ">
+           <div className="w-full min-h-[125px] flex flex-col gap-3 my-6 relative  ">
           <h1>Designers</h1>
           <Suspense fallback={<div>Loading...</div>}>
-            <DesignerRow id={+params.id} />
+            <DesignerRow id={collaboration?.designer?.user?.clerkId ?? ""} />
           </Suspense>
         </div>
     
-        <div className="w-full min-h-[100px]  flex flex-col gap-3 my-6  ">
+        <div className="w-full min-h-[125px]  flex flex-col gap-3 my-6  ">
           <h1>Current Stage of the design</h1>
           <Suspense fallback={<div>Loading...</div>}>
           <ProgressButtons id={+params.id} />
           </Suspense>
         </div>
     
-        <div className="w-full min-h-[200px]  flex flex-col gap-3 my-6  ">
+        <div className="w-full min-h-[125px]  flex flex-col gap-3 my-6  ">
           <h1>Link to Design file</h1>
           <Suspense fallback={<div>Loading...</div>}>
           <LinkToDesign id={+params.id} />
           </Suspense>
         </div>
 
-        <div className="w-full min-h-[100px] flex flex-col gap-3 my-6 relative  ">
+        <div className="w-full min-h-[300px]  flex flex-col gap-3 my-6 relative  ">
           <h1>Chat</h1>
           <Suspense fallback={<div>Loading...</div>}>
-            <DesignerRow id={+params.id} />
+            <Chat chatId={collaboration?.chatId!} collaborationId={+params.id} />
           </Suspense>
         </div>
     

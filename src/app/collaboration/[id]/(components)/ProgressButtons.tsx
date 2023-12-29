@@ -27,7 +27,7 @@ export const ProgressButtons = async ({id}:{id:number}) => {
           }}
           disabled={user?.role !== "DESIGNER" && collaborationById?.progress !== progress}
           key={index}
-          className={`min-w-[175px] rounded-md ${collaborationById?.progress === progress && "border-solid border-purple text-purple"} ${user?.role !== "DESIGNER" && "pointer-events-none"}`}
+          className={`min-w-[175px] rounded-md ${collaborationById?.progress === progress && "border-solid border-purple text-purple"} ${user?.role !== "DESIGNER" && "pointer-events-none"}}`}
         >
           {progress}
         </ServerActionButton>

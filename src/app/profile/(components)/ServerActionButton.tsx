@@ -9,9 +9,10 @@ type ServerActionButtonProps<T> = {
   className?: string;
   disabled?: boolean;
   type?: "primary" | "dashed" | "link" | "text" | undefined;
+  size?: "large" | "middle" | "small" | undefined;
 };
 
-export const ServerActionButton = <T, >({action, children, className, type,disabled}:ServerActionButtonProps<T>) => {
+export const ServerActionButton = <T, >({action, children, className, type,disabled, size}:ServerActionButtonProps<T>) => {
   const [isPending, startTransition] = useTransition();
 
   return (
@@ -23,6 +24,7 @@ export const ServerActionButton = <T, >({action, children, className, type,disab
       }}
       type={type}
       disabled={disabled}
+      size={size}
     >
       {children}
     </Button>

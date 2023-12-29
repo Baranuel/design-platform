@@ -45,3 +45,20 @@ const userProposal = Prisma.validator<Prisma.ProposalDefaultArgs>()({
 })
 
 export type UserProposal = Prisma.ProposalGetPayload<typeof userProposal>
+
+const Message = Prisma.validator<Prisma.MessageDefaultArgs>()({
+    include: {
+        sender: {
+            select: {
+                id: true,
+                clerkId: true,
+            }
+        },
+    },
+    orderBy: {
+        createdAt: 'asc'
+    },
+    take: 20,
+})
+
+export type ChatMessage = Prisma.MessageGetPayload<typeof Message>
