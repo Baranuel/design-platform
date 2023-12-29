@@ -50,10 +50,12 @@ export const sendMessage = async (chatId: number, senderId:number, clerkId:strin
     if(!text) return
 
     pusherServer.trigger(`chat-${chatId}`, 'message', {
+
             sender:{
                 id: senderId,
                 clerkId: clerkId,
             },
+            id: Math.random(),
             text: text,
             chatId: chatId,
             createdAt: createdAt,
