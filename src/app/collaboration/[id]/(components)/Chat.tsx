@@ -1,23 +1,22 @@
-import { getChatForCollaboration } from "@/app/(database-queries)/collaboration-queries";
+import { getChatForCollaboration, getCollaborationById } from "@/app/(database-queries)/collaboration-queries";
 import { Messages } from "./Messages";
 import { getUser } from "@/app/(database-queries)/user-queries";
 import { clerkClient } from "@clerk/nextjs";
 
 
 export const Chat = async ({
-  chatId,
   collaborationId,
-  client,
-  designer,
 }: {
-  chatId: number;
   collaborationId: number;
-  client: string;
-  designer: string;
+
 }) => {
-  const chat = await getChatForCollaboration(chatId);
-  const clientInfo = await clerkClient.users.getUser(client);
-  const designerInfo = await clerkClient.users.getUser(designer);
+    
+const collaboration = await getCollaborationById(collaborationId)
+if(!collaboration) return 
+
+  const chat = await getChatForCollaboration(collaboration.chatId!);
+  const clientInfo = await clerkClient.users.getUser(collaboration?.client.user.clerkId ??"");
+  const designerInfo = await clerkClient.users.getUser(collaboration?.designer.user.clerkId ??"");
   const user = await getUser();
   if (!chat) return;
 

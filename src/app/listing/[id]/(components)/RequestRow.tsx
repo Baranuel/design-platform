@@ -25,7 +25,7 @@ export const RequestRow = async ({id}:{id:number}) => {
                 </span>
                 </span>
                </div>
-                {listingById && listingById.status === 'ACTIVE' && (  <RequestCollaborationButton listing={listingById} user={user} /> )}
+                {user.role !== 'CLIENT' && listingById && listingById.status === 'ACTIVE' && (  <RequestCollaborationButton listing={listingById} user={user} /> )}
           </div> 
     )
 

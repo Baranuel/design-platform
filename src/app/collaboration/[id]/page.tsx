@@ -20,18 +20,6 @@ export default async function CollaborationPage ({
     params: { id: string };
   }) {
 
-    const user = await getUser();
-    const collaboration = await getCollaborationById(+params.id);
-    if(!collaboration) return
-    
-    if( user.role === 'CLIENT')  {
-      collaboration?.client.id !== user?.client?.id && permanentRedirect('/listings')
-    }
-
-    if( user.role === 'DESIGNER')  {
-      collaboration?.designer.id !== user?.designer?.id && permanentRedirect('/profile')
-    }
-
     const items: TabsProps['items'] = [
       {
         key: '1',
@@ -41,7 +29,7 @@ export default async function CollaborationPage ({
            <div className="w-full min-h-[125px] flex flex-col gap-3 my-6 relative  ">
           <h1>Designers</h1>
           <Suspense fallback={<div>Loading...</div>}>
-            <DesignerRow id={collaboration?.designer?.user?.clerkId ?? ""} />
+            <DesignerRow id={+params.id}  />
           </Suspense>
         </div>
     
@@ -62,7 +50,7 @@ export default async function CollaborationPage ({
         <div className="w-full min-h-[300px]  flex flex-col gap-3 my-6 relative  ">
           <h1>Chat</h1>
           <Suspense fallback={<div>Loading...</div>}>
-            <Chat client={collaboration.client.user.clerkId} designer={collaboration.designer.user.clerkId} chatId={collaboration?.chatId!} collaborationId={+params.id} />
+            <Chat  collaborationId={+params.id} />
           </Suspense>
         </div>
     

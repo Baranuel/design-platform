@@ -16,21 +16,6 @@ export const RequestCollaborationButton = ({
   user,
 }: RequestCollaborationButton) => {
 
-    useEffect(() => {
-        const pusher = new Pusher('a18fce71a9e083b2db11',{
-            cluster: 'eu'
-        });
-        const channel = pusher.subscribe("my-channel");
-
-        channel.bind("my-event", (data:any) => {
-            console.log(data);
-        });
-
-        return () => {
-            channel.unsubscribe();
-            channel.unbind_all();
-        }
-    },[])
 
   const [isPending, startTransition] = useTransition();
 

@@ -2,9 +2,9 @@ import { getCollaborationById } from "@/app/(database-queries)/collaboration-que
 import { clerkClient } from "@clerk/nextjs"
 import Image from "next/image"
 
-export const DesignerRow = async ({id}:{id:string}) => {
-
-    const clerkUser = await clerkClient.users.getUser(id ?? "")
+export const DesignerRow = async ({id}:{id:number}) => {
+    const collaboration = await getCollaborationById(+id);
+    const clerkUser = await clerkClient.users.getUser(collaboration?.designer.user.clerkId ?? "")
 
    return  <div className="flex w-full h-full items-center justify-between">
     <div className="flex gap-2 items-center w-[200px] h-full ">

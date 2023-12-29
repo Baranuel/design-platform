@@ -5,6 +5,7 @@ import Link from "next/link"
 
 
 export const ListingBanner = async ({id}:{id:number}) => {
+  
     const listingById = await getListingById(id)
     const clerkUser = await clerkClient.users.getUser(listingById?.client?.user?.clerkId ?? "")
     const info = listingById?.client.clientInformation

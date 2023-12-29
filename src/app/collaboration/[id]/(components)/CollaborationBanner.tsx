@@ -1,12 +1,26 @@
 import { getCollaborationById } from "@/app/(database-queries)/collaboration-queries"
 import { getListingById } from "@/app/(database-queries)/listing-queries"
+import { getUser } from "@/app/(database-queries)/user-queries"
 import { clerkClient } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
+import { permanentRedirect } from "next/navigation"
 
 
 export const CollaborationBanner = async ({id}:{id:number}) => {
+    const user = await getUser();
+
+    
     const collaboration = await getCollaborationById(id)
+    if(!collaboration) return
+    
+    if( user.role === 'CLIENT')  {
+      collaboration?.client.id !== user?.client?.id && permanentRedirect('/listings')
+    }
+
+    if( user.role === 'DESIGNER')  {
+      collaboration?.designer.id !== user?.designer?.id && permanentRedirect('/profile')
+    }
     const clerkUser = await clerkClient.users.getUser(collaboration?.client?.user?.clerkId ?? "")
     const info = collaboration?.client.clientInformation
 
