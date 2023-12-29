@@ -75,7 +75,7 @@ export const sendMessage = async (chatId: number, senderId:number, clerkId:strin
             },
         }
     })
-    revalidatePath(`/collaboration/${collaborationId}`)
+
 
 
 
