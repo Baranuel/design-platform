@@ -7,17 +7,25 @@ import { axiosInstance } from "../(network)/axios-instance";
 import { put } from "@vercel/blob";
 
 
+export const createImageThumbnail = async (url: string) => {
+    const completeUrl = `https://${url}`
+    const {data} = await axiosInstance.post('/puppeteer', {companyWebsite: completeUrl})
+
+    return data.data.url
+}
+
+
 export const createProposal = async (proposalData:any) => {
     const user = await getUserFromDb();
     const proposal = { ...proposalData, clientId: user?.client?.id };
+    const url = await createImageThumbnail(user?.client?.clientInformation?.companyWebsite || '')
 
-    const {data} = await axiosInstance.post('/puppeteer', {companyWebsite:`https://${user.client?.clientInformation?.companyWebsite}`})
-    if(!data) return;
+    if(!url) return;
 
    const createdProposal = await prismaClient.proposal.create({
         data: {
             ...proposal,
-            websiteHeroImage: data.data.url
+            websiteHeroImage: url
         }
     })
     if(!createdProposal) return;
