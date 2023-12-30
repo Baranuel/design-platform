@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
         return regex.test(url)  || !url ? true : false;
       };
 
-      if(!urlValidator(companyWebsite)) return ""
+      if(!urlValidator(companyWebsite)) return  NextResponse.json({ status: 201, data: {url:'incorrect url'} })
 
     const browser = IS_DEVELOPMENT ?
         await puppeteer.launch({ headless: 'new' }) :
