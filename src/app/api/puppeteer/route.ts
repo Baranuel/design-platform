@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
 import { PrismaClient } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { put } from '@vercel/blob';
@@ -13,7 +13,9 @@ export async function POST(request: NextRequest) {
    
     const {companyWebsite} = await request.json();
    // Launch a new browser using puppeteer
-   const browser = await puppeteer.launch();
+   const browser = await puppeteer.launch({
+    headless: 'new'
+   });
 
    // Create a new page in the browser
    const page = await browser.newPage();
