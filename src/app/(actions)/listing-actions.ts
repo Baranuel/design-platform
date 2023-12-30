@@ -5,6 +5,25 @@ import prismaClient from "../(network)/prismaClient";
 import { getUserFromDb } from "../(helpers)/server/get-user-from-db";
 import { notifyClientForCollaboration } from "./pusher-events";
 
+import { axiosInstance } from "../(network)/axios-instance";
+
+export const createListingImage = async (url: string) => {
+     // Launch a new browser using puppeteer
+    const {data} = await axiosInstance.post('/puppeteer', {companyWebsite: 'https://www.palubarozvoz.sk'})
+
+    await prismaClient.proposal.update({
+        where: {
+            id: 5
+        },
+        data: {
+            websiteHeroImage: data.data.url
+        }
+    
+    })
+    return data
+
+}
+
 
 export const setListingStatusActive = async (id: number) => {
     await prismaClient.proposalListing.update({

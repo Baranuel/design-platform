@@ -93,6 +93,7 @@ model Proposal {
   id                 Int      @id @default(autoincrement())
   clientId           Int      @unique
   createdAt          DateTime @default(now())
+  websiteHeroImage   String?  
   proposalListing    ProposalListing?
   brief              String
   websiteUse         String
@@ -146,10 +147,10 @@ model Collaboration {
   progress     CollaborationProgress @default(Research)
   linkToDesign String
 
-  designerListing DesignerListing @relation(fields: [designerListingId], references: [id])
+  designerListing DesignerListing @relation(fields: [designerListingId], references: [id], onDelete: Cascade)
   client   Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
   designer Designer @relation(fields: [designerId], references: [id], onDelete: Cascade)
-  chat     Chat?     @relation(fields: [chatId], references: [id])
+  chat     Chat?     @relation(fields: [chatId], references: [id], onDelete: Cascade)
 }
 
 model Chat {
@@ -165,6 +166,6 @@ model Message {
   senderId  Int
   text      String
 
-  chat   Chat @relation(fields: [chatId], references: [id])
+  chat   Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
   sender User @relation(fields: [senderId], references: [id])
 }

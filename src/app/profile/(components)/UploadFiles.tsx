@@ -2,11 +2,13 @@
 
 import { InboxOutlined } from "@ant-design/icons";
 import { Spin, Upload, UploadFile } from "antd";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, useTransition } from "react";
 import { useUploadFileMutation } from "../(mutations)/upload-file-mutation";
-import { useFormContext } from "react-hook-form";
-import { PutBlobResult } from "@vercel/blob";
+
 import { UploadChangeParam } from "antd/es/upload";
+import { uploadFile } from "@/app/(actions)/proposal-actions";
+import { useFormContext } from "react-hook-form";
+
 
 
 const { Dragger } = Upload;
@@ -17,8 +19,9 @@ interface Props {
 
 export const UploadFiles = ({ onChange }: Props) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const {watch} = useFormContext()
   const files = useRef<string[]>([])
-
+  const [isPending, startTransition] = useTransition()
   const {mutateAsync, status} = useUploadFileMutation()
 
   const handleOnChange = useCallback(async (fileData:UploadChangeParam<UploadFile>) => {
@@ -29,12 +32,15 @@ export const UploadFiles = ({ onChange }: Props) => {
     const form = new FormData()
     form.append('file', fileData.file as unknown as Blob) 
 
-    const data = await mutateAsync(form)
-    files.current = [...files.current, data.url]
+     startTransition( async () => {
+      const data = await uploadFile(form)
+      files.current = [...files.current, data?.url]
+      onChange(files.current);
+    })
 
-    onChange(files.current);
-  },[fileList, mutateAsync, onChange])
-  
+  },[fileList, onChange])
+
+
 
   
 
@@ -64,7 +70,7 @@ export const UploadFiles = ({ onChange }: Props) => {
       <p className="ant-upload-hint">Support for a single or bulk upload.</p>
     </Dragger>
       <div className="flex justify-start">
-      <Spin spinning={status === 'pending'} />
+      <Spin spinning={isPending} />
       {
         fileList.length > 0 && <>
         {status === 'error' && <div className="text-red-500">Error uploading file</div>}

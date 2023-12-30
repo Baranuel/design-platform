@@ -1,4 +1,6 @@
+import { createListingImage } from "@/app/(actions)/listing-actions"
 import { getListingById } from "@/app/(database-queries)/listing-queries"
+import { ServerActionButton } from "@/app/profile/(components)/ServerActionButton"
 import { clerkClient } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
@@ -12,20 +14,12 @@ export const ListingBanner = async ({id}:{id:number}) => {
 
     return (
         <>
-          <div className=" flex flex-col w-3/5 gap-6 ">
+          <div className=" flex flex-col w-3/5 gap-4">
           <span>
             <span className="text-stone-700 text-sm mb-1">Company</span>
-            <h1 className="text-xl">{info?.companyName}</h1>
+            <h1 className="text-3xl">{info?.companyName}</h1>
           </span>
         <div className="flex gap-4">
-          <span className="min-w-[110px]">
-            <span className="text-stone-700 text-sm mb-1">Business Owner</span>
-            <p className="text-base font-medium">{clerkUser?.firstName} {clerkUser?.lastName}</p>
-          </span>
-        <span className="min-w-[110px]">
-            <span className="text-stone-700 text-sm mb-1">Company Size</span>
-            <p className="text-base font-medium">{info?.companySize} </p>
-          </span>
           <span className="min-w-[110px]">
             <span className="text-stone-700 text-sm mb-1">Company Website</span>
             <p>
@@ -52,8 +46,13 @@ export const ListingBanner = async ({id}:{id:number}) => {
             <p className="text-base ">{listingById?.client.clientInformation?.companyDescription}</p>
           </span>
           </div>
+            <ServerActionButton action={async () => {
+              'use server'
+              const test = await createListingImage('https://picsum.photos/200/300')
+              console.log(test)
+            }}>Image Create</ServerActionButton>
           <div className=" relative w-2/5 h-full bg-stone-500 rounded-md overflow-hidden ">
-            <Image  src={clerkUser.imageUrl} alt="company logo" fill />
+            <Image priority unoptimized  src={listingById?.proposal.websiteHeroImage ?? ""} alt="company logo" fill />
           </div>    
    
         </>
