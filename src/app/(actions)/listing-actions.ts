@@ -11,15 +11,7 @@ export const createListingImage = async (url: string) => {
      // Launch a new browser using puppeteer
     const {data} = await axiosInstance.post('/puppeteer', {companyWebsite: 'https://www.palubarozvoz.sk'})
 
-    await prismaClient.proposal.update({
-        where: {
-            id: 5
-        },
-        data: {
-            websiteHeroImage: data.data.url
-        }
-    
-    })
+  
     return data
 
 }

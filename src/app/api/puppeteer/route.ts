@@ -12,10 +12,12 @@ export async function POST(request: NextRequest) {
     if(!user) return NextResponse.error();
    
     const {companyWebsite} = await request.json();
-   // Launch a new browser using puppeteer
-   const browser = await puppeteer.launch({
-    headless: 'new'
+ 
+
+   const browser = await puppeteer.connect({
+    browserWSEndpoint: `wss://chrome.browserless.io?token=${process.env.CHROMIUM_HEADLESS}`
    });
+
 
    // Create a new page in the browser
    const page = await browser.newPage();
