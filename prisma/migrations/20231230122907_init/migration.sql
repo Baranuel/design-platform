@@ -2,7 +2,16 @@
 CREATE TYPE "Role" AS ENUM ('CLIENT', 'DESIGNER');
 
 -- CreateEnum
-CREATE TYPE "ProposalStatus" AS ENUM ('DRAFT', 'PUBLISHED');
+CREATE TYPE "ProposalListingStatus" AS ENUM ('ACTIVE', 'INACTIVE');
+
+-- CreateEnum
+CREATE TYPE "DesignerListingStatus" AS ENUM ('APPROVED', 'PENDING', 'REJECTED');
+
+-- CreateEnum
+CREATE TYPE "CollaborationStatus" AS ENUM ('REJECTED', 'ONGOING');
+
+-- CreateEnum
+CREATE TYPE "CollaborationProgress" AS ENUM ('Research', 'Analysis', 'Ideation', 'Prototype', 'Testing');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -62,7 +71,7 @@ CREATE TABLE "Proposal" (
     "id" SERIAL NOT NULL,
     "clientId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "status" "ProposalStatus" NOT NULL DEFAULT 'DRAFT',
+    "websiteHeroImage" TEXT,
     "brief" TEXT NOT NULL,
     "websiteUse" TEXT NOT NULL,
     "websiteLacking" TEXT NOT NULL,
@@ -82,17 +91,20 @@ CREATE TABLE "ProposalListing" (
     "views" INTEGER NOT NULL DEFAULT 0,
     "clientId" INTEGER NOT NULL,
     "proposalId" INTEGER NOT NULL,
+    "status" "ProposalListingStatus" NOT NULL DEFAULT 'ACTIVE',
 
     CONSTRAINT "ProposalListing_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "DesignerListing" (
+    "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "designerId" INTEGER NOT NULL,
     "proposalId" INTEGER NOT NULL,
+    "status" "DesignerListingStatus" NOT NULL DEFAULT 'PENDING',
 
-    CONSTRAINT "DesignerListing_pkey" PRIMARY KEY ("designerId","proposalId")
+    CONSTRAINT "DesignerListing_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -108,11 +120,13 @@ CREATE TABLE "Question" (
 -- CreateTable
 CREATE TABLE "Collaboration" (
     "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "designerListingId" INTEGER NOT NULL,
     "designerId" INTEGER NOT NULL,
     "clientId" INTEGER NOT NULL,
-    "chatId" INTEGER NOT NULL,
-    "status" TEXT NOT NULL,
-    "progress" TEXT NOT NULL,
+    "chatId" INTEGER,
+    "status" "CollaborationStatus" NOT NULL DEFAULT 'ONGOING',
+    "progress" "CollaborationProgress" NOT NULL DEFAULT 'Research',
     "linkToDesign" TEXT NOT NULL,
 
     CONSTRAINT "Collaboration_pkey" PRIMARY KEY ("id")
@@ -161,22 +175,22 @@ CREATE UNIQUE INDEX "ProposalListing_clientId_key" ON "ProposalListing"("clientI
 CREATE UNIQUE INDEX "ProposalListing_proposalId_key" ON "ProposalListing"("proposalId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Collaboration_designerId_key" ON "Collaboration"("designerId");
+CREATE UNIQUE INDEX "Collaboration_designerListingId_key" ON "Collaboration"("designerListingId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Collaboration_clientId_key" ON "Collaboration"("clientId");
+CREATE UNIQUE INDEX "Collaboration_designerId_key" ON "Collaboration"("designerId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Collaboration_chatId_key" ON "Collaboration"("chatId");
 
 -- AddForeignKey
-ALTER TABLE "Designer" ADD CONSTRAINT "Designer_id_fkey" FOREIGN KEY ("id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Designer" ADD CONSTRAINT "Designer_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "DesignerInformation" ADD CONSTRAINT "DesignerInformation_designerId_fkey" FOREIGN KEY ("designerId") REFERENCES "Designer"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Client" ADD CONSTRAINT "Client_id_fkey" FOREIGN KEY ("id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Client" ADD CONSTRAINT "Client_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ClientInformation" ADD CONSTRAINT "ClientInformation_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -197,16 +211,19 @@ ALTER TABLE "DesignerListing" ADD CONSTRAINT "DesignerListing_designerId_fkey" F
 ALTER TABLE "DesignerListing" ADD CONSTRAINT "DesignerListing_proposalId_fkey" FOREIGN KEY ("proposalId") REFERENCES "ProposalListing"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Collaboration" ADD CONSTRAINT "Collaboration_designerListingId_fkey" FOREIGN KEY ("designerListingId") REFERENCES "DesignerListing"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Collaboration" ADD CONSTRAINT "Collaboration_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Collaboration" ADD CONSTRAINT "Collaboration_designerId_fkey" FOREIGN KEY ("designerId") REFERENCES "Designer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Collaboration" ADD CONSTRAINT "Collaboration_designerId_fkey" FOREIGN KEY ("designerId") REFERENCES "Designer"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Collaboration" ADD CONSTRAINT "Collaboration_chatId_fkey" FOREIGN KEY ("chatId") REFERENCES "Chat"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Collaboration" ADD CONSTRAINT "Collaboration_chatId_fkey" FOREIGN KEY ("chatId") REFERENCES "Chat"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Message" ADD CONSTRAINT "Message_chatId_fkey" FOREIGN KEY ("chatId") REFERENCES "Chat"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Message" ADD CONSTRAINT "Message_chatId_fkey" FOREIGN KEY ("chatId") REFERENCES "Chat"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Message" ADD CONSTRAINT "Message_senderId_fkey" FOREIGN KEY ("senderId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
