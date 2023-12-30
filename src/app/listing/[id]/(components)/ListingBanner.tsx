@@ -46,11 +46,7 @@ export const ListingBanner = async ({id}:{id:number}) => {
             <p className="text-base ">{listingById?.client.clientInformation?.companyDescription}</p>
           </span>
           </div>
-            <ServerActionButton action={async () => {
-              'use server'
-              const test = await createListingImage('https://picsum.photos/200/300')
-              console.log(test)
-            }}>Image Create</ServerActionButton>
+
           <div className=" relative w-2/5 h-full bg-stone-500 rounded-md overflow-hidden ">
             <Image priority unoptimized  src={listingById?.proposal.websiteHeroImage ?? ""} alt="company logo" fill />
           </div>    
