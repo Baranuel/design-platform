@@ -85,7 +85,7 @@ export const clientFormSchema: FormProps = {
         },
         {
           name: "companyWebsite",
-          type: "text",
+          type: "url",
           placeholder: "Company Website",
           label: "Company Website",
         }

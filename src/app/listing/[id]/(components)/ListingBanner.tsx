@@ -47,8 +47,8 @@ export const ListingBanner = async ({id}:{id:number}) => {
           </span>
           </div>
 
-          <div className=" relative w-2/5 h-full bg-stone-500 rounded-md overflow-hidden ">
-            <Image priority unoptimized  src={listingById?.proposal.websiteHeroImage ?? ""} alt="company logo" fill />
+          <div className=" relative w-2/5 h-full bg-stone-500 rounded-md overflow-hidden shadow-xl ">
+            <Image className="shadow-xl" priority unoptimized  src={listingById?.proposal.websiteHeroImage ?? ""} alt="company logo" fill />
           </div>    
    
         </>

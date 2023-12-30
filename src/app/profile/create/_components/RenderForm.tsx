@@ -13,6 +13,7 @@ export const RenderForm = ({ formSchema }: RenderFormProps) => {
     handleSubmit,
   } = useFormContext();
 
+  const {formState:{errors}} = useFormContext()
   const [isPending, startTransition] = useTransition()
   const [currentStep, setCurrentStep] = useState(1);
   const maxSteps = Object.keys(formSchema).length;
@@ -33,6 +34,7 @@ export const RenderForm = ({ formSchema }: RenderFormProps) => {
     })
 
   }
+
 
   return (
     <div className="flex flex-col ">
@@ -62,7 +64,7 @@ export const RenderForm = ({ formSchema }: RenderFormProps) => {
         {currentStep !== maxSteps ? (
           <Button
             type="primary"
-            disabled={filledFields.includes(false)}
+            disabled={ Object.values(errors).length > 0}
             onClick={() => setCurrentStep(currentStep + 1)}
             className="p-2 w-[150px] h-full mt-2 shadow-none"
           >

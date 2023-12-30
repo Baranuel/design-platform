@@ -12,7 +12,9 @@ import { SelectRole } from "./fields/SelectRole";
 ;
 
 export const MultistepForm = () => {
-  const methods = useForm();
+  const methods = useForm({
+    mode:'onChange'
+  });
   const role = methods.watch("role");
 
   return (
