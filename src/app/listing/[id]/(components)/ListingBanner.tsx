@@ -1,7 +1,5 @@
-import { createListingImage } from "@/app/(actions)/listing-actions"
+
 import { getListingById } from "@/app/(database-queries)/listing-queries"
-import { ServerActionButton } from "@/app/profile/(components)/ServerActionButton"
-import { clerkClient } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -9,7 +7,6 @@ import Link from "next/link"
 export const ListingBanner = async ({id}:{id:number}) => {
   
     const listingById = await getListingById(id)
-    const clerkUser = await clerkClient.users.getUser(listingById?.client?.user?.clerkId ?? "")
     const info = listingById?.client.clientInformation
 
     return (
@@ -46,9 +43,10 @@ export const ListingBanner = async ({id}:{id:number}) => {
             <p className="text-base ">{listingById?.client.clientInformation?.companyDescription}</p>
           </span>
           </div>
-
           <div className=" relative w-2/5 h-full bg-stone-500 rounded-md overflow-hidden shadow-xl ">
-            <Image className="shadow-xl" priority unoptimized  src={listingById?.proposal.websiteHeroImage ?? ""} alt="company logo" fill />
+          <Link href={`https://${info?.companyWebsite}`} target="blank" className="no-underline text-purple text-base font-medium">
+            <Image className="shadow-xl" priority  src={listingById?.proposal.websiteHeroImage ?? ""} alt="company logo" fill />
+          </Link>
           </div>    
    
         </>

@@ -33,6 +33,12 @@ export async function POST(request: NextRequest) {
     const page = await browser.newPage();
     console.log('goin to page')
 
+    await page.setViewport({
+        width: 1240,
+        height: 720,
+        deviceScaleFactor: 1,
+      });
+
     // Navigate to the url
     await page.goto(companyWebsite);
 

@@ -47,7 +47,7 @@ export const ProposalPreview = async ({ id }: { id: number }) => {
                       key={index}
                       className="relative w-20 h-20 shadow-md rounded-md border border-solid border-stone-300 overflow-hidden"
                     >
-                      <Image unoptimized src={image} alt="image" fill />
+                      <Image src={image} alt="image" fill />
                     </Link>
                   );
                 })}
