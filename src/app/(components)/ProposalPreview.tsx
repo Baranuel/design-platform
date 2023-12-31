@@ -26,9 +26,9 @@ export const ProposalPreview = async ({ id }: { id: number }) => {
   const files = proposalQuestions.filter((q) => q.title === "files");
 
   return (
-    <div className="flex flex-col gap-2  my-4 ">
+    <div className="flex flex-col gap-1  my-4 ">
       {/** Files */}
-      <div className="w-full flex flex-col gap-2 min-h-[200px] ">
+      <div className="w-full flex flex-col gap-2 min-h-[150px] ">
         <span>
           <h3>Files</h3>
           <p className="text-sm text-gray-500">
@@ -64,7 +64,7 @@ export const ProposalPreview = async ({ id }: { id: number }) => {
             <h3>Company Info</h3>
        
           </span>
-          <div className="bg-white p-6 rounded-lg border-solid border-gray-200 flex flex-col gap-3">
+          <div className="bg-white p-6 rounded-lg border-solid border-[1px] border-gray-200 flex flex-col gap-3">
             <span className="min-w-[100px]">
               <h3 className="text-sm">Company Registration</h3>
               <p className="text-base font-medium">
@@ -96,7 +96,7 @@ export const ProposalPreview = async ({ id }: { id: number }) => {
               return (
                 <div
                   key={index}
-                  className="  w-full min-h-[100px] flex flex-col gap-2 p-6 bg-white rounded-md border border-solid border-stone-300"
+                  className="  w-full min-h-[100px] flex flex-col gap-2 p-6 bg-white rounded-md border border-solid border-gray-200"
                 >
                   <span className="text-base font-semibold">
                     {question.question}
