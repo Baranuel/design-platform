@@ -1,5 +1,5 @@
 import { Button, FormProps } from "antd";
-import { useCallback, useMemo, useState, useTransition } from "react";
+import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
 import { FieldsMapper } from "./fields/FieldsMapper";
 import { useFormContext } from "react-hook-form";
 import { RenderFormProps, StepType } from "../types";
@@ -13,14 +13,16 @@ export const RenderForm = ({ formSchema }: RenderFormProps) => {
     handleSubmit,
   } = useFormContext();
 
-  const {formState:{errors}} = useFormContext()
   const [isPending, startTransition] = useTransition()
   const [currentStep, setCurrentStep] = useState(1);
   const maxSteps = Object.keys(formSchema).length;
   const stepKey = `step-${currentStep}` as keyof typeof formSchema;
   const formData = useMemo(() => formSchema[stepKey], [stepKey, formSchema]);
+  
+  const {formState:{errors}, reset, getFieldState} = useFormContext()
 
   const filledFields = formData.fields.map((field) => {
+    if(field.type === 'url') return
     return dirtyFields[field.name] === true && field.name;
   });
 
@@ -64,7 +66,7 @@ export const RenderForm = ({ formSchema }: RenderFormProps) => {
         {currentStep !== maxSteps ? (
           <Button
             type="primary"
-            disabled={ Object.values(errors).length > 0}
+            disabled={ Object.values(errors).length > 0 || filledFields.includes(false) }
             onClick={() => setCurrentStep(currentStep + 1)}
             className="p-2 w-[150px] h-full mt-2 shadow-none"
           >
