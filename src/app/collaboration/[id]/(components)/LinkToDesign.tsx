@@ -20,7 +20,7 @@ export const LinkToDesign = async ({ id }: { id: number }) => {
             >
               <span className=" font-medium p-1"> Link To Design</span>
             </Link>
-            <DeleteLinkButton id={+id} />
+            {user?.role === "DESIGNER" &&  <DeleteLinkButton id={+id} /> }
           </div>
         )}
       </div>

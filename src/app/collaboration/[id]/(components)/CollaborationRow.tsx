@@ -2,12 +2,14 @@
 import Image from "next/image"
 import { clerkClient } from "@clerk/nextjs"
 import { getCollaborationById } from "@/app/(database-queries)/collaboration-queries";
+import { getUserFromDb } from "@/app/(helpers)/server/get-user-from-db";
 
 
 export const CollaborationRow = async ({id}:{id:number}) => {
 
     const collaborationById = await getCollaborationById(id)
     const clerkUser = await clerkClient.users.getUser(collaborationById?.client?.user?.clerkId ?? "")
+    const user = await getUserFromDb()
 
     return (
         <div className="h-full w-full my-4 py-4 px-2 flex flex-col gap-3 items-start ">
@@ -25,7 +27,7 @@ export const CollaborationRow = async ({id}:{id:number}) => {
                 </span>
 
                </div>
-               <span className="font-medium text-green-500">{collaborationById?.status === 'ONGOING' && "In Collaboration"}</span>
+               <span className="font-medium text-green-500">{collaborationById?.status === 'ONGOING' && user.role !=='CLIENT' &&  "In Collaboration"}</span>
             </div>
           </div> 
     )
