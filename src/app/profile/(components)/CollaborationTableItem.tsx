@@ -4,6 +4,7 @@ import { clerkClient } from "@clerk/nextjs";
 import Image from "next/image";
 
 import { CollaborationProgress, CollaborationStatus } from "@prisma/client";
+import Link from "next/link";
 
 export const CollaborationTableItem = async ({
   designerId,
@@ -44,7 +45,7 @@ const clerkUserToFind = user.role === 'CLIENT' ? designer?.clerkId : client?.cle
         </div>
       </td>
       <td>
-        Link
+        <Link href={`/collaboration/${id}`}>Link to collaboration</Link>
       </td>
       <td>
         {progress}

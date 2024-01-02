@@ -25,14 +25,6 @@ export const DesignerProfilePage = async () => {
       </div>
 
       </section>
-    },
-    {
-      key: '2',
-      label: <span className="p-4">Requested Collaborations</span>,
-      children: 
-      <section className="min-h-[700px]">
-
-     </section>
     }
   ]
   return (

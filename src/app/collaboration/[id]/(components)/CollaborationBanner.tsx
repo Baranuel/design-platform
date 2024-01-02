@@ -33,14 +33,6 @@ export const CollaborationBanner = async ({id}:{id:number}) => {
           </span>
         <div className="flex gap-4">
           <span className="min-w-[110px]">
-            <span className="text-stone-700 text-sm mb-1">Business Owner</span>
-            <p className="text-base font-medium">{clerkUser?.firstName} {clerkUser?.lastName}</p>
-          </span>
-        <span className="min-w-[110px]">
-            <span className="text-stone-700 text-sm mb-1">Company Size</span>
-            <p className="text-base font-medium">{info?.companySize} </p>
-          </span>
-          <span className="min-w-[110px]">
             <span className="text-stone-700 text-sm mb-1">Company Website</span>
             <p>
             <Link href={`https://${info?.companyWebsite}`} target="blank" className="no-underline text-purple text-base font-medium">{info?.companyWebsite} </Link>
@@ -66,8 +58,10 @@ export const CollaborationBanner = async ({id}:{id:number}) => {
             <p className="text-base ">{collaboration?.client.clientInformation?.companyDescription}</p>
           </span>
           </div>
-          <div className=" relative w-2/5 h-full bg-stone-500 rounded-md overflow-hidden ">
-            <Image  src={clerkUser.imageUrl} alt="company logo" fill />
+          <div className=" relative w-2/5 h-full bg-stone-500 rounded-md overflow-hidden shadow-xl ">
+          <Link href={`https://${info?.companyWebsite}`} target="blank" >
+            <Image  priority  src={collaboration?.client?.proposal?.websiteHeroImage ?? ""} alt="company logo" fill />
+          </Link>
           </div>    
    
         </>

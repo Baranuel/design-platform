@@ -59,7 +59,6 @@ export const Messages = ({
 
   useEffect(() => {
     if (chatEnd.current) {
-      console.log(optimisticMessages);
       chatEnd.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [optimisticMessages]);
@@ -80,7 +79,7 @@ export const Messages = ({
         })}
         <div ref={chatEnd}></div>
       </div>
-      <div className="flex gap-2 w-full h-full">
+      <form onSubmit={handleSubmit(handleSubmitMessage)} className="flex gap-2 w-full h-full">
         <Controller
           name="message"
           control={control}
@@ -93,7 +92,7 @@ export const Messages = ({
         >
           Send
         </Button>
-      </div>
+      </form>
     </div>
   );
 };

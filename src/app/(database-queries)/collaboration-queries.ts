@@ -32,6 +32,7 @@ export const getCollaborations = cache(async () => {
         client: {
           include: {
             clientInformation: true,
+            proposal: true,
             user: true,
           }
         },

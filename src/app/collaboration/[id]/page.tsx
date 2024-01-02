@@ -10,6 +10,8 @@ import { getCollaborationById } from "@/app/(database-queries)/collaboration-que
 import { permanentRedirect, redirect } from "next/navigation";
 import { CollaborationBanner } from "./(components)/CollaborationBanner";
 import { Chat } from "./(components)/Chat";
+import { ProposalPreview } from "@/app/(components)/ProposalPreview";
+import { CollaborationProposalPreview } from "./(components)/CollaborationProposalPreview";
 
 
 
@@ -60,13 +62,14 @@ export default async function CollaborationPage ({
       {
         key: '2',
         label: <div className="px-2 relative">
-         <span> Requested Collaborations</span>
+         <span> Proposal</span>
           </div>,
         children: 
         <section className="min-h-[700px]">
         <div className="w-full min-h-[500px] flex flex-col gap-3 my-6 relative  ">
        <h1>Designer Requested working with you</h1>
-       
+        <CollaborationProposalPreview id={+params.id}  />
+
        </div>
        </section>
       }
@@ -85,7 +88,6 @@ export default async function CollaborationPage ({
 </Suspense>
 </div>
 <Tabs className="my-4" tabBarGutter={3} defaultActiveKey="1" items={items} size="large" />
-{/* <ProposalPreview id={listingById?.proposalId} /> */}
 </section>
 
 }
