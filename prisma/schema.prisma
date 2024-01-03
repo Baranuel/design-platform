@@ -52,7 +52,7 @@ model User {
 model Designer {
   id                  Int                  @id @default(autoincrement())
   userId              Int                  @unique
-  collaboration       Collaboration?
+  collaboration       Collaboration[]
   designerInformation DesignerInformation?
   interestedInListings DesignerListing[]
   user                User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -140,7 +140,7 @@ model Collaboration {
   id           Int    @id @default(autoincrement())
   createdAt    DateTime @default(now())
   designerListingId Int   @unique
-  designerId   Int    @unique
+  designerId   Int    
   clientId     Int    
   chatId       Int?    @unique
   status       CollaborationStatus  @default(ONGOING)
