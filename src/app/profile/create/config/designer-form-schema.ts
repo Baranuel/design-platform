@@ -63,7 +63,7 @@ export const designerFormSchema: FormProps = {
         },
         {
           name: "portfolio",
-          type: "text",
+          type: "url",
           placeholder: "Link to your portfolio",
           label: "Link to your portfolio",
         },
