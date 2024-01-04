@@ -17,7 +17,7 @@ export const CollaborationTableItem = async ({
   designerId: number;
   clientId: number;
   createdAt: Date;
-  id: number;
+  id: string;
   progress: CollaborationProgress;
 status: CollaborationStatus;
 }) => {
