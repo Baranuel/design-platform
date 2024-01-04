@@ -3,7 +3,7 @@ import { getCollaborationById } from "@/app/(database-queries)/collaboration-que
 import { getListingById } from "@/app/(database-queries)/listing-queries";
 
 
-export const CollaborationProposalPreview = async ({ id }: { id: number }) => {
+export const CollaborationProposalPreview = async ({ id }: { id: string }) => {
     const collaboration = await getCollaborationById(id);
     if(!collaboration) return 
 

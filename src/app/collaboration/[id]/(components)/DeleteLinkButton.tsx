@@ -4,7 +4,7 @@ import { deleteDesignLink } from "@/app/(actions)/collaboration-actions";
 import { CloseCircleOutlined,  LoadingOutlined } from "@ant-design/icons"
 import { useTransition } from "react";
 
-export const DeleteLinkButton = ({id}:{id:number}) => {
+export const DeleteLinkButton = ({id}:{id:string}) => {
     const [isPending, startTransition] = useTransition();
 
     return   <span>

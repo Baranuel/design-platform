@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { getUserFromDb } from "../(helpers)/server/get-user-from-db";
 import prismaClient from "../(network)/prismaClient";
+import { permanentRedirect } from "next/navigation";
 
 
 export const getCollaborations = cache(async () => {
@@ -17,7 +18,7 @@ export const getCollaborations = cache(async () => {
   })
 
 
-  export const getCollaborationById = cache(async (id: number) => {
+  export const getCollaborationById = cache(async (id: string) => {
     const collaboration = await prismaClient.collaboration.findUnique({
       where: {
         id: id,
@@ -38,6 +39,7 @@ export const getCollaborations = cache(async () => {
         },
       }
     })
+    if(!collaboration) return permanentRedirect('/profile')
     return collaboration
   })
 

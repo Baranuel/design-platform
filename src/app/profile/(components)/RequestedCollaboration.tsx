@@ -13,7 +13,7 @@ export const RequestedCollaboration = async () => {
         <DesignerListItem
           key={designerListing.designerId}
           designerId={designerListing.designerId}
-          createdAt={designerListing.proposalListing.createdAt}
+          createdAt={designerListing.createdAt}
           id={designerListing.id}
         />
       );

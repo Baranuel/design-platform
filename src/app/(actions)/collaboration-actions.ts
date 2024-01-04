@@ -7,7 +7,7 @@ import { pusherServer } from "../(network)/pusher-server";
 
 
 
-export const setCollaborationProgress = async (id: number, progress:CollaborationProgress) => {
+export const setCollaborationProgress = async (id: string, progress:CollaborationProgress) => {
     await prismaClient.collaboration.update({
         where: {
             id: id
@@ -20,7 +20,7 @@ export const setCollaborationProgress = async (id: number, progress:Collaboratio
 }
 
 
-export const addDesignLink = async (id: number, link: string) => {
+export const addDesignLink = async (id: string, link: string) => {
     await prismaClient.collaboration.update({
         where: {
             id: id
@@ -33,7 +33,7 @@ export const addDesignLink = async (id: number, link: string) => {
     revalidatePath(`/collaboration/${id}`)
 }
 
-export const deleteDesignLink = async (id: number) => {
+export const deleteDesignLink = async (id: string) => {
     await prismaClient.collaboration.update({
         where: {
             id: id
@@ -46,7 +46,7 @@ export const deleteDesignLink = async (id: number) => {
     revalidatePath(`/collaboration/${id}`)
 }
 
-export const sendMessage = async (chatId: number, senderId:number, clerkId:string, createdAt:Date, text: string, collaborationId:number) => {
+export const sendMessage = async (chatId: number, senderId:number, clerkId:string, createdAt:Date, text: string, collaborationId:string) => {
     if(!text) return
 
     pusherServer.trigger(`chat-${chatId}`, 'message', {
@@ -79,4 +79,29 @@ export const sendMessage = async (chatId: number, senderId:number, clerkId:strin
 
     revalidatePath(`/collaboration/${collaborationId}`)
 
+}
+
+
+export const stopCollaboration = async (id: string) => {
+    const listingConnectedToCollaboration = await prismaClient.collaboration.findFirst({
+        where: {
+            id: id
+        },
+        select: {
+            designerListingId: true
+        }
+    })
+    await prismaClient.$transaction([
+        prismaClient.collaboration.delete({
+            where: {
+                id: id
+            }
+        }),
+        prismaClient.designerListing.delete({
+            where: {
+                id: listingConnectedToCollaboration?.designerListingId
+            }
+        })
+    ])
+    revalidatePath(`/collaboration/${id}`)
 }

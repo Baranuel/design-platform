@@ -3,7 +3,7 @@
 import { InboxOutlined } from "@ant-design/icons";
 import { Spin, Upload, UploadFile } from "antd";
 import { useCallback, useRef, useState, useTransition } from "react";
-import { useUploadFileMutation } from "../(mutations)/upload-file-mutation";
+
 
 import { UploadChangeParam } from "antd/es/upload";
 import { uploadFile } from "@/app/(actions)/proposal-actions";
@@ -22,7 +22,7 @@ export const UploadFiles = ({ onChange }: Props) => {
   const {watch} = useFormContext()
   const files = useRef<string[]>([])
   const [isPending, startTransition] = useTransition()
-  const {mutateAsync, status} = useUploadFileMutation()
+
 
   const handleOnChange = useCallback(async (fileData:UploadChangeParam<UploadFile>) => {
     if(fileData.file.status === 'removed') return

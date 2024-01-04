@@ -26,7 +26,7 @@ export const RequestCollaborationButton = ({
   return (
     <>
       {interestedDesigner ? (
-        <span className={`text-amber-500 ${interestedDesigner.status === "APPROVED" && "text-green-500"}`}>{interestedDesigner.status}</span>
+        <span className={`${interestedDesigner.status === "PENDING" && "text-amber-500"} ${interestedDesigner.status === "APPROVED" && "text-green-500"} ${interestedDesigner.status === "REJECTED" && "text-red-500"}`}>{interestedDesigner.status}</span>
       ) : (
         <Button
           type="primary"

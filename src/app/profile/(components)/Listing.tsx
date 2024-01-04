@@ -16,14 +16,13 @@ export const Listing = async () => {
         <UpdateListingStatus {...listing} />
          <div className="w-full h-16 p-6 flex bg-white rounded-md border-solid border-[1px] border-gray-300 items-center justify-start gap-3">
           <span className={`${listing.status === 'ACTIVE' ? ' bg-gradient-to-b from-green-400 to-green-600' : 'bg-amber-400'} rounded-full w-2 h-2`}></span>
-          <p className="text-sm font-medium">{listing.status}</p>
+          <p className="text-sm font-medium">{listing.status.toLowerCase()}</p>
          <p className="flex-grow">
          <Link href={`/listing/${listing.id}`}  className="no-underline  text-stone-900 flex gap-1 text-sm font-semibold hover:underline">
           <span>{listing?.client?.clientInformation?.companyName} </span>
          <LinkOutlined />
          </Link>
          </p>
-         <span className="justify-self-end text-sm">Views:{listing.views}</span>
        </div>
         </>
        )

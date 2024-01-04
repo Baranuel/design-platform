@@ -6,7 +6,7 @@ import { useEffect, useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form"
 
 
-export const AddLinkButton = ({link, collaborationId}:{link:string, collaborationId:number}) => {
+export const AddLinkButton = ({link, collaborationId}:{link:string, collaborationId:string}) => {
     const [isPending, startTransition] = useTransition();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const {

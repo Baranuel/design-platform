@@ -12,7 +12,7 @@ const progressButtons: CollaborationProgress[] = [
   "Testing",
 ];
 
-export const ProgressButtons = async ({id}:{id:number}) => {
+export const ProgressButtons = async ({id}:{id:string}) => {
     const collaborationById = await getCollaborationById(id)
     const user = await getUser();
 

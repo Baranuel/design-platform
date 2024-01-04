@@ -4,7 +4,7 @@ import Link from "next/link";
 import { DeleteLinkButton } from "./DeleteLinkButton";
 import { getUser } from "@/app/(database-queries)/user-queries";
 
-export const LinkToDesign = async ({ id }: { id: number }) => {
+export const LinkToDesign = async ({ id }: { id: string }) => {
   const collaborationById = await getCollaborationById(id);
   const user = await getUser();
   
@@ -20,13 +20,13 @@ export const LinkToDesign = async ({ id }: { id: number }) => {
             >
               <span className=" font-medium p-1"> Link To Design</span>
             </Link>
-            {user?.role === "DESIGNER" &&  <DeleteLinkButton id={+id} /> }
+            {user?.role === "DESIGNER" &&  <DeleteLinkButton id={id} /> }
           </div>
         )}
       </div>
       {user?.role === "DESIGNER" && (
         <AddLinkButton
-          collaborationId={+id}
+          collaborationId={id}
           link={collaborationById?.linkToDesign ?? ""}
         />
       )}

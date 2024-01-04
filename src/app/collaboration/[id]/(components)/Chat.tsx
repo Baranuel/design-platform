@@ -7,7 +7,7 @@ import { clerkClient } from "@clerk/nextjs";
 export const Chat = async ({
   collaborationId,
 }: {
-  collaborationId: number;
+  collaborationId: string;
 
 }) => {
     

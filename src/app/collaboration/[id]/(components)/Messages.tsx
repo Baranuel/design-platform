@@ -22,7 +22,7 @@ export const Messages = ({
   chatId: number;
   senderId: number;
   clerkId: string;
-  collaborationId: number;
+  collaborationId: string;
   client: Record<string, any>;
   designer: Record<string, any>;
 }) => {

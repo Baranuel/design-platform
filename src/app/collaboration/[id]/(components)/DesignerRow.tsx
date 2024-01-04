@@ -1,9 +1,11 @@
+import { stopCollaboration } from "@/app/(actions)/collaboration-actions";
 import { getCollaborationById } from "@/app/(database-queries)/collaboration-queries"
+import { ServerActionButton } from "@/app/profile/(components)/ServerActionButton";
 import { clerkClient } from "@clerk/nextjs"
 import Image from "next/image"
 
-export const DesignerRow = async ({id}:{id:number}) => {
-    const collaboration = await getCollaborationById(+id);
+export const DesignerRow = async ({id}:{id:string}) => {
+    const collaboration = await getCollaborationById(id);
     const clerkUser = await clerkClient.users.getUser(collaboration?.designer.user.clerkId ?? "")
 
    return  <div className="flex w-full h-full items-center justify-between">
@@ -19,6 +21,12 @@ export const DesignerRow = async ({id}:{id:number}) => {
         </span>
 
        </div>
+       
+       <ServerActionButton action={async() => {
+        'use server'
+        await stopCollaboration(id)
+
+       }}  type="primary" className="w-[200px] bg-red-500 rounded-md h-full">Stop Collaboration</ServerActionButton>
     
     </div>
 }

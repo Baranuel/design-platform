@@ -62,7 +62,7 @@ export const approveDesignerListing = async (id: number) => {
             id: listing.id
         },
         data: {
-            status: "APPROVED"
+            status: "APPROVED",
         },
         include: {
             designer: true,

@@ -5,7 +5,7 @@ import { getCollaborationById } from "@/app/(database-queries)/collaboration-que
 import { getUserFromDb } from "@/app/(helpers)/server/get-user-from-db";
 
 
-export const CollaborationRow = async ({id}:{id:number}) => {
+export const CollaborationRow = async ({id}:{id:string}) => {
 
     const collaborationById = await getCollaborationById(id)
     const clerkUser = await clerkClient.users.getUser(collaborationById?.client?.user?.clerkId ?? "")

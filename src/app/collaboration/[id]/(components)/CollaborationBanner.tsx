@@ -1,5 +1,4 @@
 import { getCollaborationById } from "@/app/(database-queries)/collaboration-queries"
-import { getListingById } from "@/app/(database-queries)/listing-queries"
 import { getUser } from "@/app/(database-queries)/user-queries"
 import { clerkClient } from "@clerk/nextjs"
 import Image from "next/image"
@@ -7,12 +6,10 @@ import Link from "next/link"
 import { permanentRedirect } from "next/navigation"
 
 
-export const CollaborationBanner = async ({id}:{id:number}) => {
+export const CollaborationBanner = async ({id}:{id:string}) => {
     const user = await getUser();
-
-    
     const collaboration = await getCollaborationById(id)
-    if(!collaboration) return
+    if(!collaboration) return permanentRedirect('/profile')
     
     if( user.role === 'CLIENT')  {
       collaboration?.client.id !== user?.client?.id && permanentRedirect('/listings')
@@ -58,7 +55,7 @@ export const CollaborationBanner = async ({id}:{id:number}) => {
             <p className="text-base ">{collaboration?.client.clientInformation?.companyDescription}</p>
           </span>
           </div>
-          <div className=" relative w-2/5 h-full bg-stone-500 rounded-md overflow-hidden shadow-xl ">
+          <div className="  relative w-2/5  max-h-[280px] bg-stone-500 rounded-md overflow-hidden shadow-xl ">
           <Link href={`https://${info?.companyWebsite}`} target="blank" >
             <Image  priority  src={collaboration?.client?.proposal?.websiteHeroImage ?? ""} alt="company logo" fill />
           </Link>

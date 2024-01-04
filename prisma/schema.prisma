@@ -137,7 +137,7 @@ model Question {
 }
 
 model Collaboration {
-  id           Int    @id @default(autoincrement())
+  id           String    @id @default(uuid())
   createdAt    DateTime @default(now())
   designerListingId Int   @unique
   designerId   Int    
@@ -163,9 +163,9 @@ model Message {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   chatId    Int
-  senderId  Int
+  senderId  Int       
   text      String
 
   chat   Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
-  sender User @relation(fields: [senderId], references: [id])
+  sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)
 }
