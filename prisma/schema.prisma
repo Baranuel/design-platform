@@ -142,7 +142,6 @@ model Collaboration {
   designerListingId Int   @unique
   designerId   Int    
   clientId     Int    
-  chatId       Int?    @unique
   status       CollaborationStatus  @default(ONGOING)
   progress     CollaborationProgress @default(Research)
   linkToDesign String
@@ -150,13 +149,14 @@ model Collaboration {
   designerListing DesignerListing @relation(fields: [designerListingId], references: [id], onDelete: Cascade)
   client   Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
   designer Designer @relation(fields: [designerId], references: [id], onDelete: Cascade)
-  chat     Chat?     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  chat     Chat?
 }
 
 model Chat {
   id            Int            @id @default(autoincrement())
+  collaborationId String     @unique
   messages      Message[]
-  collaboration Collaboration?
+  collaboration Collaboration @relation(fields: [collaborationId], references: [id], onDelete: Cascade)
 }
 
 model Message {

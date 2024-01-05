@@ -21,6 +21,6 @@ export const getUserFromDb = async () => {
             }
         },
     })
-
+    if(!prismaUser) return 
     return prismaUser
 }

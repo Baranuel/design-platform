@@ -1,10 +1,10 @@
 import puppeteer from 'puppeteer';
-import { PrismaClient } from '@prisma/client';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { put } from '@vercel/blob';
 import { getUserFromDb } from '@/app/(helpers)/server/get-user-from-db';
 
-const prisma = new PrismaClient();
+
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 export const maxDuration = 60;

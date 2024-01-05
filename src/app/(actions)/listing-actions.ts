@@ -56,7 +56,7 @@ export const approveDesignerListing = async (id: number) => {
     if(!listing || !listing.designer || !listing.proposalListing) return;
 
     // create transaction for collaboration creation
-      const [updatedListing, collaboration, chat] = await prismaClient.$transaction([
+      const [updatedListing, collaboration] = await prismaClient.$transaction([
         prismaClient.designerListing.update({
         where: {
             id: listing.id
@@ -80,16 +80,11 @@ export const approveDesignerListing = async (id: number) => {
             linkToDesign: ""
         }}),
         
-        prismaClient.chat.create({})
     ])
-
-
-
-     await prismaClient.collaboration.update({
-        where: {
-            id: collaboration.id
-        },
-        data: { chatId: chat.id}
+   const chat = await prismaClient.chat.create({
+        data: {
+            collaborationId: collaboration.id
+        }
     })
 
 
@@ -112,6 +107,7 @@ export const rejectDesignerListing = async (id: number) => {
 
 export const requestCollaborationForListing = async (id: number) => {
     const user = await getUserFromDb();
+    if(!user) throw new Error('User not found')
     if(user.role !== 'DESIGNER') throw new Error('Only designers can request collaborations')
     if(user.designer === null) throw new Error('Designer profile not found')
 

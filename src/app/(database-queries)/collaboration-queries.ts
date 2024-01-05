@@ -44,10 +44,10 @@ export const getCollaborations = cache(async () => {
   })
 
 
-export const getChatForCollaboration = cache(async (id: number) => {
+export const getChatForCollaboration = cache(async (id: string) => {
   const chat = await prismaClient.chat.findUnique({
     where: {
-      id: id,
+      collaborationId: id,
     },
     include: {
       messages: {

@@ -14,11 +14,11 @@ export const Chat = async ({
 const collaboration = await getCollaborationById(collaborationId)
 if(!collaboration) return 
 
-  const chat = await getChatForCollaboration(collaboration.chatId!);
+  const chat = await getChatForCollaboration(collaboration.id!);
   const clientInfo = await clerkClient.users.getUser(collaboration?.client.user.clerkId ??"");
   const designerInfo = await clerkClient.users.getUser(collaboration?.designer.user.clerkId ??"");
   const user = await getUser();
-  if (!chat) return;
+  if (!chat || ! user) return;
 
   const clientChatPerson = {
     id: clientInfo.id,
