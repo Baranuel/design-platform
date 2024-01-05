@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 
 
     const body = await request.json();
-    const proposal = { ...body, clientId: user.id };
+    const proposal = { ...body, clientId: user?.id };
 
     const createdProposal = await prisma.proposal.create({
         data: proposal
@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
     const user = await getUserFromDb();
     const proposal = await prisma.proposal.findFirst({
         where: {
-            clientId: user.id,
+            clientId: user?.id,
         },
         include: {
             client: true,
