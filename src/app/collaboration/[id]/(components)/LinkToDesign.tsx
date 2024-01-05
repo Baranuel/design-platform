@@ -4,6 +4,14 @@ import Link from "next/link";
 import { DeleteLinkButton } from "./DeleteLinkButton";
 import { getUser } from "@/app/(database-queries)/user-queries";
 
+const linkHelper = (link: string) => {
+  if(link.startsWith("https://")){
+
+    return link
+  }
+  return `https://${link}`
+}
+
 export const LinkToDesign = async ({ id }: { id: string }) => {
   const collaborationById = await getCollaborationById(id);
   const user = await getUser();
@@ -16,7 +24,7 @@ export const LinkToDesign = async ({ id }: { id: string }) => {
             <Link
               className="text-purple "
               target="blank"
-              href={`${collaborationById?.linkToDesign}` ?? ""}
+              href={`${linkHelper(collaborationById.linkToDesign)}` ?? ""}
             >
               <span className=" font-medium p-1"> Link To Design</span>
             </Link>
