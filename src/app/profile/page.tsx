@@ -6,8 +6,7 @@ import { DesignerProfilePage } from "./(components)/DesignerProfilePage";
 
 export default async function Page() {
   const user = await getUser();
-  if (!user?.role) return permanentRedirect('/profile/create')
-  
+
   const renderProfilePage = () => {
     if (user.role === "CLIENT") {
       return <ClientProfilePage />;
