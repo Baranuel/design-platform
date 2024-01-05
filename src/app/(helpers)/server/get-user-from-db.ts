@@ -22,6 +22,5 @@ export const getUserFromDb = async () => {
         },
     })
 
-    if(!prismaUser) permanentRedirect('/profile/create')
     return prismaUser
 }

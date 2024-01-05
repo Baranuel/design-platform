@@ -1,3 +1,5 @@
+import { Button } from "antd";
+import Link from "next/link";
 
 export const HeroSection = () => {
   return (
@@ -14,8 +16,12 @@ export const HeroSection = () => {
         designers ready to sprinkle their magic
       </p>
       <div className=" w-full pt-4 sm:pt-1 flex sm:flex-col gap-4 sm:gap-2 items-center justify-center">
-      <button className="p-2 w-[200px] sm:w-full shadow-none rounded-lg border border-purple bg-purple text-white text-base hover:cursor-pointer hover:bg-white hover:text-purple transition-colors">Upload Website</button>
-      <button className="p-2 w-[200px] sm:w-full shadow-none rounded-lg border border-purple bg-white text-purple text-base hover:cursor-pointer hover:bg-purple hover:text-white  transition-colors">Explore</button>
+      <Link href="/profile">
+      <Button type="primary" className="p-2 h-full min-w-[200px] sm:w-full shadow-none rounded-lg text-base ">Upload Website</Button>
+      </Link>
+      <Link href="/listings">
+      <Button type="default" className="p-2 h-full min-w-[200px] sm:w-full shadow-none rounded-lg text-base ">Explore</Button>
+      </Link>
       </div>
     </section>
   );
