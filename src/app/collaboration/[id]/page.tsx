@@ -9,6 +9,7 @@ import { CollaborationBanner } from "./(components)/CollaborationBanner";
 import { Chat } from "./(components)/Chat";
 import { CollaborationProposalPreview } from "./(components)/CollaborationProposalPreview";
 
+export const maxDuration = 60
 export const dynamic = 'force-dynamic'
 export default async function CollaborationPage ({
     params,

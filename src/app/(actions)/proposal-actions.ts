@@ -6,8 +6,8 @@ import prismaClient from "../(network)/prismaClient";
 import { axiosInstance } from "../(network)/axios-instance";
 import { put } from "@vercel/blob";
 
-export const maxDuration = 60;
 export const createImageThumbnail = async (url: string) => {
+
     const completeUrl = `https://${url}`
     const {data} = await axiosInstance.post('/puppeteer', {companyWebsite: completeUrl})
 
