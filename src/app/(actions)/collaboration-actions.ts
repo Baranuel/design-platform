@@ -83,6 +83,7 @@ export const sendMessage = async (chatId: number, senderId:number, clerkId:strin
 
 
 export const stopCollaboration = async (id: string) => {
+
     const listingConnectedToCollaboration = await prismaClient.collaboration.findFirst({
         where: {
             id: id
@@ -91,6 +92,7 @@ export const stopCollaboration = async (id: string) => {
             designerListingId: true
         }
     })
+    
     await prismaClient.$transaction([
         prismaClient.collaboration.delete({
             where: {
