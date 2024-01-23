@@ -4,6 +4,9 @@ import { getUser } from "../(database-queries)/user-queries";
 import { ClientProfilePage } from "./(components)/ClientProfilePage";
 import { DesignerProfilePage } from "./(components)/DesignerProfilePage";
 
+
+export const maxDuration = 60
+
 export default async function Page() {
   const user = await getUser();
 
