@@ -47,6 +47,9 @@ export default function RootLayout({
         <main className='py-10 z-30 pt-[4rem] w-full min-h-screen overflow-hidden bg-background'>       
           {children}
           </main>
+        <footer className='bg-purple h-36 flex items-center justify-center'>
+          <span className='text-white font-semibold '>Designed and Developed by Samuel Baran</span>
+        </footer>
         </body>
         </TanstackProvider>
       </ConfigProvider>
