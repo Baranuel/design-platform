@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
+    // <ClerkProvider>
     <html lang="en">
       <StyledComponentsRegistry>
       <ConfigProvider theme={{
@@ -55,6 +55,6 @@ export default function RootLayout({
       </ConfigProvider>
       </StyledComponentsRegistry>
     </html>
-    </ClerkProvider>
+    // </ClerkProvider>
   )
 }
